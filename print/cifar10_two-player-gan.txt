@@ -1,0 +1,510 @@
++ python train.py --dataroot None --name two_player_gan_cifar10 --dataset_mode torchvision --batch_size 64 --model two_player_gan --download_root ./datasets/cifar10 --dataset_name CIFAR10 --crop_size 32 --load_size 32 --d_loss_mode lsgan --g_loss_mode lsgan --which_D S --netD DCGAN_cifar10 --netG DCGAN_cifar10 --no_dropout --no_flip --D_iters 1 --print_freq 1000 --display_freq 1000 --save_giters_freq 100000
+WARNING:root:Setting up a new session...
+----------------- Options ---------------
+                  D_iters: 1                             
+               batch_size: 64                            	[default: 1]
+                    beta1: 0.5                           
+                    beta2: 0.999                         
+                  cat_num: 10                            
+                     cgan: False                         
+          checkpoints_dir: ./checkpoints                 
+           continue_train: False                         
+                crop_size: 32                            	[default: 256]
+              d_loss_mode: lsgan                         
+                 dataroot: None                          	[default: None]
+             dataset_mode: torchvision                   	[default: unaligned]
+             dataset_name: CIFAR10                       
+              display_env: main                          
+             display_freq: 1000                          	[default: 400]
+               display_id: 1                             
+            display_ncols: 4                             
+             display_port: 8097                          
+           display_server: http://localhost              
+          display_winsize: 256                           
+            download_root: ./datasets/cifar10            	[default: ./datasets]
+                    epoch: latest                        
+              epoch_count: 1                             
+              g_loss_mode: lsgan                         
+                  gpu_ids: 0                             
+                init_gain: 0.02                          
+                init_type: normal                        
+                 input_nc: 3                             
+                  isTrain: True                          	[default: None]
+                load_iter: 0                             	[default: 0]
+                load_size: 32                            	[default: 256]
+                       lr: 0.0002                        
+           lr_decay_iters: 50                            
+                lr_policy: linear                        
+         max_dataset_size: inf                           
+                    model: two_player_gan                	[default: cycle_gan]
+               n_layers_D: 3                             
+                     name: two_player_gan_cifar10        	[default: experiment_name]
+                      ndf: 64                            
+                     netD: DCGAN_cifar10                 	[default: basic]
+                     netG: DCGAN_cifar10                 	[default: resnet_9blocks]
+                      ngf: 64                            
+                    niter: 100                           
+              niter_decay: 100                           
+               no_dropout: True                          	[default: False]
+                  no_flip: True                          	[default: False]
+                  no_html: False                         
+                     norm: instance                      
+              num_threads: 4                             
+                output_nc: 3                             
+                    phase: train                         
+                pool_size: 50                            
+               preprocess: resize_and_crop               
+               print_freq: 1000                          	[default: 100]
+             save_by_iter: False                         
+         save_giters_freq: 100000                        	[default: 10000]
+         save_latest_freq: 5000                          
+           serial_batches: False                         
+                   suffix:                               
+         total_num_giters: 500000                        
+         update_html_freq: 1000                          
+                   use_gp: False                         
+                  verbose: False                         
+                  which_D: S                             
+                    z_dim: 128                           
+----------------- End -------------------
+Files already downloaded and verified
+dataset [TorchvisionDataset] was created
+The number of training images = 50000
+initialize network with normal
+initialize network with normal
+model [TwoPlayerGANModel] was created
+---------- Networks initialized -------------
+[Network G] Total number of parameters : 3.804 M
+[Network D] Total number of parameters : 2.763 M
+-----------------------------------------------
+create web directory ./checkpoints/two_player_gan_cifar10/web...
+(epoch_1) End of giters 391 / 500000 	 Time Taken: 16 sec
+(epoch_2) End of giters 782 / 500000 	 Time Taken: 15 sec
+(epoch: 2, giters: 1000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.254 D_real: 0.076 D_fake: 0.009 D_gp: 0.000 G: 1.254 D: 0.084 
+(epoch_3) End of giters 1173 / 500000 	 Time Taken: 15 sec
+(epoch_4) End of giters 1564 / 500000 	 Time Taken: 15 sec
+(epoch_5) End of giters 1955 / 500000 	 Time Taken: 15 sec
+(epoch: 5, giters: 2000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.658 D_real: 0.197 D_fake: 0.126 D_gp: 0.000 G: 0.658 D: 0.323 
+(epoch_6) End of giters 2346 / 500000 	 Time Taken: 15 sec
+(epoch_7) End of giters 2737 / 500000 	 Time Taken: 15 sec
+(epoch: 7, giters: 3000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.431 D_real: 0.124 D_fake: 0.210 D_gp: 0.000 G: 0.431 D: 0.334 
+(epoch_8) End of giters 3128 / 500000 	 Time Taken: 15 sec
+(epoch_9) End of giters 3519 / 500000 	 Time Taken: 15 sec
+(epoch_10) End of giters 3910 / 500000 	 Time Taken: 15 sec
+(epoch: 10, giters: 4000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.944 D_real: 0.143 D_fake: 0.055 D_gp: 0.000 G: 0.944 D: 0.198 
+(epoch_11) End of giters 4301 / 500000 	 Time Taken: 15 sec
+(epoch_12) End of giters 4692 / 500000 	 Time Taken: 15 sec
+(epoch: 12, giters: 5000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.493 D_real: 0.111 D_fake: 0.160 D_gp: 0.000 G: 0.493 D: 0.271 
+saving the latest model (epoch 12, g_iters 5000)
+(epoch_13) End of giters 5083 / 500000 	 Time Taken: 15 sec
+(epoch_14) End of giters 5474 / 500000 	 Time Taken: 15 sec
+(epoch_15) End of giters 5865 / 500000 	 Time Taken: 15 sec
+(epoch: 15, giters: 6000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.479 D_real: 0.321 D_fake: 0.043 D_gp: 0.000 G: 1.479 D: 0.364 
+(epoch_16) End of giters 6256 / 500000 	 Time Taken: 15 sec
+(epoch_17) End of giters 6647 / 500000 	 Time Taken: 15 sec
+(epoch: 17, giters: 7000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.756 D_real: 0.145 D_fake: 0.172 D_gp: 0.000 G: 0.756 D: 0.317 
+(epoch_18) End of giters 7038 / 500000 	 Time Taken: 15 sec
+(epoch_19) End of giters 7429 / 500000 	 Time Taken: 15 sec
+(epoch_20) End of giters 7820 / 500000 	 Time Taken: 15 sec
+(epoch: 20, giters: 8000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.109 D_real: 0.142 D_fake: 0.028 D_gp: 0.000 G: 1.109 D: 0.170 
+(epoch_21) End of giters 8211 / 500000 	 Time Taken: 15 sec
+(epoch_22) End of giters 8602 / 500000 	 Time Taken: 15 sec
+(epoch_23) End of giters 8993 / 500000 	 Time Taken: 15 sec
+(epoch: 23, giters: 9000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.228 D_real: 0.263 D_fake: 0.047 D_gp: 0.000 G: 1.228 D: 0.310 
+(epoch_24) End of giters 9384 / 500000 	 Time Taken: 15 sec
+(epoch_25) End of giters 9775 / 500000 	 Time Taken: 15 sec
+(epoch: 25, giters: 10000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.705 D_real: 0.137 D_fake: 0.126 D_gp: 0.000 G: 0.705 D: 0.263 
+saving the latest model (epoch 25, g_iters 10000)
+(epoch_26) End of giters 10166 / 500000 	 Time Taken: 15 sec
+(epoch_27) End of giters 10557 / 500000 	 Time Taken: 15 sec
+(epoch_28) End of giters 10948 / 500000 	 Time Taken: 15 sec
+(epoch: 28, giters: 11000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.016 D_real: 0.219 D_fake: 0.057 D_gp: 0.000 G: 1.016 D: 0.276 
+(epoch_29) End of giters 11339 / 500000 	 Time Taken: 15 sec
+(epoch_30) End of giters 11730 / 500000 	 Time Taken: 15 sec
+(epoch: 30, giters: 12000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.667 D_real: 0.090 D_fake: 0.146 D_gp: 0.000 G: 0.667 D: 0.236 
+(epoch_31) End of giters 12121 / 500000 	 Time Taken: 15 sec
+(epoch_32) End of giters 12512 / 500000 	 Time Taken: 15 sec
+(epoch_33) End of giters 12903 / 500000 	 Time Taken: 15 sec
+(epoch: 33, giters: 13000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.302 D_real: 0.073 D_fake: 0.461 D_gp: 0.000 G: 0.302 D: 0.534 
+(epoch_34) End of giters 13294 / 500000 	 Time Taken: 15 sec
+(epoch_35) End of giters 13685 / 500000 	 Time Taken: 15 sec
+(epoch: 35, giters: 14000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.410 D_real: 0.080 D_fake: 0.241 D_gp: 0.000 G: 0.410 D: 0.320 
+(epoch_36) End of giters 14076 / 500000 	 Time Taken: 15 sec
+(epoch_37) End of giters 14467 / 500000 	 Time Taken: 15 sec
+(epoch_38) End of giters 14858 / 500000 	 Time Taken: 15 sec
+(epoch: 38, giters: 15000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.474 D_real: 0.090 D_fake: 0.234 D_gp: 0.000 G: 0.474 D: 0.324 
+saving the latest model (epoch 38, g_iters 15000)
+(epoch_39) End of giters 15249 / 500000 	 Time Taken: 15 sec
+(epoch_40) End of giters 15640 / 500000 	 Time Taken: 15 sec
+(epoch: 40, giters: 16000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.017 D_real: 0.195 D_fake: 0.052 D_gp: 0.000 G: 1.017 D: 0.247 
+(epoch_41) End of giters 16031 / 500000 	 Time Taken: 15 sec
+(epoch_42) End of giters 16422 / 500000 	 Time Taken: 15 sec
+(epoch_43) End of giters 16813 / 500000 	 Time Taken: 15 sec
+(epoch: 43, giters: 17000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.995 D_real: 0.153 D_fake: 0.047 D_gp: 0.000 G: 0.995 D: 0.200 
+(epoch_44) End of giters 17204 / 500000 	 Time Taken: 15 sec
+(epoch_45) End of giters 17595 / 500000 	 Time Taken: 15 sec
+(epoch_46) End of giters 17986 / 500000 	 Time Taken: 15 sec
+(epoch: 46, giters: 18000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.730 D_real: 0.093 D_fake: 0.126 D_gp: 0.000 G: 0.730 D: 0.219 
+(epoch_47) End of giters 18377 / 500000 	 Time Taken: 15 sec
+(epoch_48) End of giters 18768 / 500000 	 Time Taken: 15 sec
+(epoch: 48, giters: 19000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.707 D_real: 0.107 D_fake: 0.089 D_gp: 0.000 G: 0.707 D: 0.195 
+(epoch_49) End of giters 19159 / 500000 	 Time Taken: 15 sec
+(epoch_50) End of giters 19550 / 500000 	 Time Taken: 15 sec
+(epoch_51) End of giters 19941 / 500000 	 Time Taken: 15 sec
+(epoch: 51, giters: 20000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.745 D_real: 0.095 D_fake: 0.079 D_gp: 0.000 G: 0.745 D: 0.174 
+saving the latest model (epoch 51, g_iters 20000)
+(epoch_52) End of giters 20332 / 500000 	 Time Taken: 15 sec
+(epoch_53) End of giters 20723 / 500000 	 Time Taken: 15 sec
+(epoch: 53, giters: 21000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.774 D_real: 0.079 D_fake: 0.121 D_gp: 0.000 G: 0.774 D: 0.199 
+(epoch_54) End of giters 21114 / 500000 	 Time Taken: 15 sec
+(epoch_55) End of giters 21505 / 500000 	 Time Taken: 15 sec
+(epoch_56) End of giters 21896 / 500000 	 Time Taken: 15 sec
+(epoch: 56, giters: 22000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.158 D_real: 0.212 D_fake: 0.040 D_gp: 0.000 G: 1.158 D: 0.252 
+(epoch_57) End of giters 22287 / 500000 	 Time Taken: 15 sec
+(epoch_58) End of giters 22678 / 500000 	 Time Taken: 15 sec
+(epoch: 58, giters: 23000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.642 D_real: 0.061 D_fake: 0.097 D_gp: 0.000 G: 0.642 D: 0.159 
+(epoch_59) End of giters 23069 / 500000 	 Time Taken: 15 sec
+(epoch_60) End of giters 23460 / 500000 	 Time Taken: 15 sec
+(epoch_61) End of giters 23851 / 500000 	 Time Taken: 15 sec
+(epoch: 61, giters: 24000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.832 D_real: 0.126 D_fake: 0.058 D_gp: 0.000 G: 0.832 D: 0.183 
+(epoch_62) End of giters 24242 / 500000 	 Time Taken: 15 sec
+(epoch_63) End of giters 24633 / 500000 	 Time Taken: 15 sec
+(epoch: 63, giters: 25000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.436 D_real: 0.052 D_fake: 0.225 D_gp: 0.000 G: 0.436 D: 0.277 
+saving the latest model (epoch 63, g_iters 25000)
+(epoch_64) End of giters 25024 / 500000 	 Time Taken: 16 sec
+(epoch_65) End of giters 25415 / 500000 	 Time Taken: 15 sec
+(epoch_66) End of giters 25806 / 500000 	 Time Taken: 15 sec
+(epoch: 66, giters: 26000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.437 D_real: 0.061 D_fake: 0.103 D_gp: 0.000 G: 0.437 D: 0.164 
+(epoch_67) End of giters 26197 / 500000 	 Time Taken: 15 sec
+(epoch_68) End of giters 26588 / 500000 	 Time Taken: 15 sec
+(epoch_69) End of giters 26979 / 500000 	 Time Taken: 15 sec
+(epoch: 69, giters: 27000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.471 D_real: 0.048 D_fake: 0.190 D_gp: 0.000 G: 0.471 D: 0.239 
+(epoch_70) End of giters 27370 / 500000 	 Time Taken: 15 sec
+(epoch_71) End of giters 27761 / 500000 	 Time Taken: 15 sec
+(epoch: 71, giters: 28000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.935 D_real: 0.128 D_fake: 0.042 D_gp: 0.000 G: 0.935 D: 0.171 
+(epoch_72) End of giters 28152 / 500000 	 Time Taken: 15 sec
+(epoch_73) End of giters 28543 / 500000 	 Time Taken: 15 sec
+(epoch_74) End of giters 28934 / 500000 	 Time Taken: 15 sec
+(epoch: 74, giters: 29000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.869 D_real: 0.057 D_fake: 0.042 D_gp: 0.000 G: 0.869 D: 0.098 
+(epoch_75) End of giters 29325 / 500000 	 Time Taken: 15 sec
+(epoch_76) End of giters 29716 / 500000 	 Time Taken: 15 sec
+(epoch: 76, giters: 30000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.443 D_real: 0.069 D_fake: 0.235 D_gp: 0.000 G: 0.443 D: 0.303 
+saving the latest model (epoch 76, g_iters 30000)
+(epoch_77) End of giters 30107 / 500000 	 Time Taken: 16 sec
+(epoch_78) End of giters 30498 / 500000 	 Time Taken: 15 sec
+(epoch_79) End of giters 30889 / 500000 	 Time Taken: 15 sec
+(epoch: 79, giters: 31000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.138 D_real: 0.151 D_fake: 0.029 D_gp: 0.000 G: 1.138 D: 0.180 
+(epoch_80) End of giters 31280 / 500000 	 Time Taken: 15 sec
+(epoch_81) End of giters 31671 / 500000 	 Time Taken: 15 sec
+(epoch: 81, giters: 32000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.621 D_real: 0.021 D_fake: 0.162 D_gp: 0.000 G: 0.621 D: 0.183 
+(epoch_82) End of giters 32062 / 500000 	 Time Taken: 15 sec
+(epoch_83) End of giters 32453 / 500000 	 Time Taken: 15 sec
+(epoch_84) End of giters 32844 / 500000 	 Time Taken: 15 sec
+(epoch: 84, giters: 33000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.980 D_real: 0.037 D_fake: 0.041 D_gp: 0.000 G: 0.980 D: 0.079 
+(epoch_85) End of giters 33235 / 500000 	 Time Taken: 15 sec
+(epoch_86) End of giters 33626 / 500000 	 Time Taken: 15 sec
+(epoch: 86, giters: 34000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 0.587 D_real: 0.043 D_fake: 0.122 D_gp: 0.000 G: 0.587 D: 0.165 
+(epoch_87) End of giters 34017 / 500000 	 Time Taken: 15 sec
+(epoch_88) End of giters 34408 / 500000 	 Time Taken: 15 sec
+(epoch_89) End of giters 34799 / 500000 	 Time Taken: 15 sec
+(epoch: 89, giters: 35000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.694 D_real: 0.041 D_fake: 0.103 D_gp: 0.000 G: 0.694 D: 0.143 
+saving the latest model (epoch 89, g_iters 35000)
+(epoch_90) End of giters 35190 / 500000 	 Time Taken: 15 sec
+(epoch_91) End of giters 35581 / 500000 	 Time Taken: 15 sec
+(epoch_92) End of giters 35972 / 500000 	 Time Taken: 15 sec
+(epoch: 92, giters: 36000, time: 0.002, data: 0.001) G_real: 0.000 G_fake: 1.006 D_real: 0.086 D_fake: 0.027 D_gp: 0.000 G: 1.006 D: 0.113 
+(epoch_93) End of giters 36363 / 500000 	 Time Taken: 15 sec
+(epoch_94) End of giters 36754 / 500000 	 Time Taken: 15 sec
+(epoch: 94, giters: 37000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.896 D_real: 0.074 D_fake: 0.035 D_gp: 0.000 G: 0.896 D: 0.110 
+(epoch_95) End of giters 37145 / 500000 	 Time Taken: 15 sec
+(epoch_96) End of giters 37536 / 500000 	 Time Taken: 15 sec
+(epoch_97) End of giters 37927 / 500000 	 Time Taken: 15 sec
+(epoch: 97, giters: 38000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.884 D_real: 0.034 D_fake: 0.074 D_gp: 0.000 G: 0.884 D: 0.108 
+(epoch_98) End of giters 38318 / 500000 	 Time Taken: 15 sec
+(epoch_99) End of giters 38709 / 500000 	 Time Taken: 15 sec
+(epoch: 99, giters: 39000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.935 D_real: 0.052 D_fake: 0.076 D_gp: 0.000 G: 0.935 D: 0.128 
+(epoch_100) End of giters 39100 / 500000 	 Time Taken: 15 sec
+(epoch_101) End of giters 39491 / 500000 	 Time Taken: 15 sec
+(epoch_102) End of giters 39882 / 500000 	 Time Taken: 15 sec
+(epoch: 102, giters: 40000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.704 D_real: 0.037 D_fake: 0.083 D_gp: 0.000 G: 0.704 D: 0.120 
+saving the latest model (epoch 102, g_iters 40000)
+(epoch_103) End of giters 40273 / 500000 	 Time Taken: 15 sec
+(epoch_104) End of giters 40664 / 500000 	 Time Taken: 15 sec
+(epoch: 104, giters: 41000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.893 D_real: 0.037 D_fake: 0.058 D_gp: 0.000 G: 0.893 D: 0.095 
+(epoch_105) End of giters 41055 / 500000 	 Time Taken: 15 sec
+(epoch_106) End of giters 41446 / 500000 	 Time Taken: 15 sec
+(epoch_107) End of giters 41837 / 500000 	 Time Taken: 15 sec
+(epoch: 107, giters: 42000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.716 D_real: 0.051 D_fake: 0.056 D_gp: 0.000 G: 0.716 D: 0.106 
+(epoch_108) End of giters 42228 / 500000 	 Time Taken: 15 sec
+(epoch_109) End of giters 42619 / 500000 	 Time Taken: 15 sec
+(epoch: 109, giters: 43000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.952 D_real: 0.050 D_fake: 0.039 D_gp: 0.000 G: 0.952 D: 0.089 
+(epoch_110) End of giters 43010 / 500000 	 Time Taken: 15 sec
+(epoch_111) End of giters 43401 / 500000 	 Time Taken: 15 sec
+(epoch_112) End of giters 43792 / 500000 	 Time Taken: 15 sec
+(epoch: 112, giters: 44000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.774 D_real: 0.041 D_fake: 0.077 D_gp: 0.000 G: 0.774 D: 0.118 
+(epoch_113) End of giters 44183 / 500000 	 Time Taken: 15 sec
+(epoch_114) End of giters 44574 / 500000 	 Time Taken: 15 sec
+(epoch_115) End of giters 44965 / 500000 	 Time Taken: 15 sec
+(epoch: 115, giters: 45000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.003 D_real: 0.025 D_fake: 0.043 D_gp: 0.000 G: 1.003 D: 0.068 
+saving the latest model (epoch 115, g_iters 45000)
+(epoch_116) End of giters 45356 / 500000 	 Time Taken: 16 sec
+(epoch_117) End of giters 45747 / 500000 	 Time Taken: 15 sec
+(epoch: 117, giters: 46000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.950 D_real: 0.014 D_fake: 0.010 D_gp: 0.000 G: 0.950 D: 0.024 
+(epoch_118) End of giters 46138 / 500000 	 Time Taken: 15 sec
+(epoch_119) End of giters 46529 / 500000 	 Time Taken: 15 sec
+(epoch_120) End of giters 46920 / 500000 	 Time Taken: 15 sec
+(epoch: 120, giters: 47000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.106 D_real: 0.055 D_fake: 0.034 D_gp: 0.000 G: 1.106 D: 0.090 
+(epoch_121) End of giters 47311 / 500000 	 Time Taken: 15 sec
+(epoch_122) End of giters 47702 / 500000 	 Time Taken: 15 sec
+(epoch: 122, giters: 48000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.589 D_real: 0.062 D_fake: 0.156 D_gp: 0.000 G: 0.589 D: 0.218 
+(epoch_123) End of giters 48093 / 500000 	 Time Taken: 15 sec
+(epoch_124) End of giters 48484 / 500000 	 Time Taken: 15 sec
+(epoch_125) End of giters 48875 / 500000 	 Time Taken: 15 sec
+(epoch: 125, giters: 49000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.636 D_real: 0.037 D_fake: 0.086 D_gp: 0.000 G: 0.636 D: 0.123 
+(epoch_126) End of giters 49266 / 500000 	 Time Taken: 15 sec
+(epoch_127) End of giters 49657 / 500000 	 Time Taken: 15 sec
+(epoch: 127, giters: 50000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.652 D_real: 0.065 D_fake: 0.089 D_gp: 0.000 G: 0.652 D: 0.154 
+saving the latest model (epoch 127, g_iters 50000)
+(epoch_128) End of giters 50048 / 500000 	 Time Taken: 16 sec
+(epoch_129) End of giters 50439 / 500000 	 Time Taken: 15 sec
+(epoch_130) End of giters 50830 / 500000 	 Time Taken: 15 sec
+(epoch: 130, giters: 51000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.915 D_real: 0.029 D_fake: 0.036 D_gp: 0.000 G: 0.915 D: 0.065 
+(epoch_131) End of giters 51221 / 500000 	 Time Taken: 15 sec
+(epoch_132) End of giters 51612 / 500000 	 Time Taken: 15 sec
+(epoch: 132, giters: 52000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.198 D_real: 0.204 D_fake: 0.030 D_gp: 0.000 G: 1.198 D: 0.234 
+(epoch_133) End of giters 52003 / 500000 	 Time Taken: 16 sec
+(epoch_134) End of giters 52394 / 500000 	 Time Taken: 15 sec
+(epoch_135) End of giters 52785 / 500000 	 Time Taken: 15 sec
+(epoch: 135, giters: 53000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.691 D_real: 0.039 D_fake: 0.072 D_gp: 0.000 G: 0.691 D: 0.111 
+(epoch_136) End of giters 53176 / 500000 	 Time Taken: 15 sec
+(epoch_137) End of giters 53567 / 500000 	 Time Taken: 15 sec
+(epoch_138) End of giters 53958 / 500000 	 Time Taken: 15 sec
+(epoch: 138, giters: 54000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.695 D_real: 0.032 D_fake: 0.098 D_gp: 0.000 G: 0.695 D: 0.130 
+(epoch_139) End of giters 54349 / 500000 	 Time Taken: 15 sec
+(epoch_140) End of giters 54740 / 500000 	 Time Taken: 15 sec
+(epoch: 140, giters: 55000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.697 D_real: 0.035 D_fake: 0.116 D_gp: 0.000 G: 0.697 D: 0.151 
+saving the latest model (epoch 140, g_iters 55000)
+(epoch_141) End of giters 55131 / 500000 	 Time Taken: 15 sec
+(epoch_142) End of giters 55522 / 500000 	 Time Taken: 15 sec
+(epoch_143) End of giters 55913 / 500000 	 Time Taken: 15 sec
+(epoch: 143, giters: 56000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.625 D_real: 0.051 D_fake: 0.132 D_gp: 0.000 G: 0.625 D: 0.183 
+(epoch_144) End of giters 56304 / 500000 	 Time Taken: 15 sec
+(epoch_145) End of giters 56695 / 500000 	 Time Taken: 15 sec
+(epoch: 145, giters: 57000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.352 D_real: 0.104 D_fake: 0.044 D_gp: 0.000 G: 1.352 D: 0.148 
+(epoch_146) End of giters 57086 / 500000 	 Time Taken: 15 sec
+(epoch_147) End of giters 57477 / 500000 	 Time Taken: 15 sec
+(epoch_148) End of giters 57868 / 500000 	 Time Taken: 15 sec
+(epoch: 148, giters: 58000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.378 D_real: 0.092 D_fake: 0.029 D_gp: 0.000 G: 1.378 D: 0.121 
+(epoch_149) End of giters 58259 / 500000 	 Time Taken: 16 sec
+(epoch_150) End of giters 58650 / 500000 	 Time Taken: 15 sec
+(epoch: 150, giters: 59000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.975 D_real: 0.072 D_fake: 0.025 D_gp: 0.000 G: 0.975 D: 0.098 
+(epoch_151) End of giters 59041 / 500000 	 Time Taken: 15 sec
+(epoch_152) End of giters 59432 / 500000 	 Time Taken: 15 sec
+(epoch_153) End of giters 59823 / 500000 	 Time Taken: 15 sec
+(epoch: 153, giters: 60000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.980 D_real: 0.061 D_fake: 0.033 D_gp: 0.000 G: 0.980 D: 0.094 
+saving the latest model (epoch 153, g_iters 60000)
+(epoch_154) End of giters 60214 / 500000 	 Time Taken: 16 sec
+(epoch_155) End of giters 60605 / 500000 	 Time Taken: 15 sec
+(epoch_156) End of giters 60996 / 500000 	 Time Taken: 15 sec
+(epoch: 156, giters: 61000, time: 0.003, data: 0.002) G_real: 0.000 G_fake: 1.008 D_real: 0.057 D_fake: 0.021 D_gp: 0.000 G: 1.008 D: 0.078 
+(epoch_157) End of giters 61387 / 500000 	 Time Taken: 15 sec
+(epoch_158) End of giters 61778 / 500000 	 Time Taken: 15 sec
+(epoch: 158, giters: 62000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.634 D_real: 0.039 D_fake: 0.072 D_gp: 0.000 G: 0.634 D: 0.111 
+(epoch_159) End of giters 62169 / 500000 	 Time Taken: 15 sec
+(epoch_160) End of giters 62560 / 500000 	 Time Taken: 15 sec
+(epoch_161) End of giters 62951 / 500000 	 Time Taken: 15 sec
+(epoch: 161, giters: 63000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.105 D_real: 0.095 D_fake: 0.027 D_gp: 0.000 G: 1.105 D: 0.122 
+(epoch_162) End of giters 63342 / 500000 	 Time Taken: 15 sec
+(epoch_163) End of giters 63733 / 500000 	 Time Taken: 15 sec
+(epoch: 163, giters: 64000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.893 D_real: 0.028 D_fake: 0.032 D_gp: 0.000 G: 0.893 D: 0.060 
+(epoch_164) End of giters 64124 / 500000 	 Time Taken: 16 sec
+(epoch_165) End of giters 64515 / 500000 	 Time Taken: 15 sec
+(epoch_166) End of giters 64906 / 500000 	 Time Taken: 15 sec
+(epoch: 166, giters: 65000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.366 D_real: 0.207 D_fake: 0.061 D_gp: 0.000 G: 1.366 D: 0.267 
+saving the latest model (epoch 166, g_iters 65000)
+(epoch_167) End of giters 65297 / 500000 	 Time Taken: 16 sec
+(epoch_168) End of giters 65688 / 500000 	 Time Taken: 15 sec
+(epoch: 168, giters: 66000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.876 D_real: 0.020 D_fake: 0.040 D_gp: 0.000 G: 0.876 D: 0.060 
+(epoch_169) End of giters 66079 / 500000 	 Time Taken: 15 sec
+(epoch_170) End of giters 66470 / 500000 	 Time Taken: 15 sec
+(epoch_171) End of giters 66861 / 500000 	 Time Taken: 15 sec
+(epoch: 171, giters: 67000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.921 D_real: 0.014 D_fake: 0.029 D_gp: 0.000 G: 0.921 D: 0.043 
+(epoch_172) End of giters 67252 / 500000 	 Time Taken: 15 sec
+(epoch_173) End of giters 67643 / 500000 	 Time Taken: 15 sec
+(epoch: 173, giters: 68000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.866 D_real: 0.032 D_fake: 0.091 D_gp: 0.000 G: 0.866 D: 0.123 
+(epoch_174) End of giters 68034 / 500000 	 Time Taken: 15 sec
+(epoch_175) End of giters 68425 / 500000 	 Time Taken: 15 sec
+(epoch_176) End of giters 68816 / 500000 	 Time Taken: 15 sec
+(epoch: 176, giters: 69000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.199 D_real: 0.016 D_fake: 0.013 D_gp: 0.000 G: 1.199 D: 0.029 
+(epoch_177) End of giters 69207 / 500000 	 Time Taken: 15 sec
+(epoch_178) End of giters 69598 / 500000 	 Time Taken: 15 sec
+(epoch_179) End of giters 69989 / 500000 	 Time Taken: 15 sec
+(epoch: 179, giters: 70000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.004 D_real: 0.027 D_fake: 0.020 D_gp: 0.000 G: 1.004 D: 0.047 
+saving the latest model (epoch 179, g_iters 70000)
+(epoch_180) End of giters 70380 / 500000 	 Time Taken: 16 sec
+(epoch_181) End of giters 70771 / 500000 	 Time Taken: 15 sec
+(epoch: 181, giters: 71000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.709 D_real: 0.022 D_fake: 0.054 D_gp: 0.000 G: 0.709 D: 0.076 
+(epoch_182) End of giters 71162 / 500000 	 Time Taken: 16 sec
+(epoch_183) End of giters 71553 / 500000 	 Time Taken: 15 sec
+(epoch_184) End of giters 71944 / 500000 	 Time Taken: 15 sec
+(epoch: 184, giters: 72000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.781 D_real: 0.029 D_fake: 0.067 D_gp: 0.000 G: 0.781 D: 0.096 
+(epoch_185) End of giters 72335 / 500000 	 Time Taken: 15 sec
+(epoch_186) End of giters 72726 / 500000 	 Time Taken: 15 sec
+(epoch: 186, giters: 73000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.756 D_real: 0.026 D_fake: 0.036 D_gp: 0.000 G: 0.756 D: 0.062 
+(epoch_187) End of giters 73117 / 500000 	 Time Taken: 16 sec
+(epoch_188) End of giters 73508 / 500000 	 Time Taken: 15 sec
+(epoch_189) End of giters 73899 / 500000 	 Time Taken: 15 sec
+(epoch: 189, giters: 74000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 0.721 D_real: 0.019 D_fake: 0.099 D_gp: 0.000 G: 0.721 D: 0.118 
+(epoch_190) End of giters 74290 / 500000 	 Time Taken: 15 sec
+(epoch_191) End of giters 74681 / 500000 	 Time Taken: 15 sec
+(epoch: 191, giters: 75000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.473 D_real: 0.164 D_fake: 0.082 D_gp: 0.000 G: 1.473 D: 0.246 
+saving the latest model (epoch 191, g_iters 75000)
+(epoch_192) End of giters 75072 / 500000 	 Time Taken: 16 sec
+(epoch_193) End of giters 75463 / 500000 	 Time Taken: 15 sec
+(epoch_194) End of giters 75854 / 500000 	 Time Taken: 15 sec
+(epoch: 194, giters: 76000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.636 D_real: 0.031 D_fake: 0.065 D_gp: 0.000 G: 0.636 D: 0.096 
+(epoch_195) End of giters 76245 / 500000 	 Time Taken: 16 sec
+(epoch_196) End of giters 76636 / 500000 	 Time Taken: 15 sec
+(epoch: 196, giters: 77000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.032 D_real: 0.040 D_fake: 0.022 D_gp: 0.000 G: 1.032 D: 0.061 
+(epoch_197) End of giters 77027 / 500000 	 Time Taken: 16 sec
+(epoch_198) End of giters 77418 / 500000 	 Time Taken: 15 sec
+(epoch_199) End of giters 77809 / 500000 	 Time Taken: 15 sec
+(epoch: 199, giters: 78000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.083 D_real: 0.028 D_fake: 0.021 D_gp: 0.000 G: 1.083 D: 0.049 
+(epoch_200) End of giters 78200 / 500000 	 Time Taken: 16 sec
+(epoch_201) End of giters 78591 / 500000 	 Time Taken: 15 sec
+(epoch_202) End of giters 78982 / 500000 	 Time Taken: 15 sec
+(epoch: 202, giters: 79000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.314 D_real: 0.147 D_fake: 0.039 D_gp: 0.000 G: 1.314 D: 0.186 
+(epoch_203) End of giters 79373 / 500000 	 Time Taken: 15 sec
+(epoch_204) End of giters 79764 / 500000 	 Time Taken: 15 sec
+(epoch: 204, giters: 80000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.036 D_real: 0.007 D_fake: 0.006 D_gp: 0.000 G: 1.036 D: 0.012 
+saving the latest model (epoch 204, g_iters 80000)
+(epoch_205) End of giters 80155 / 500000 	 Time Taken: 16 sec
+(epoch_206) End of giters 80546 / 500000 	 Time Taken: 15 sec
+(epoch_207) End of giters 80937 / 500000 	 Time Taken: 15 sec
+(epoch: 207, giters: 81000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.127 D_real: 0.034 D_fake: 0.009 D_gp: 0.000 G: 1.127 D: 0.042 
+(epoch_208) End of giters 81328 / 500000 	 Time Taken: 16 sec
+(epoch_209) End of giters 81719 / 500000 	 Time Taken: 15 sec
+(epoch: 209, giters: 82000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.289 D_real: 0.070 D_fake: 0.030 D_gp: 0.000 G: 1.289 D: 0.100 
+(epoch_210) End of giters 82110 / 500000 	 Time Taken: 16 sec
+(epoch_211) End of giters 82501 / 500000 	 Time Taken: 15 sec
+(epoch_212) End of giters 82892 / 500000 	 Time Taken: 15 sec
+(epoch: 212, giters: 83000, time: 0.003, data: 0.001) G_real: 0.000 G_fake: 1.024 D_real: 0.044 D_fake: 0.018 D_gp: 0.000 G: 1.024 D: 0.062 
+(epoch_213) End of giters 83283 / 500000 	 Time Taken: 15 sec
+(epoch_214) End of giters 83674 / 500000 	 Time Taken: 15 sec
+(epoch: 214, giters: 84000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.831 D_real: 0.024 D_fake: 0.047 D_gp: 0.000 G: 0.831 D: 0.071 
+(epoch_215) End of giters 84065 / 500000 	 Time Taken: 15 sec
+(epoch_216) End of giters 84456 / 500000 	 Time Taken: 15 sec
+(epoch_217) End of giters 84847 / 500000 	 Time Taken: 15 sec
+(epoch: 217, giters: 85000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.951 D_real: 0.019 D_fake: 0.040 D_gp: 0.000 G: 0.951 D: 0.059 
+saving the latest model (epoch 217, g_iters 85000)
+(epoch_218) End of giters 85238 / 500000 	 Time Taken: 16 sec
+(epoch_219) End of giters 85629 / 500000 	 Time Taken: 15 sec
+(epoch: 219, giters: 86000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.627 D_real: 0.038 D_fake: 0.069 D_gp: 0.000 G: 0.627 D: 0.106 
+(epoch_220) End of giters 86020 / 500000 	 Time Taken: 16 sec
+(epoch_221) End of giters 86411 / 500000 	 Time Taken: 15 sec
+(epoch_222) End of giters 86802 / 500000 	 Time Taken: 15 sec
+(epoch: 222, giters: 87000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.887 D_real: 0.008 D_fake: 0.013 D_gp: 0.000 G: 0.887 D: 0.021 
+(epoch_223) End of giters 87193 / 500000 	 Time Taken: 16 sec
+(epoch_224) End of giters 87584 / 500000 	 Time Taken: 15 sec
+(epoch_225) End of giters 87975 / 500000 	 Time Taken: 15 sec
+(epoch: 225, giters: 88000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.927 D_real: 0.031 D_fake: 0.018 D_gp: 0.000 G: 0.927 D: 0.049 
+(epoch_226) End of giters 88366 / 500000 	 Time Taken: 16 sec
+(epoch_227) End of giters 88757 / 500000 	 Time Taken: 15 sec
+(epoch: 227, giters: 89000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.298 D_real: 0.105 D_fake: 0.038 D_gp: 0.000 G: 1.298 D: 0.142 
+(epoch_228) End of giters 89148 / 500000 	 Time Taken: 15 sec
+(epoch_229) End of giters 89539 / 500000 	 Time Taken: 15 sec
+(epoch_230) End of giters 89930 / 500000 	 Time Taken: 15 sec
+(epoch: 230, giters: 90000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.911 D_real: 0.011 D_fake: 0.007 D_gp: 0.000 G: 0.911 D: 0.018 
+saving the latest model (epoch 230, g_iters 90000)
+(epoch_231) End of giters 90321 / 500000 	 Time Taken: 16 sec
+(epoch_232) End of giters 90712 / 500000 	 Time Taken: 15 sec
+(epoch: 232, giters: 91000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.966 D_real: 0.020 D_fake: 0.029 D_gp: 0.000 G: 0.966 D: 0.048 
+(epoch_233) End of giters 91103 / 500000 	 Time Taken: 16 sec
+(epoch_234) End of giters 91494 / 500000 	 Time Taken: 15 sec
+(epoch_235) End of giters 91885 / 500000 	 Time Taken: 15 sec
+(epoch: 235, giters: 92000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.188 D_real: 0.063 D_fake: 0.019 D_gp: 0.000 G: 1.188 D: 0.082 
+(epoch_236) End of giters 92276 / 500000 	 Time Taken: 16 sec
+(epoch_237) End of giters 92667 / 500000 	 Time Taken: 15 sec
+(epoch: 237, giters: 93000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 2.158 D_real: 0.210 D_fake: 0.220 D_gp: 0.000 G: 2.158 D: 0.430 
+(epoch_238) End of giters 93058 / 500000 	 Time Taken: 16 sec
+(epoch_239) End of giters 93449 / 500000 	 Time Taken: 15 sec
+(epoch_240) End of giters 93840 / 500000 	 Time Taken: 15 sec
+(epoch: 240, giters: 94000, time: 0.005, data: 0.001) G_real: 0.000 G_fake: 0.812 D_real: 0.031 D_fake: 0.064 D_gp: 0.000 G: 0.812 D: 0.095 
+(epoch_241) End of giters 94231 / 500000 	 Time Taken: 16 sec
+(epoch_242) End of giters 94622 / 500000 	 Time Taken: 15 sec
+(epoch: 242, giters: 95000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.304 D_real: 0.026 D_fake: 0.023 D_gp: 0.000 G: 1.304 D: 0.050 
+saving the latest model (epoch 242, g_iters 95000)
+(epoch_243) End of giters 95013 / 500000 	 Time Taken: 16 sec
+(epoch_244) End of giters 95404 / 500000 	 Time Taken: 15 sec
+(epoch_245) End of giters 95795 / 500000 	 Time Taken: 15 sec
+(epoch: 245, giters: 96000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.148 D_real: 0.131 D_fake: 0.029 D_gp: 0.000 G: 1.148 D: 0.160 
+(epoch_246) End of giters 96186 / 500000 	 Time Taken: 16 sec
+(epoch_247) End of giters 96577 / 500000 	 Time Taken: 15 sec
+(epoch_248) End of giters 96968 / 500000 	 Time Taken: 15 sec
+(epoch: 248, giters: 97000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.087 D_real: 0.015 D_fake: 0.013 D_gp: 0.000 G: 1.087 D: 0.029 
+(epoch_249) End of giters 97359 / 500000 	 Time Taken: 16 sec
+(epoch_250) End of giters 97750 / 500000 	 Time Taken: 15 sec
+(epoch: 250, giters: 98000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.812 D_real: 0.019 D_fake: 0.037 D_gp: 0.000 G: 0.812 D: 0.056 
+(epoch_251) End of giters 98141 / 500000 	 Time Taken: 16 sec
+(epoch_252) End of giters 98532 / 500000 	 Time Taken: 15 sec
+(epoch_253) End of giters 98923 / 500000 	 Time Taken: 15 sec
+(epoch: 253, giters: 99000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.006 D_real: 0.037 D_fake: 0.020 D_gp: 0.000 G: 1.006 D: 0.056 
+(epoch_254) End of giters 99314 / 500000 	 Time Taken: 16 sec
+(epoch_255) End of giters 99705 / 500000 	 Time Taken: 15 sec
+(epoch: 255, giters: 100000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.601 D_real: 0.035 D_fake: 0.143 D_gp: 0.000 G: 0.601 D: 0.178 
+saving the latest model (epoch 255, g_iters 100000)
+saving the model at the end of epoch 255, g_iters 100000
+(epoch_256) End of giters 100096 / 500000 	 Time Taken: 16 sec
+(epoch_257) End of giters 100487 / 500000 	 Time Taken: 15 sec
+(epoch_258) End of giters 100878 / 500000 	 Time Taken: 15 sec
+(epoch: 258, giters: 101000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.950 D_real: 0.019 D_fake: 0.016 D_gp: 0.000 G: 0.950 D: 0.035 
+(epoch_259) End of giters 101269 / 500000 	 Time Taken: 15 sec
+(epoch_260) End of giters 101660 / 500000 	 Time Taken: 15 sec
+(epoch: 260, giters: 102000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.924 D_real: 0.021 D_fake: 0.025 D_gp: 0.000 G: 0.924 D: 0.046 
+(epoch_261) End of giters 102051 / 500000 	 Time Taken: 16 sec
+(epoch_262) End of giters 102442 / 500000 	 Time Taken: 15 sec
+(epoch_263) End of giters 102833 / 500000 	 Time Taken: 15 sec
+(epoch: 263, giters: 103000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.413 D_real: 0.156 D_fake: 0.067 D_gp: 0.000 G: 1.413 D: 0.222 
+(epoch_264) End of giters 103224 / 500000 	 Time Taken: 16 sec
+(epoch_265) End of giters 103615 / 500000 	 Time Taken: 15 sec
+(epoch: 265, giters: 104000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.155 D_real: 0.017 D_fake: 0.006 D_gp: 0.000 G: 1.155 D: 0.024 
+(epoch_266) End of giters 104006 / 500000 	 Time Taken: 16 sec
+(epoch_267) End of giters 104397 / 500000 	 Time Taken: 15 sec
+(epoch_268) End of giters 104788 / 500000 	 Time Taken: 15 sec
+(epoch: 268, giters: 105000, time: 0.005, data: 0.001) G_real: 0.000 G_fake: 1.365 D_real: 0.016 D_fake: 0.022 D_gp: 0.000 G: 1.365 D: 0.038 
+saving the latest model (epoch 268, g_iters 105000)
+(epoch_269) End of giters 105179 / 500000 	 Time Taken: 16 sec
+(epoch_270) End of giters 105570 / 500000 	 Time Taken: 15 sec
+(epoch_271) End of giters 105961 / 500000 	 Time Taken: 15 sec
+(epoch: 271, giters: 106000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.017 D_real: 0.008 D_fake: 0.013 D_gp: 0.000 G: 1.017 D: 0.021 
+(epoch_272) End of giters 106352 / 500000 	 Time Taken: 16 sec
+(epoch_273) End of giters 106743 / 500000 	 Time Taken: 15 sec
+(epoch: 273, giters: 107000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.081 D_real: 0.012 D_fake: 0.012 D_gp: 0.000 G: 1.081 D: 0.024 
+(epoch_274) End of giters 107134 / 500000 	 Time Taken: 16 sec
+(epoch_275) End of giters 107525 / 500000 	 Time Taken: 15 sec
+(epoch_276) End of giters 107916 / 500000 	 Time Taken: 15 sec
+(epoch: 276, giters: 108000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.985 D_real: 0.012 D_fake: 0.038 D_gp: 0.000 G: 0.985 D: 0.050 
+(epoch_277) End of giters 108307 / 500000 	 Time Taken: 16 sec
+(epoch_278) End of giters 108698 / 500000 	 Time Taken: 15 sec
+(epoch: 278, giters: 109000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.045 D_real: 0.010 D_fake: 0.011 D_gp: 0.000 G: 1.045 D: 0.022 
+(epoch_279) End of giters 109089 / 500000 	 Time Taken: 16 sec
+(epoch_280) End of giters 109480 / 500000 	 Time Taken: 15 sec
+(epoch_281) End of giters 109871 / 500000 	 Time Taken: 15 sec
+(epoch: 281, giters: 110000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.869 D_real: 0.015 D_fake: 0.035 D_gp: 0.000 G: 0.869 D: 0.049 
+saving the latest model (epoch 281, g_iters 110000)
+(epoch_282) End of giters 110262 / 500000 	 Time Taken: 16 sec
+(epoch_283) End of giters 110653 / 500000 	 Time Taken: 15 sec
+(epoch: 283, giters: 111000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 0.873 D_real: 0.007 D_fake: 0.013 D_gp: 0.000 G: 0.873 D: 0.020 
+(epoch_284) End of giters 111044 / 500000 	 Time Taken: 15 sec
+(epoch_285) End of giters 111435 / 500000 	 Time Taken: 15 sec
+(epoch_286) End of giters 111826 / 500000 	 Time Taken: 15 sec
+(epoch: 286, giters: 112000, time: 0.004, data: 0.001) G_real: 0.000 G_fake: 1.151 D_real: 0.009 D_fake: 0.007 D_gp: 0.000 G: 1.151 D: 0.016 
+(epoch_287) End of giters 112217 / 500000 	 Time Taken: 16 sec
+(epoch_288) End of giters 112608 / 500000 	 Time Taken: 15 sec
+(epoch_289) End of giters 112999 / 500000 	 Time Taken: 15 sec
+(epoch: 289, giters: 113000, time: 0.004, data: 0.149) G_real: 0.000 G_fake: 0.980 D_real: 0.004 D_fake: 0.002 D_gp: 0.000 G: 0.980 D: 0.007 
+(epoch_290) End of giters 113390 / 500000 	 Time Taken: 16 sec
+(epoch_291) End of giters 113781 / 500000 	 Time Taken: 15 sec
+(epoch: 291, giters: 114000, time: 0.005, data: 0.001) G_real: 0.000 G_fake: 0.891 D_real: 0.007 D_fake: 0.019 D_gp: 0.000 G: 0.891 D: 0.026 
+(epoch_292) End of giters 114172 / 500000 	 Time Taken: 16 sec
+(epoch_293) End of giters 114563 / 500000 	 Time Taken: 15 sec

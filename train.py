@@ -35,8 +35,9 @@ if __name__ == '__main__':
     visualizer = Visualizer(opt)   # create a visualizer that display/save images and plots
     total_iters = 0                # the total number of training iterations
     g_iters = 0                # the total number of training iterations
-
-    for epoch in range(opt.epoch_count, opt.niter + opt.niter_decay + 1):    # outer loop for different epochs; we save the model by <epoch_count>, <epoch_count>+<save_latest_freq>
+    epoch = 0
+    #for epoch in range(opt.epoch_count, opt.niter + opt.niter_decay + 1):    # outer loop for different epochs; we save the model by <epoch_count>, <epoch_count>+<save_latest_freq>
+    while g_iters <  opt.total_num_giters:
         epoch_start_time = time.time()  # timer for entire epoch
         iter_data_time = time.time()    # timer for data loading per iteration
         epoch_iter = 0                  # the number of training iterations in current epoch, reset to 0 every epoch
@@ -60,7 +61,7 @@ if __name__ == '__main__':
             if g_iters % opt.display_freq == 0 and g_iters_ < g_iters:   # display images on visdom and save images to a HTML file
                 save_result = g_iters % opt.update_html_freq == 0
                 model.compute_visuals()
-                visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
+                visualizer.display_current_results(model.get_current_visuals(), int(g_iters/opt.display_freq), opt.display_freq, save_result)
 
             if g_iters % opt.print_freq == 0 and g_iters_ < g_iters:    # print training losses and save logging information to the disk
                 losses = model.get_current_losses()
@@ -75,10 +76,13 @@ if __name__ == '__main__':
                 model.save_networks(save_suffix)
 
             iter_data_time = time.time()
-        if epoch % opt.save_epoch_freq == 0:              # cache our model every <save_epoch_freq> epochs
-            print('saving the model at the end of epoch %d, g_iters %d' % (epoch, g_iters))
-            model.save_networks('latest')
-            model.save_networks(epoch)
 
-        print('End of epoch %d / %d \t Time Taken: %d sec' % (epoch, opt.niter + opt.niter_decay, time.time() - epoch_start_time))
-        model.update_learning_rate()                     # update learning rates at the end of every epoch.
+            if g_iters % opt.save_giters_freq == 0 and g_iters_ < g_iters: # cache our model every <save_epoch_freq> epochs
+                print('saving the model at the end of epoch %d, g_iters %d' % (epoch, g_iters))
+                model.save_networks('latest')
+                model.save_networks(g_iters)
+        epoch += 1
+        print('(epoch_%d) End of giters %d / %d \t Time Taken: %d sec' % (epoch, g_iters, opt.total_num_giters, time.time() - epoch_start_time))
+
+        #print('End of epoch %d / %d \t Time Taken: %d sec' % (epoch, opt.niter + opt.niter_decay, time.time() - epoch_start_time))
+        #model.update_learning_rate()                     # update learning rates at the end of every epoch.
