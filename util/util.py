@@ -4,6 +4,7 @@ import torch
 import numpy as np
 from PIL import Image
 import os
+import pdb 
 
 
 def tensor2im(input_image, imtype=np.uint8):
@@ -94,3 +95,74 @@ def mkdir(path):
     """
     if not os.path.exists(path):
         os.makedirs(path)
+
+# A highly simplified convenience class for sampling from distributions
+# One could also use PyTorch's inbuilt distributions package.
+# Note that this class requires initialization to proceed as
+# x = Distribution(torch.randn(size))
+# x.init_distribution(dist_type, **dist_kwargs)
+# x = x.to(device,dtype)
+# This is partially based on https://discuss.pytorch.org/t/subclassing-torch-tensor/23754/2
+class Distribution(torch.Tensor):
+  # Init the params of the distribution
+  def init_distribution(self, dist_type, **kwargs):    
+    self.dist_type = dist_type
+    self.dist_kwargs = kwargs
+    if self.dist_type == 'normal':
+      self.mean, self.var = kwargs['mean'], kwargs['var']
+    elif self.dist_type == 'categorical':
+      self.num_categories = kwargs['num_categories']
+
+  def sample_(self):
+    if self.dist_type == 'normal':
+      self.normal_(self.mean, self.var)
+    elif self.dist_type == 'categorical':
+      self.random_(0, self.num_categories)    
+    # return self.variable
+    
+  # Silly hack: overwrite the to() method to wrap the new object
+  # in a distribution as well
+  def to(self, *args, **kwargs):
+    new_obj = Distribution(self)
+    new_obj.init_distribution(self.dist_type, **self.dist_kwargs)
+    new_obj.data = super().to(*args, **kwargs)    
+    return new_obj
+
+
+# Convenience function to prepare a z and y vector
+def prepare_z_y(G_batch_size, dim_z, nclasses, device='cuda', 
+                fp16=False,z_var=1.0):
+  z_ = Distribution(torch.randn(G_batch_size, dim_z, requires_grad=False))
+  z_.init_distribution('normal', mean=0, var=z_var)
+  z_ = z_.to(device,torch.float16 if fp16 else torch.float32)   
+  
+  if fp16:
+    z_ = z_.half()
+
+  y_ = Distribution(torch.zeros(G_batch_size, requires_grad=False))
+  y_.init_distribution('categorical',num_categories=nclasses)
+  y_ = y_.to(device, torch.int64)
+  return z_, y_
+
+def one_hot(ids, out_shape):
+    #if not isinstance(ids, (list, np.ndarray, torch.tensor)):
+    #    raise ValueError("ids must be 1-D list or array")
+    ids = torch.LongTensor(ids).view(-1,1)
+    out_tensor=torch.zeros(out_shape)
+    out_tensor.scatter_(dim=1, index=ids, src=torch.tensor(1.))
+    return out_tensor
+
+def visualize_imgs(images, N, fineSize, input_nc=3):
+
+    blank_img = torch.zeros([1, input_nc, (fineSize+1)*N+1, (fineSize+1)*N+1],
+            dtype=torch.float32).cuda()
+
+    for i in range(N):
+        for ii in range(N):
+            x = ii*fineSize+ii+1
+            y = i*fineSize+i+1
+            img = images[i*N+ii,:,:,:]
+            blank_img[0, :, x:x+fineSize, y:y+fineSize] = img
+
+    return blank_img
+
