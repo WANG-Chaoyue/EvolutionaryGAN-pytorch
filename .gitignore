@@ -5,6 +5,8 @@ checkpoints/
 results/
 build/
 dist/
+inception_v3/
+TTUR/stats/
 *.png
 torch.egg-info/
 */**/__pycache__
