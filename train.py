@@ -70,6 +70,13 @@ if __name__ == '__main__':
                 if opt.display_id > 0:
                     visualizer.plot_current_losses(epoch, float(g_iters) / dataset_size, losses)
 
+            if g_iters % opt.score_freq == 0 and g_iters_ < g_iters:    # print generation scores and save logging information to the disk 
+                scores = model.get_current_scores()
+                t_comp = (time.time() - iter_start_time) / opt.batch_size
+                visualizer.print_current_losses(epoch, g_iters, scores, t_comp, t_data)
+                if opt.display_id > 0:
+                    visualizer.plot_current_losses(epoch, float(g_iters) / dataset_size, scores)
+
             if g_iters % opt.save_latest_freq == 0 and g_iters_ < g_iters:   # cache our latest model every <save_latest_freq> iterations
                 print('saving the latest model (epoch %d, g_iters %d)' % (epoch, g_iters))
                 save_suffix = 'iter_%d' % g_iters if opt.save_by_iter else 'latest'
@@ -81,6 +88,7 @@ if __name__ == '__main__':
                 print('saving the model at the end of epoch %d, g_iters %d' % (epoch, g_iters))
                 model.save_networks('latest')
                 model.save_networks(g_iters)
+
         epoch += 1
         print('(epoch_%d) End of giters %d / %d \t Time Taken: %d sec' % (epoch, g_iters, opt.total_num_giters, time.time() - epoch_start_time))
 

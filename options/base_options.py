@@ -56,6 +56,12 @@ class BaseOptions():
         parser.add_argument('--load_iter', type=int, default='0', help='which iteration to load? if load_iter > 0, the code will load models by iter_[load_iter]; otherwise, the code will load models by [epoch]')
         parser.add_argument('--verbose', action='store_true', help='if specified, print more debugging information')
         parser.add_argument('--suffix', default='', type=str, help='customized suffix: opt.name = opt.name + suffix: e.g., {model}_{netG}_size{load_size}')
+        # score measurement
+        parser.add_argument('--score_name', nargs='*', help='selected socres for evultaion, FID, IS', default=['FID','IS'])
+        parser.add_argument('--evaluation_size', default=50000, type=int, help='# of total sample size for socre evaluation')
+
+        parser.add_argument('--fid_stat_file', default='./TTUR/stats/fid_stats_cifar10_train.npz', help='path to fid stats')
+        parser.add_argument('--fid_batch_size', default=100, type=int, help='# fid calculate batch size')
         self.initialized = True
         return parser
 

@@ -15,19 +15,19 @@ class DCGANGenerator_cifar10(nn.Module):
             use_bias = norm_layer != nn.BatchNorm2d
 
         self.model = nn.Sequential(
-                nn.ConvTranspose2d(z_dim, ngf*8, 4, stride=1),
+                nn.ConvTranspose2d(z_dim, ngf*8, 4, stride=1, padding=0, bias=use_bias),
                 norm_layer(ngf*8),
                 nn.ReLU(True),
-                nn.ConvTranspose2d(ngf*8, ngf*4, 4, stride=2, padding=(1,1)),
+                nn.ConvTranspose2d(ngf*8, ngf*4, 4, stride=2, padding=(1,1), bias=use_bias),
                 norm_layer(ngf*4),
                 nn.ReLU(True),
-                nn.ConvTranspose2d(ngf*4, ngf*2, 4, stride=2, padding=(1,1)),
+                nn.ConvTranspose2d(ngf*4, ngf*2, 4, stride=2, padding=(1,1), bias=use_bias),
                 norm_layer(ngf*2),
                 nn.ReLU(True),
-                nn.ConvTranspose2d(ngf*2, ngf, 4, stride=2, padding=(1,1)),
+                nn.ConvTranspose2d(ngf*2, ngf, 4, stride=2, padding=(1,1), bias=use_bias),
                 norm_layer(ngf),
                 nn.ReLU(True),
-                nn.ConvTranspose2d(ngf, output_nc, 3, stride=1, padding=(1,1)),
+                nn.ConvTranspose2d(ngf, output_nc, 3, stride=1, padding=(1,1), bias=use_bias),
                 nn.Tanh())
 
     def forward(self, input):
@@ -44,18 +44,18 @@ class DCGANDiscriminator_cifar10(nn.Module):
         else:
             use_bias = norm_layer != nn.BatchNorm2d
 
-        sequence = [nn.Conv2d(input_nc, ndf, 3, stride=1, padding=(1,1)),
+        sequence = [nn.Conv2d(input_nc, ndf, 3, stride=1, padding=(1,1), bias=use_bias),
                     norm_layer(ndf),
-                    nn.LeakyReLU(0.1),
-                    nn.Conv2d(ndf, ndf*2, 4, stride=2, padding=(1,1)),
+                    nn.LeakyReLU(0.2),
+                    nn.Conv2d(ndf, ndf*2, 4, stride=2, padding=(1,1), bias=use_bias),
                     norm_layer(ndf*2),
-                    nn.LeakyReLU(0.1),
-                    nn.Conv2d(ndf*2, ndf*4, 4, stride=2, padding=(1,1)),
+                    nn.LeakyReLU(0.2),
+                    nn.Conv2d(ndf*2, ndf*4, 4, stride=2, padding=(1,1), bias=use_bias),
                     norm_layer(ndf*4),
-                    nn.LeakyReLU(0.1),
-                    nn.Conv2d(ndf*4, ndf*8, 4, stride=2, padding=(1,1)),
+                    nn.LeakyReLU(0.2),
+                    nn.Conv2d(ndf*4, ndf*8, 4, stride=2, padding=(1,1), bias=use_bias),
                     norm_layer(ndf*8),
-                    nn.LeakyReLU(0.1),
+                    nn.LeakyReLU(0.2),
                    ]
         self.cnn_model = nn.Sequential(*sequence)
 
