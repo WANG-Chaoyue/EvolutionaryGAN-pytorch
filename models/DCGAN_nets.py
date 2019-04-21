@@ -25,7 +25,7 @@ class DCGANGenerator_cifar10(nn.Module):
                 norm_layer(ngf*2),
                 nn.ReLU(True),
                 nn.ConvTranspose2d(ngf*2, ngf, 4, stride=2, padding=(1,1), bias=use_bias),
-                norm_layer(ngf),
+                #norm_layer(ngf),
                 nn.ReLU(True),
                 nn.ConvTranspose2d(ngf, output_nc, 3, stride=1, padding=(1,1), bias=use_bias),
                 nn.Tanh())

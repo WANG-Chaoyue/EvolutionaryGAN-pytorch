@@ -91,6 +91,12 @@ class Visualizer():
             now = time.strftime("%c")
             log_file.write('================ Training Loss (%s) ================\n' % now)
 
+        # create a logging file to store scores 
+        self.score_log_name = os.path.join(opt.checkpoints_dir, opt.name, 'score_log.txt')
+        with open(self.score_log_name, "a") as log_file:
+            now = time.strftime("%c")
+            log_file.write('================ Scores (%s) ================\n' % now)
+
     def reset(self):
         """Reset the self.saved status"""
         self.saved = False
@@ -225,4 +231,21 @@ class Visualizer():
 
         print(message)  # print the message
         with open(self.log_name, "a") as log_file:
+            log_file.write('%s\n' % message)  # save the message
+
+    # losses: same format as |losses| of plot_current_losses
+    def print_current_scores(self, epoch, iters, scores):
+        """print current losses on console; also save the losses to the disk
+
+        Parameters:
+            epoch (int) -- current epoch
+            iters (int) -- current training iteration during this epoch (reset to 0 at the end of every epoch)
+            scores (OrderedDict) -- training losses stored in the format of (name, float) pairs
+        """
+        message = '(epoch: %d, giters: %d) ' % (epoch, iters)
+        for k, v in scores.items():
+            message += '%s: %.3f ' % (k, v)
+
+        print(message)  # print the message
+        with open(self.score_log_name, "a") as log_file:
             log_file.write('%s\n' % message)  # save the message

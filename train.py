@@ -73,7 +73,7 @@ if __name__ == '__main__':
             if g_iters % opt.score_freq == 0 and g_iters_ < g_iters:    # print generation scores and save logging information to the disk 
                 scores = model.get_current_scores()
                 t_comp = (time.time() - iter_start_time) / opt.batch_size
-                visualizer.print_current_losses(epoch, g_iters, scores, t_comp, t_data)
+                visualizer.print_current_scores(epoch, g_iters, scores)
                 if opt.display_id > 0:
                     visualizer.plot_current_losses(epoch, float(g_iters) / dataset_size, scores)
 
