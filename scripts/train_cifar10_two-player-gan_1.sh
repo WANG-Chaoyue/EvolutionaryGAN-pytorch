@@ -1,11 +1,11 @@
 set -ex
-python train.py --dataroot None --name two_player_gan_cifar10 \
+python train.py --dataroot None --name two_player_gan_cifar10_nsgan \
        --dataset_mode torchvision --batch_size 64 \
        --model two_player_gan \
-       --gpu_ids 1 \
+       --gpu_ids 0 \
        --download_root ./datasets/cifar10 --dataset_name CIFAR10 \
        --crop_size 32 --load_size 32 \
-       --d_loss_mode lsgan --g_loss_mode lsgan --which_D S \
+       --d_loss_mode nsgan --g_loss_mode nsgan --which_D S \
        --netD DCGAN_cifar10 --netG DCGAN_cifar10 \
        --ngf 64 --ndf 64 --norm batch \
        --init_type normal --init_gain 0.02 \
