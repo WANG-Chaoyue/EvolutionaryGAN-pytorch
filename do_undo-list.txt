@@ -1,0 +1,5 @@
+Multi GAN losses         : Done
+Multi bp & one updating  : 
+Evolutionary strategy    :
+Pytorch FID & IS         : 
+

@@ -48,8 +48,6 @@ if __name__ == '__main__':
             g_iters_ = g_iters 
             if total_iters % (opt.D_iters+1) == 0:
                 g_iters += 1 
-            epoch_iter += 1 
-            total_iters += 1 
 
             if g_iters % opt.print_freq == 0 and g_iters_ < g_iters:
                 t_data = iter_start_time - iter_data_time
@@ -57,6 +55,9 @@ if __name__ == '__main__':
 
             model.set_input(data)          # unpack data from dataset and apply preprocessing
             model.optimize_parameters(total_iters)   # calculate loss functions, get gradients, update network weights
+
+            epoch_iter += 1 
+            total_iters += 1 
 
             if g_iters % opt.display_freq == 0 and g_iters_ < g_iters:   # display images on visdom and save images to a HTML file
                 save_result = g_iters % opt.update_html_freq == 0

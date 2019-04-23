@@ -26,9 +26,10 @@ from collections import OrderedDict
 from TTUR import fid
 from util.inception import get_inception_score
 
+import copy 
 import pdb 
 
-class TwoPlayerGANModel(BaseModel):
+class EGANModel(BaseModel):
     @staticmethod
     def modify_commandline_options(parser, is_train=True):
         """Add new model-specific options and rewrite default values for existing options.
@@ -42,11 +43,14 @@ class TwoPlayerGANModel(BaseModel):
         """
         #parser.set_defaults(dataset_mode='aligned')  # You can rewrite default values for this model. For example, this model usually uses aligned dataset as its dataset
         if is_train:
-            parser.add_argument('--g_loss_mode', type=str, default='lsgan', help='lsgan | nsgan | vanilla | wgan | hinge | rsgan') 
+            parser.add_argument('--g_loss_mode', nargs='*', default=['nsgan','lsgan','vanilla'], help='lsgan | nsgan | vanilla | wgan | hinge | rsgan')
             parser.add_argument('--d_loss_mode', type=str, default='lsgan', help='lsgan | nsgan | vanilla | wgan | hinge | rsgan') 
             parser.add_argument('--which_D', type=str, default='S', help='Standard(S) | Relativistic_average (Ra)') 
             parser.add_argument('--use_gp', action='store_true', default=False, help='if usei gradients penalty')
 
+            parser.add_argument('--lambda_f', type=float, default=0.1, help='the hyperparameter that balance Fq and Fd')
+            parser.add_argument('--candi_num', type=int, default=2, help='# of survived candidatures in each evolutinary iteration.')
+            parser.add_argument('--eval_size', type=int, default=None, help='evaluation size')
         return parser
 
     def __init__(self, opt):
@@ -76,6 +80,7 @@ class TwoPlayerGANModel(BaseModel):
         if self.opt.cgan:
             probs = np.ones(self.opt.cat_num)/self.opt.cat_num 
             self.CatDis = Categorical(torch.tensor(probs))
+
         # define networks 
         self.netG = networks.define_G(opt.z_dim, opt.output_nc, opt.ngf, opt.netG,
                 opt.norm, opt.cgan, opt.cat_num, not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids)
@@ -85,14 +90,25 @@ class TwoPlayerGANModel(BaseModel):
                                           opt.norm, opt.cgan, opt.cat_num, opt.init_type, opt.init_gain, self.gpu_ids)
 
         if self.isTrain:  # only defined during training time
+            # define G mutations 
+            self.G_mutations = []
+            for g_loss in opt.g_loss_mode: 
+                self.G_mutations.append(networks.GANLoss(g_loss, 'G', opt.which_D).to(self.device))
             # define loss functions
-            self.criterionG = networks.GANLoss(opt.g_loss_mode, 'G', opt.which_D).to(self.device)
             self.criterionD = networks.GANLoss(opt.d_loss_mode, 'D', opt.which_D).to(self.device)
             # initialize optimizers
             self.optimizer_G = torch.optim.Adam(self.netG.parameters(), lr=opt.lr_g, betas=(opt.beta1, opt.beta2))
             self.optimizer_D = torch.optim.Adam(self.netD.parameters(), lr=opt.lr_d, betas=(opt.beta1, opt.beta2))
             self.optimizers.append(self.optimizer_G)
             self.optimizers.append(self.optimizer_D)
+        
+        # Evolutinoary candidatures setting (init) 
+        self.G_candis = [] 
+        self.optG_candis = [] 
+        for i in range(opt.candi_num): 
+            self.G_candis.append(copy.deepcopy(self.netG.state_dict()))
+            self.optG_candis.append(copy.deepcopy(self.optimizer_G.state_dict()))
+        
         # visulize settings 
         self.N =int(np.trunc(np.sqrt(min(opt.batch_size, 64))))
         self.z_fixed = torch.randn(self.N*self.N, opt.z_dim, 1, 1, device=self.device) 
@@ -121,33 +137,36 @@ class TwoPlayerGANModel(BaseModel):
                 self.sess = tf.Session(config = config)
                 self.sess.run(tf.global_variables_initializer())
 
+        if self.opt.eval_size is None:
+            self.opt.eval_size = self.opt.batch_size
+
     def set_input(self, input):
         """input: a dictionary that contains the data itself and its metadata information."""
         self.real_imgs = input['image'].to(self.device)  
         if self.opt.cgan:
             self.targets = input['target'].to(self.device) 
 
-    def forward(self):
-        bs = self.real_imgs.shape[0]
+    def forward(self, batch_size=None):
+        bs = self.real_imgs.shape[0] if batch_size is None else batch_size
         z = torch.randn(bs, self.opt.z_dim, 1, 1, device=self.device) 
         # Fake images
         if not self.opt.cgan:
-            self.gen_imgs = self.netG(z)
+            gen_imgs = self.netG(z)
+            y_ = None 
         else:
             y = self.CatDis.sample([bs])
-            self.y_ = one_hot(y, [bs, self.opt.cat_num])
-            self.gen_imgs = self.netG(z, self.y_)
+            y_ = one_hot(y, [bs, self.opt.cat_num])
+            gen_imgs = self.netG(z, self.y_)
+        return gen_imgs, y_
 
-    def backward_G(self):
+    def backward_G(self, criterionG):
         # pass D 
         if not self.opt.cgan:
             self.fake_out = self.netD(self.gen_imgs)
-            self.real_out = self.netD(self.real_imgs)
         else:
             self.fake_out = self.netD(self.gen_imgs, self.y_)
-            self.real_out = self.netD(self.real_imgs, self.targets)
 
-        self.loss_G_fake, self.loss_G_real = self.criterionG(self.fake_out, self.real_out) 
+        self.loss_G_fake, self.loss_G_real = criterionG(self.fake_out, self.real_out) 
         self.loss_G = self.loss_G_fake + self.loss_G_real
         self.loss_G.backward() 
 
@@ -171,19 +190,70 @@ class TwoPlayerGANModel(BaseModel):
         self.loss_D.backward() 
 
     def optimize_parameters(self, total_steps):
-        self.forward()               
+        #self.forward()               
         # update G
         if total_steps % (self.opt.D_iters + 1) == 0:
-            self.set_requires_grad(self.netD, False)
-            self.optimizer_G.zero_grad()
-            self.backward_G()
-            self.optimizer_G.step()
+            self.gen_imgs, self.y_ = self.Evo_G()
         # update D
         else: 
             self.set_requires_grad(self.netD, True)
             self.optimizer_D.zero_grad()
             self.backward_D()
             self.optimizer_D.step()
+
+    def Evo_G(self):
+        # define real images pass D
+        self.real_out = self.netD(self.real_imgs) if not self.opt.cgan else self.netD(self.real_imgs, self.targets)
+
+        F_list = np.zeros(self.opt.candi_num) - 1e5
+        G_list = [] 
+        optG_list = [] 
+        # variation-evluation-selection
+        for i in range(self.opt.candi_num):
+            for criterionG in self.G_mutations: 
+                # Variation 
+                self.netG.load_state_dict(self.G_candis[i])
+                self.optimizer_G.load_state_dict(self.optG_candis[i])
+                self.optimizer_G.zero_grad()
+                self.gen_imgs, self.y_ = self.forward() 
+                self.set_requires_grad(self.netD, False)
+                self.backward_G(criterionG)
+                self.optimizer_G.step()
+                # Evaluation 
+                with torch.no_grad(): 
+                    eval_imgs, eval_y = self.forward(batch_size=self.opt.eval_size) 
+                Fq, Fd = self.fitness_score(eval_imgs, eval_y) 
+                F = Fq + self.opt.lambda_f * Fd 
+                # Selection 
+                
+        return F_list, G_list, optG_list  
+
+    def fitness_score(self, eval_imgs, eval_y):
+        #eval_imgs.requires_grad_(True)
+        #self.real_imgs.requires_grad_(True)
+        self.set_requires_grad(self.netD, True)
+        eval_fake = self.netD(eval_imgs) if not self.opt.cgan else self.netD(eval_imgs, self.y_)
+        eval_real = self.netD(self.real_imgs) if not self.opt.cgan else self.netD(self.real_imgs, self.targets)
+
+        # Quality fitness score
+        Fq = eval_fake.data.mean().cpu().numpy()
+
+        # Diversity fitness score
+        eval_D_fake, eval_D_real = self.criterionD(eval_fake, eval_real) 
+        eval_D = eval_D_fake + eval_D_real
+        gradients = torch.autograd.grad(outputs=eval_D, inputs=self.netD.parameters(),
+                                        grad_outputs=torch.ones(eval_D.size()).to(self.device),
+                                        create_graph=True, retain_graph=True, only_inputs=True)
+        with torch.no_grad():
+            for i, grad in enumerate(gradients):
+                grad = grad.view(-1)
+                allgrad = grad if i == 0 else torch.cat([allgrad,grad]) 
+        Fd = torch.log(torch.norm(allgrad)).data.cpu().numpy()
+        pdb.set_trace()
+        #gradients = torch.autograd.grad(outputs=eval_D, inputs=torch.cat([eval_imgs, self.real_imgs], dim = 0),
+        #                                grad_outputs=torch.ones(eval_D.size()).to(self.device),
+        #                                create_graph=True, retain_graph=True, only_inputs=True)
+        return Fq, Fd 
 
     # return visualization images. train.py will display these images, and save the images to a html
     def get_current_visuals(self):
