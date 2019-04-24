@@ -10,7 +10,7 @@ python train.py --dataroot None --name two_player_gan_cifar10_largebs \
        --init_type normal --init_gain 0.02 \
        --lr_g 0.0002 --lr_d 0.0004 \
        --no_dropout --no_flip \
-       --D_iters 1 \
+       --D_iters 2 \
        --gpu_ids 0,1 \
        --score_name FID IS --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz \
-       --print_freq 1000 --display_freq 1000 --score_freq 5000 --display_id -1 --total_num_giters 100000 --save_giters_freq 10000
+       --print_freq 1000 --display_freq 1000 --score_freq 2000 --display_id -1 --total_num_giters 100000 --save_giters_freq 10000

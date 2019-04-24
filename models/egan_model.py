@@ -27,6 +27,7 @@ from TTUR import fid
 from util.inception import get_inception_score
 
 import copy 
+import math 
 import pdb 
 
 class EGANModel(BaseModel):
@@ -50,7 +51,6 @@ class EGANModel(BaseModel):
 
             parser.add_argument('--lambda_f', type=float, default=0.1, help='the hyperparameter that balance Fq and Fd')
             parser.add_argument('--candi_num', type=int, default=2, help='# of survived candidatures in each evolutinary iteration.')
-            parser.add_argument('--eval_size', type=int, default=None, help='evaluation size')
         return parser
 
     def __init__(self, opt):
@@ -136,18 +136,17 @@ class EGANModel(BaseModel):
                 config.gpu_options.allow_growth = True
                 self.sess = tf.Session(config = config)
                 self.sess.run(tf.global_variables_initializer())
-
-        if self.opt.eval_size is None:
-            self.opt.eval_size = self.opt.batch_size
+        # the # of image for each evluation
+        self.eval_size = max(math.ceil((opt.batch_size * opt.D_iters) / opt.candi_num), opt.batch_size)
 
     def set_input(self, input):
         """input: a dictionary that contains the data itself and its metadata information."""
-        self.real_imgs = input['image'].to(self.device)  
+        self.input_imgs = input['image'].to(self.device)  
         if self.opt.cgan:
-            self.targets = input['target'].to(self.device) 
+            self.input_targets = input['target'].to(self.device) 
 
-    def forward(self, batch_size=None):
-        bs = self.real_imgs.shape[0] if batch_size is None else batch_size
+    def forward(self, batch_size = None):
+        bs = self.opt.batch_size if batch_size is None else batch_size
         z = torch.randn(bs, self.opt.z_dim, 1, 1, device=self.device) 
         # Fake images
         if not self.opt.cgan:
@@ -171,7 +170,6 @@ class EGANModel(BaseModel):
         self.loss_G.backward() 
 
     def backward_D(self):
-        self.gen_imgs = self.gen_imgs.detach()
         # pass D 
         if not self.opt.cgan:
             self.fake_out = self.netD(self.gen_imgs)
@@ -189,19 +187,32 @@ class EGANModel(BaseModel):
         self.loss_D = self.loss_D_fake + self.loss_D_real + self.loss_D_gp
         self.loss_D.backward() 
 
-    def optimize_parameters(self, total_steps):
-        #self.forward()               
-        # update G
-        if total_steps % (self.opt.D_iters + 1) == 0:
-            self.Fitness, self.evalimgs, self.evaly, self.sel_mut = self.Evo_G()
-        # update D
-        else: 
-            self.set_requires_grad(self.netD, True)
-            self.optimizer_D.zero_grad()
-            self.backward_D()
-            self.optimizer_D.step()
+    def optimize_parameters(self):
+        for i in range(self.opt.D_iters + 1):
+            self.real_imgs = self.input_imgs[i*self.opt.batch_size:(i+1)*self.opt.batch_size,:,:,:]
+            if self.opt.cgan:
+                self.targets = self.input_target[i*self.opt.batch_size:(i+1)*self.opt.batch_size,:] 
+            # update G
+            if i == 0:
+                self.Fitness, self.evalimgs, self.evaly, self.sel_mut = self.Evo_G()
+                self.evalimgs = torch.cat(self.evalimgs, dim=0) 
+                self.evaly = torch.cat(self.evaly, dim=0) if self.opt.cgan else None 
+                shuffle_ids = torch.randperm(self.evalimgs.size()[0])
+                self.evalimgs = self.evalimgs[shuffle_ids]
+                self.evaly = self.evaly[shuffle_ids] if self.opt.cgan else None 
+            # update D
+            else: 
+                self.set_requires_grad(self.netD, True)
+                self.optimizer_D.zero_grad()
+                self.gen_imgs = self.evalimgs[(i-1)*self.opt.batch_size: i*self.opt.batch_size].detach()
+                self.y_ = self.evaly[(i-1)*self.opt.batch_size: i*self.opt.batch_size] if self.opt.cgan else None
+                self.backward_D()
+                self.optimizer_D.step()
 
     def Evo_G(self):
+        eval_imgs = self.input_imgs[:self.eval_size,:,:,:]
+        eval_targets = self.input_target[:self.eval_size,:] if self.opt.cgan else None
+
         # define real images pass D
         self.real_out = self.netD(self.real_imgs) if not self.opt.cgan else self.netD(self.real_imgs, self.targets)
 
@@ -226,8 +237,8 @@ class EGANModel(BaseModel):
                 self.optimizer_G.step()
                 # Evaluation 
                 with torch.no_grad(): 
-                    eval_imgs, eval_y = self.forward(batch_size=self.opt.eval_size) 
-                Fq, Fd = self.fitness_score(eval_imgs, eval_y) 
+                    eval_fake_imgs, eval_fake_y = self.forward(batch_size=self.eval_size) 
+                Fq, Fd = self.fitness_score(eval_fake_imgs, eval_fake_y, eval_imgs, eval_targets) 
                 F = Fq + self.opt.lambda_f * Fd 
                 # Selection 
                 if count < self.opt.candi_num:
@@ -235,8 +246,8 @@ class EGANModel(BaseModel):
                     Fit_list.append([Fq, Fd, F])  
                     G_list.append(copy.deepcopy(self.netG.state_dict()))
                     optG_list.append(copy.deepcopy(self.optimizer_G.state_dict()))
-                    evalimg_list.append(eval_imgs)
-                    evaly_list.append(eval_y)
+                    evalimg_list.append(eval_fake_imgs)
+                    evaly_list.append(eval_fake_y)
                     selected_mutation.append(self.opt.g_loss_mode[j]) 
                 else:
                     fit_com = F - F_list
@@ -246,21 +257,18 @@ class EGANModel(BaseModel):
                         Fit_list[ids_replace] = [Fq, Fd, F] 
                         G_list[ids_replace] = copy.deepcopy(self.netG.state_dict())
                         optG_list[ids_replace] = copy.deepcopy(self.optimizer_G.state_dict())
-                        evalimg_list[ids_replace] = eval_imgs
-                        evaly_list[ids_replace] = eval_y
+                        evalimg_list[ids_replace] = eval_fake_imgs
+                        evaly_list[ids_replace] = eval_fake_y
                         selected_mutation[ids_replace] = self.opt.g_loss_mode[j]
                 count += 1
         self.G_candis = copy.deepcopy(G_list)             
         self.optG_candis = copy.deepcopy(optG_list)             
-        pdb.set_trace()
         return np.array(Fit_list), evalimg_list, evaly_list, selected_mutation
 
-    def fitness_score(self, eval_imgs, eval_y):
-        #eval_imgs.requires_grad_(True)
-        #self.real_imgs.requires_grad_(True)
+    def fitness_score(self, eval_fake_imgs, eval_fake_y, eval_real_imgs, eval_real_y):
         self.set_requires_grad(self.netD, True)
-        eval_fake = self.netD(eval_imgs) if not self.opt.cgan else self.netD(eval_imgs, self.y_)
-        eval_real = self.netD(self.real_imgs) if not self.opt.cgan else self.netD(self.real_imgs, self.targets)
+        eval_fake = self.netD(eval_fake_imgs) if not self.opt.cgan else self.netD(eval_fake_imgs, eval_fake_y)
+        eval_real = self.netD(eval_real_imgs) if not self.opt.cgan else self.netD(eval_real_imgs, eval_real_y)
 
         # Quality fitness score
         Fq = eval_fake.data.mean().cpu().numpy()
@@ -280,6 +288,11 @@ class EGANModel(BaseModel):
 
     # return visualization images. train.py will display these images, and save the images to a html
     def get_current_visuals(self):
+        # load current best G
+        F = self.Fitness[:,2]
+        idx = np.where(F==max(F))[0][0]
+        self.netG.load_state_dict(self.G_candis[idx])
+        
         visual_ret = OrderedDict()
 
         # gen_visual
@@ -298,6 +311,11 @@ class EGANModel(BaseModel):
         return visual_ret
 
     def get_current_scores(self):
+        # load current best G
+        F = self.Fitness[:,2]
+        idx = np.where(F==max(F))[0][0]
+        self.netG.load_state_dict(self.G_candis[idx])
+        
         scores_ret = OrderedDict()
 
         self.z_fixed = torch.randn(self.N*self.N, self.opt.z_dim, 1, 1, device=self.device) 

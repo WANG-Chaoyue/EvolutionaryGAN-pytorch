@@ -123,19 +123,18 @@ class TwoPlayerGANModel(BaseModel):
 
     def set_input(self, input):
         """input: a dictionary that contains the data itself and its metadata information."""
-        self.real_imgs = input['image'].to(self.device)  
+        self.input_imgs = input['image'].to(self.device)  
         if self.opt.cgan:
-            self.targets = input['target'].to(self.device) 
-
+            self.input_targets = input['target'].to(self.device) 
+        
     def forward(self):
-        bs = self.real_imgs.shape[0]
-        z = torch.randn(bs, self.opt.z_dim, 1, 1, device=self.device) 
+        z = torch.randn(self.opt.batch_size, self.opt.z_dim, 1, 1, device=self.device) 
         # Fake images
         if not self.opt.cgan:
             self.gen_imgs = self.netG(z)
         else:
-            y = self.CatDis.sample([bs])
-            self.y_ = one_hot(y, [bs, self.opt.cat_num])
+            y = self.CatDis.sample([self.opt.batch_size])
+            self.y_ = one_hot(y, [self.opt.batch_size, self.opt.cat_num])
             self.gen_imgs = self.netG(z, self.y_)
 
     def backward_G(self):
@@ -170,20 +169,24 @@ class TwoPlayerGANModel(BaseModel):
         self.loss_D = self.loss_D_fake + self.loss_D_real + self.loss_D_gp
         self.loss_D.backward() 
 
-    def optimize_parameters(self, total_steps):
-        self.forward()               
-        # update G
-        if total_steps % (self.opt.D_iters + 1) == 0:
-            self.set_requires_grad(self.netD, False)
-            self.optimizer_G.zero_grad()
-            self.backward_G()
-            self.optimizer_G.step()
-        # update D
-        else: 
-            self.set_requires_grad(self.netD, True)
-            self.optimizer_D.zero_grad()
-            self.backward_D()
-            self.optimizer_D.step()
+    def optimize_parameters(self):
+        for i in range(self.opt.D_iters + 1):
+            self.real_imgs = self.input_imgs[i*self.opt.batch_size:(i+1)*self.opt.batch_size,:,:,:]
+            if self.opt.cgan:
+                self.targets = self.input_target[i*self.opt.batch_size:(i+1)*self.opt.batch_size,:] 
+            self.forward()               
+            # update G
+            if i == 0:
+                self.set_requires_grad(self.netD, False)
+                self.optimizer_G.zero_grad()
+                self.backward_G()
+                self.optimizer_G.step()
+            # update D
+            else: 
+                self.set_requires_grad(self.netD, True)
+                self.optimizer_D.zero_grad()
+                self.backward_D()
+                self.optimizer_D.step()
 
     # return visualization images. train.py will display these images, and save the images to a html
     def get_current_visuals(self):
