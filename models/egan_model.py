@@ -193,7 +193,7 @@ class EGANModel(BaseModel):
         #self.forward()               
         # update G
         if total_steps % (self.opt.D_iters + 1) == 0:
-            self.gen_imgs, self.y_ = self.Evo_G()
+            self.Fitness, self.evalimgs, self.evaly, self.sel_mut = self.Evo_G()
         # update D
         else: 
             self.set_requires_grad(self.netD, True)
@@ -205,12 +205,17 @@ class EGANModel(BaseModel):
         # define real images pass D
         self.real_out = self.netD(self.real_imgs) if not self.opt.cgan else self.netD(self.real_imgs, self.targets)
 
-        F_list = np.zeros(self.opt.candi_num) - 1e5
+        F_list = np.zeros(self.opt.candi_num)
+        Fit_list = []  
         G_list = [] 
         optG_list = [] 
+        evalimg_list = [] 
+        evaly_list = [] 
+        selected_mutation = [] 
+        count = 0
         # variation-evluation-selection
         for i in range(self.opt.candi_num):
-            for criterionG in self.G_mutations: 
+            for j, criterionG in enumerate(self.G_mutations): 
                 # Variation 
                 self.netG.load_state_dict(self.G_candis[i])
                 self.optimizer_G.load_state_dict(self.optG_candis[i])
@@ -225,8 +230,30 @@ class EGANModel(BaseModel):
                 Fq, Fd = self.fitness_score(eval_imgs, eval_y) 
                 F = Fq + self.opt.lambda_f * Fd 
                 # Selection 
-                
-        return F_list, G_list, optG_list  
+                if count < self.opt.candi_num:
+                    F_list[count] = F
+                    Fit_list.append([Fq, Fd, F])  
+                    G_list.append(copy.deepcopy(self.netG.state_dict()))
+                    optG_list.append(copy.deepcopy(self.optimizer_G.state_dict()))
+                    evalimg_list.append(eval_imgs)
+                    evaly_list.append(eval_y)
+                    selected_mutation.append(self.opt.g_loss_mode[j]) 
+                else:
+                    fit_com = F - F_list
+                    if max(fit_com) > 0:
+                        ids_replace = np.where(fit_com==max(fit_com))[0][0]
+                        F_list[ids_replace] = F
+                        Fit_list[ids_replace] = [Fq, Fd, F] 
+                        G_list[ids_replace] = copy.deepcopy(self.netG.state_dict())
+                        optG_list[ids_replace] = copy.deepcopy(self.optimizer_G.state_dict())
+                        evalimg_list[ids_replace] = eval_imgs
+                        evaly_list[ids_replace] = eval_y
+                        selected_mutation[ids_replace] = self.opt.g_loss_mode[j]
+                count += 1
+        self.G_candis = copy.deepcopy(G_list)             
+        self.optG_candis = copy.deepcopy(optG_list)             
+        pdb.set_trace()
+        return np.array(Fit_list), evalimg_list, evaly_list, selected_mutation
 
     def fitness_score(self, eval_imgs, eval_y):
         #eval_imgs.requires_grad_(True)
@@ -249,10 +276,6 @@ class EGANModel(BaseModel):
                 grad = grad.view(-1)
                 allgrad = grad if i == 0 else torch.cat([allgrad,grad]) 
         Fd = torch.log(torch.norm(allgrad)).data.cpu().numpy()
-        pdb.set_trace()
-        #gradients = torch.autograd.grad(outputs=eval_D, inputs=torch.cat([eval_imgs, self.real_imgs], dim = 0),
-        #                                grad_outputs=torch.ones(eval_D.size()).to(self.device),
-        #                                create_graph=True, retain_graph=True, only_inputs=True)
         return Fq, Fd 
 
     # return visualization images. train.py will display these images, and save the images to a html
