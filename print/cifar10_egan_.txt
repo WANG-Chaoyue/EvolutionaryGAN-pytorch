@@ -93,3 +93,5 @@ model [EGANModel] was created
 [Network D] Total number of parameters : 11.033 M
 -----------------------------------------------
 create web directory ./checkpoints/egan_cifar10_/web...
+(epoch_1) End of giters 195 / 500000 	 Time Taken: 136 sec
+(epoch_2) End of giters 390 / 500000 	 Time Taken: 131 sec
