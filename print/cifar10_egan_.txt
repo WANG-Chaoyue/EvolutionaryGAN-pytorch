@@ -95,3 +95,4 @@ model [EGANModel] was created
 create web directory ./checkpoints/egan_cifar10_/web...
 (epoch_1) End of giters 195 / 500000 	 Time Taken: 136 sec
 (epoch_2) End of giters 390 / 500000 	 Time Taken: 131 sec
+(epoch_3) End of giters 585 / 500000 	 Time Taken: 131 sec

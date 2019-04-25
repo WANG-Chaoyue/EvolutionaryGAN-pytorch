@@ -2,7 +2,7 @@ set -ex
 python train.py --name nsgan_cifar10 \
        --dataset_mode torchvision --batch_size 64 --dataroot None \
        --model two_player_gan \
-       --gpu_ids 0 \
+       --gpu_ids 1 \
        --download_root ./datasets/cifar10 --dataset_name CIFAR10 \
        --crop_size 32 --load_size 32 \
        --d_loss_mode nsgan --g_loss_mode nsgan --which_D S \
