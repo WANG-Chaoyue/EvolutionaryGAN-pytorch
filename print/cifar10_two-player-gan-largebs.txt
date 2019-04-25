@@ -1,1111 +1,0 @@
-+ python train.py --dataroot None --name two_player_gan_cifar10_largebs --model two_player_gan --dataset_mode torchvision --batch_size 2048 --download_root ./datasets/cifar10 --dataset_name CIFAR10 --crop_size 32 --load_size 32 --d_loss_mode lsgan --g_loss_mode lsgan --which_D S --netD DCGAN_cifar10 --netG DCGAN_cifar10 --ngf 64 --ndf 64 --norm batch --init_type normal --init_gain 0.02 --lr_g 0.0002 --lr_d 0.0004 --no_dropout --no_flip --D_iters 1 --gpu_ids 0,1 --score_name FID IS --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz --print_freq 1000 --display_freq 1000 --score_freq 5000 --display_id -1 --total_num_giters 100000 --save_giters_freq 10000
-2019-04-22 22:33:26.583860: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-22 22:33:26.583898: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-22 22:33:26.583902: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-22 22:33:26.583905: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-22 22:33:26.583908: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX512F instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-22 22:33:26.583912: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
------------------ Options ---------------
-                  D_iters: 1                             
-               batch_size: 2048                          	[default: 1]
-                    beta1: 0.5                           
-                    beta2: 0.999                         
-                  cat_num: 10                            
-                     cgan: False                         
-          checkpoints_dir: ./checkpoints                 
-           continue_train: False                         
-                crop_size: 32                            	[default: 256]
-              d_loss_mode: lsgan                         
-                 dataroot: None                          	[default: None]
-             dataset_mode: torchvision                   	[default: unaligned]
-             dataset_name: CIFAR10                       
-              display_env: main                          
-             display_freq: 1000                          	[default: 400]
-               display_id: -1                            	[default: 1]
-            display_ncols: 4                             
-             display_port: 8097                          
-           display_server: http://localhost              
-          display_winsize: 256                           
-            download_root: ./datasets/cifar10            	[default: ./datasets]
-                    epoch: latest                        
-              epoch_count: 1                             
-          evaluation_size: 50000                         
-           fid_batch_size: 500                           	[default: 100]
-            fid_stat_file: ./TTUR/stats/fid_stats_cifar10_train.npz
-              g_loss_mode: lsgan                         
-                  gpu_ids: 0,1                           	[default: 0]
-                init_gain: 0.02                          
-                init_type: normal                        
-                 input_nc: 3                             
-                  isTrain: True                          	[default: None]
-                load_iter: 0                             	[default: 0]
-                load_size: 32                            	[default: 256]
-                     lr_d: 0.0004                        	[default: 0.0002]
-           lr_decay_iters: 50                            
-                     lr_g: 0.0002                        
-                lr_policy: linear                        
-         max_dataset_size: inf                           
-                    model: two_player_gan                	[default: cycle_gan]
-               n_layers_D: 3                             
-                     name: two_player_gan_cifar10_largebs	[default: experiment_name]
-                      ndf: 64                            
-                     netD: DCGAN_cifar10                 	[default: basic]
-                     netG: DCGAN_cifar10                 	[default: resnet_9blocks]
-                      ngf: 64                            
-                    niter: 100                           
-              niter_decay: 100                           
-               no_dropout: True                          	[default: False]
-                  no_flip: True                          	[default: False]
-                  no_html: False                         
-                     norm: batch                         	[default: instance]
-              num_threads: 4                             
-                output_nc: 3                             
-                    phase: train                         
-                pool_size: 50                            
-               preprocess: resize_and_crop               
-               print_freq: 1000                          	[default: 100]
-             save_by_iter: False                         
-         save_giters_freq: 10000                         
-         save_latest_freq: 5000                          
-               score_freq: 5000                          	[default: 100]
-               score_name: ['FID', 'IS']                 
-           serial_batches: False                         
-                   suffix:                               
-         total_num_giters: 100000                        	[default: 500000]
-         update_html_freq: 1001                          
-                   use_gp: False                         
-                  verbose: False                         
-                  which_D: S                             
-                    z_dim: 128                           
------------------ End -------------------
-Files already downloaded and verified
-dataset [TorchvisionDataset] was created
-The number of training images = 50000
-initialize network with normal
-initialize network with normal
-load train stats.. 
-ok
-model [TwoPlayerGANModel] was created
----------- Networks initialized -------------
-[Network G] Total number of parameters : 3.805 M
-[Network D] Total number of parameters : 2.764 M
------------------------------------------------
-create web directory ./checkpoints/two_player_gan_cifar10_largebs/web...
-(epoch_1) End of giters 13 / 100000 	 Time Taken: 12 sec
-(epoch_2) End of giters 25 / 100000 	 Time Taken: 6 sec
-(epoch_3) End of giters 38 / 100000 	 Time Taken: 6 sec
-(epoch_4) End of giters 50 / 100000 	 Time Taken: 6 sec
-(epoch_5) End of giters 63 / 100000 	 Time Taken: 6 sec
-(epoch_6) End of giters 75 / 100000 	 Time Taken: 6 sec
-(epoch_7) End of giters 88 / 100000 	 Time Taken: 6 sec
-(epoch_8) End of giters 100 / 100000 	 Time Taken: 6 sec
-(epoch_9) End of giters 113 / 100000 	 Time Taken: 6 sec
-(epoch_10) End of giters 125 / 100000 	 Time Taken: 6 sec
-(epoch_11) End of giters 138 / 100000 	 Time Taken: 6 sec
-(epoch_12) End of giters 150 / 100000 	 Time Taken: 6 sec
-(epoch_13) End of giters 163 / 100000 	 Time Taken: 6 sec
-(epoch_14) End of giters 175 / 100000 	 Time Taken: 6 sec
-(epoch_15) End of giters 188 / 100000 	 Time Taken: 6 sec
-(epoch_16) End of giters 200 / 100000 	 Time Taken: 6 sec
-(epoch_17) End of giters 213 / 100000 	 Time Taken: 6 sec
-(epoch_18) End of giters 225 / 100000 	 Time Taken: 6 sec
-(epoch_19) End of giters 238 / 100000 	 Time Taken: 6 sec
-(epoch_20) End of giters 250 / 100000 	 Time Taken: 6 sec
-(epoch_21) End of giters 263 / 100000 	 Time Taken: 6 sec
-(epoch_22) End of giters 275 / 100000 	 Time Taken: 6 sec
-(epoch_23) End of giters 288 / 100000 	 Time Taken: 6 sec
-(epoch_24) End of giters 300 / 100000 	 Time Taken: 6 sec
-(epoch_25) End of giters 313 / 100000 	 Time Taken: 6 sec
-(epoch_26) End of giters 325 / 100000 	 Time Taken: 6 sec
-(epoch_27) End of giters 338 / 100000 	 Time Taken: 6 sec
-(epoch_28) End of giters 350 / 100000 	 Time Taken: 6 sec
-(epoch_29) End of giters 363 / 100000 	 Time Taken: 6 sec
-(epoch_30) End of giters 375 / 100000 	 Time Taken: 6 sec
-(epoch_31) End of giters 388 / 100000 	 Time Taken: 6 sec
-(epoch_32) End of giters 400 / 100000 	 Time Taken: 6 sec
-(epoch_33) End of giters 413 / 100000 	 Time Taken: 6 sec
-(epoch_34) End of giters 425 / 100000 	 Time Taken: 6 sec
-(epoch_35) End of giters 438 / 100000 	 Time Taken: 6 sec
-(epoch_36) End of giters 450 / 100000 	 Time Taken: 6 sec
-(epoch_37) End of giters 463 / 100000 	 Time Taken: 6 sec
-(epoch_38) End of giters 475 / 100000 	 Time Taken: 6 sec
-(epoch_39) End of giters 488 / 100000 	 Time Taken: 6 sec
-(epoch_40) End of giters 500 / 100000 	 Time Taken: 6 sec
-(epoch_41) End of giters 513 / 100000 	 Time Taken: 6 sec
-(epoch_42) End of giters 525 / 100000 	 Time Taken: 6 sec
-(epoch_43) End of giters 538 / 100000 	 Time Taken: 6 sec
-(epoch_44) End of giters 550 / 100000 	 Time Taken: 6 sec
-(epoch_45) End of giters 563 / 100000 	 Time Taken: 6 sec
-(epoch_46) End of giters 575 / 100000 	 Time Taken: 6 sec
-(epoch_47) End of giters 588 / 100000 	 Time Taken: 6 sec
-(epoch_48) End of giters 600 / 100000 	 Time Taken: 6 sec
-(epoch_49) End of giters 613 / 100000 	 Time Taken: 6 sec
-(epoch_50) End of giters 625 / 100000 	 Time Taken: 6 sec
-(epoch_51) End of giters 638 / 100000 	 Time Taken: 6 sec
-(epoch_52) End of giters 650 / 100000 	 Time Taken: 6 sec
-(epoch_53) End of giters 663 / 100000 	 Time Taken: 6 sec
-(epoch_54) End of giters 675 / 100000 	 Time Taken: 6 sec
-(epoch_55) End of giters 688 / 100000 	 Time Taken: 6 sec
-(epoch_56) End of giters 700 / 100000 	 Time Taken: 6 sec
-(epoch_57) End of giters 713 / 100000 	 Time Taken: 6 sec
-(epoch_58) End of giters 725 / 100000 	 Time Taken: 6 sec
-(epoch_59) End of giters 738 / 100000 	 Time Taken: 6 sec
-(epoch_60) End of giters 750 / 100000 	 Time Taken: 6 sec
-(epoch_61) End of giters 763 / 100000 	 Time Taken: 6 sec
-(epoch_62) End of giters 775 / 100000 	 Time Taken: 6 sec
-(epoch_63) End of giters 788 / 100000 	 Time Taken: 6 sec
-(epoch_64) End of giters 800 / 100000 	 Time Taken: 6 sec
-(epoch_65) End of giters 813 / 100000 	 Time Taken: 6 sec
-(epoch_66) End of giters 825 / 100000 	 Time Taken: 6 sec
-(epoch_67) End of giters 838 / 100000 	 Time Taken: 6 sec
-(epoch_68) End of giters 850 / 100000 	 Time Taken: 6 sec
-(epoch_69) End of giters 863 / 100000 	 Time Taken: 6 sec
-(epoch_70) End of giters 875 / 100000 	 Time Taken: 6 sec
-(epoch_71) End of giters 888 / 100000 	 Time Taken: 6 sec
-(epoch_72) End of giters 900 / 100000 	 Time Taken: 6 sec
-(epoch_73) End of giters 913 / 100000 	 Time Taken: 6 sec
-(epoch_74) End of giters 925 / 100000 	 Time Taken: 6 sec
-(epoch_75) End of giters 938 / 100000 	 Time Taken: 6 sec
-(epoch_76) End of giters 950 / 100000 	 Time Taken: 6 sec
-(epoch_77) End of giters 963 / 100000 	 Time Taken: 6 sec
-(epoch_78) End of giters 975 / 100000 	 Time Taken: 6 sec
-(epoch_79) End of giters 988 / 100000 	 Time Taken: 6 sec
-(epoch: 79, giters: 1000, time: 0.001, data: 0.007) G_real: 0.000 G_fake: 0.702 D_real: 0.106 D_fake: 0.121 D_gp: 0.000 G: 0.702 D: 0.226 
-(epoch_80) End of giters 1000 / 100000 	 Time Taken: 8 sec
-(epoch_81) End of giters 1013 / 100000 	 Time Taken: 6 sec
-(epoch_82) End of giters 1025 / 100000 	 Time Taken: 6 sec
-(epoch_83) End of giters 1038 / 100000 	 Time Taken: 6 sec
-(epoch_84) End of giters 1050 / 100000 	 Time Taken: 6 sec
-(epoch_85) End of giters 1063 / 100000 	 Time Taken: 6 sec
-(epoch_86) End of giters 1075 / 100000 	 Time Taken: 6 sec
-(epoch_87) End of giters 1088 / 100000 	 Time Taken: 6 sec
-(epoch_88) End of giters 1100 / 100000 	 Time Taken: 6 sec
-(epoch_89) End of giters 1113 / 100000 	 Time Taken: 6 sec
-(epoch_90) End of giters 1125 / 100000 	 Time Taken: 6 sec
-(epoch_91) End of giters 1138 / 100000 	 Time Taken: 6 sec
-(epoch_92) End of giters 1150 / 100000 	 Time Taken: 6 sec
-(epoch_93) End of giters 1163 / 100000 	 Time Taken: 6 sec
-(epoch_94) End of giters 1175 / 100000 	 Time Taken: 6 sec
-(epoch_95) End of giters 1188 / 100000 	 Time Taken: 6 sec
-(epoch_96) End of giters 1200 / 100000 	 Time Taken: 6 sec
-(epoch_97) End of giters 1213 / 100000 	 Time Taken: 6 sec
-(epoch_98) End of giters 1225 / 100000 	 Time Taken: 6 sec
-(epoch_99) End of giters 1238 / 100000 	 Time Taken: 6 sec
-(epoch_100) End of giters 1250 / 100000 	 Time Taken: 6 sec
-(epoch_101) End of giters 1263 / 100000 	 Time Taken: 6 sec
-(epoch_102) End of giters 1275 / 100000 	 Time Taken: 6 sec
-(epoch_103) End of giters 1288 / 100000 	 Time Taken: 6 sec
-(epoch_104) End of giters 1300 / 100000 	 Time Taken: 6 sec
-(epoch_105) End of giters 1313 / 100000 	 Time Taken: 6 sec
-(epoch_106) End of giters 1325 / 100000 	 Time Taken: 6 sec
-(epoch_107) End of giters 1338 / 100000 	 Time Taken: 6 sec
-(epoch_108) End of giters 1350 / 100000 	 Time Taken: 6 sec
-(epoch_109) End of giters 1363 / 100000 	 Time Taken: 6 sec
-(epoch_110) End of giters 1375 / 100000 	 Time Taken: 6 sec
-(epoch_111) End of giters 1388 / 100000 	 Time Taken: 6 sec
-(epoch_112) End of giters 1400 / 100000 	 Time Taken: 6 sec
-(epoch_113) End of giters 1413 / 100000 	 Time Taken: 6 sec
-(epoch_114) End of giters 1425 / 100000 	 Time Taken: 6 sec
-(epoch_115) End of giters 1438 / 100000 	 Time Taken: 6 sec
-(epoch_116) End of giters 1450 / 100000 	 Time Taken: 7 sec
-(epoch_117) End of giters 1463 / 100000 	 Time Taken: 6 sec
-(epoch_118) End of giters 1475 / 100000 	 Time Taken: 6 sec
-(epoch_119) End of giters 1488 / 100000 	 Time Taken: 6 sec
-(epoch_120) End of giters 1500 / 100000 	 Time Taken: 6 sec
-(epoch_121) End of giters 1513 / 100000 	 Time Taken: 6 sec
-(epoch_122) End of giters 1525 / 100000 	 Time Taken: 6 sec
-(epoch_123) End of giters 1538 / 100000 	 Time Taken: 6 sec
-(epoch_124) End of giters 1550 / 100000 	 Time Taken: 7 sec
-(epoch_125) End of giters 1563 / 100000 	 Time Taken: 6 sec
-(epoch_126) End of giters 1575 / 100000 	 Time Taken: 6 sec
-(epoch_127) End of giters 1588 / 100000 	 Time Taken: 6 sec
-(epoch_128) End of giters 1600 / 100000 	 Time Taken: 6 sec
-(epoch_129) End of giters 1613 / 100000 	 Time Taken: 6 sec
-(epoch_130) End of giters 1625 / 100000 	 Time Taken: 6 sec
-(epoch_131) End of giters 1638 / 100000 	 Time Taken: 6 sec
-(epoch_132) End of giters 1650 / 100000 	 Time Taken: 6 sec
-(epoch_133) End of giters 1663 / 100000 	 Time Taken: 6 sec
-(epoch_134) End of giters 1675 / 100000 	 Time Taken: 6 sec
-(epoch_135) End of giters 1688 / 100000 	 Time Taken: 6 sec
-(epoch_136) End of giters 1700 / 100000 	 Time Taken: 6 sec
-(epoch_137) End of giters 1713 / 100000 	 Time Taken: 6 sec
-(epoch_138) End of giters 1725 / 100000 	 Time Taken: 7 sec
-(epoch_139) End of giters 1738 / 100000 	 Time Taken: 7 sec
-(epoch_140) End of giters 1750 / 100000 	 Time Taken: 7 sec
-(epoch_141) End of giters 1763 / 100000 	 Time Taken: 6 sec
-(epoch_142) End of giters 1775 / 100000 	 Time Taken: 6 sec
-(epoch_143) End of giters 1788 / 100000 	 Time Taken: 6 sec
-(epoch_144) End of giters 1800 / 100000 	 Time Taken: 6 sec
-(epoch_145) End of giters 1813 / 100000 	 Time Taken: 6 sec
-(epoch_146) End of giters 1825 / 100000 	 Time Taken: 6 sec
-(epoch_147) End of giters 1838 / 100000 	 Time Taken: 7 sec
-(epoch_148) End of giters 1850 / 100000 	 Time Taken: 7 sec
-(epoch_149) End of giters 1863 / 100000 	 Time Taken: 6 sec
-(epoch_150) End of giters 1875 / 100000 	 Time Taken: 6 sec
-(epoch_151) End of giters 1888 / 100000 	 Time Taken: 6 sec
-(epoch_152) End of giters 1900 / 100000 	 Time Taken: 6 sec
-(epoch_153) End of giters 1913 / 100000 	 Time Taken: 6 sec
-(epoch_154) End of giters 1925 / 100000 	 Time Taken: 6 sec
-(epoch_155) End of giters 1938 / 100000 	 Time Taken: 7 sec
-(epoch_156) End of giters 1950 / 100000 	 Time Taken: 6 sec
-(epoch_157) End of giters 1963 / 100000 	 Time Taken: 6 sec
-(epoch_158) End of giters 1975 / 100000 	 Time Taken: 6 sec
-(epoch_159) End of giters 1988 / 100000 	 Time Taken: 6 sec
-(epoch: 159, giters: 2000, time: 0.001, data: 0.007) G_real: 0.000 G_fake: 0.467 D_real: 0.172 D_fake: 0.207 D_gp: 0.000 G: 0.467 D: 0.379 
-(epoch_160) End of giters 2000 / 100000 	 Time Taken: 8 sec
-(epoch_161) End of giters 2013 / 100000 	 Time Taken: 6 sec
-(epoch_162) End of giters 2025 / 100000 	 Time Taken: 6 sec
-(epoch_163) End of giters 2038 / 100000 	 Time Taken: 6 sec
-(epoch_164) End of giters 2050 / 100000 	 Time Taken: 6 sec
-(epoch_165) End of giters 2063 / 100000 	 Time Taken: 6 sec
-(epoch_166) End of giters 2075 / 100000 	 Time Taken: 6 sec
-(epoch_167) End of giters 2088 / 100000 	 Time Taken: 6 sec
-(epoch_168) End of giters 2100 / 100000 	 Time Taken: 6 sec
-(epoch_169) End of giters 2113 / 100000 	 Time Taken: 6 sec
-(epoch_170) End of giters 2125 / 100000 	 Time Taken: 6 sec
-(epoch_171) End of giters 2138 / 100000 	 Time Taken: 6 sec
-(epoch_172) End of giters 2150 / 100000 	 Time Taken: 6 sec
-(epoch_173) End of giters 2163 / 100000 	 Time Taken: 6 sec
-(epoch_174) End of giters 2175 / 100000 	 Time Taken: 7 sec
-(epoch_175) End of giters 2188 / 100000 	 Time Taken: 7 sec
-(epoch_176) End of giters 2200 / 100000 	 Time Taken: 7 sec
-(epoch_177) End of giters 2213 / 100000 	 Time Taken: 7 sec
-(epoch_178) End of giters 2225 / 100000 	 Time Taken: 6 sec
-(epoch_179) End of giters 2238 / 100000 	 Time Taken: 7 sec
-(epoch_180) End of giters 2250 / 100000 	 Time Taken: 6 sec
-(epoch_181) End of giters 2263 / 100000 	 Time Taken: 6 sec
-(epoch_182) End of giters 2275 / 100000 	 Time Taken: 6 sec
-(epoch_183) End of giters 2288 / 100000 	 Time Taken: 6 sec
-(epoch_184) End of giters 2300 / 100000 	 Time Taken: 6 sec
-(epoch_185) End of giters 2313 / 100000 	 Time Taken: 6 sec
-(epoch_186) End of giters 2325 / 100000 	 Time Taken: 6 sec
-(epoch_187) End of giters 2338 / 100000 	 Time Taken: 6 sec
-(epoch_188) End of giters 2350 / 100000 	 Time Taken: 7 sec
-(epoch_189) End of giters 2363 / 100000 	 Time Taken: 7 sec
-(epoch_190) End of giters 2375 / 100000 	 Time Taken: 6 sec
-(epoch_191) End of giters 2388 / 100000 	 Time Taken: 6 sec
-(epoch_192) End of giters 2400 / 100000 	 Time Taken: 7 sec
-(epoch_193) End of giters 2413 / 100000 	 Time Taken: 6 sec
-(epoch_194) End of giters 2425 / 100000 	 Time Taken: 6 sec
-(epoch_195) End of giters 2438 / 100000 	 Time Taken: 6 sec
-(epoch_196) End of giters 2450 / 100000 	 Time Taken: 7 sec
-(epoch_197) End of giters 2463 / 100000 	 Time Taken: 7 sec
-(epoch_198) End of giters 2475 / 100000 	 Time Taken: 6 sec
-(epoch_199) End of giters 2488 / 100000 	 Time Taken: 6 sec
-(epoch_200) End of giters 2500 / 100000 	 Time Taken: 6 sec
-(epoch_201) End of giters 2513 / 100000 	 Time Taken: 6 sec
-(epoch_202) End of giters 2525 / 100000 	 Time Taken: 6 sec
-(epoch_203) End of giters 2538 / 100000 	 Time Taken: 6 sec
-(epoch_204) End of giters 2550 / 100000 	 Time Taken: 6 sec
-(epoch_205) End of giters 2563 / 100000 	 Time Taken: 6 sec
-(epoch_206) End of giters 2575 / 100000 	 Time Taken: 7 sec
-(epoch_207) End of giters 2588 / 100000 	 Time Taken: 6 sec
-(epoch_208) End of giters 2600 / 100000 	 Time Taken: 6 sec
-(epoch_209) End of giters 2613 / 100000 	 Time Taken: 6 sec
-(epoch_210) End of giters 2625 / 100000 	 Time Taken: 6 sec
-(epoch_211) End of giters 2638 / 100000 	 Time Taken: 6 sec
-(epoch_212) End of giters 2650 / 100000 	 Time Taken: 7 sec
-(epoch_213) End of giters 2663 / 100000 	 Time Taken: 6 sec
-(epoch_214) End of giters 2675 / 100000 	 Time Taken: 6 sec
-(epoch_215) End of giters 2688 / 100000 	 Time Taken: 6 sec
-(epoch_216) End of giters 2700 / 100000 	 Time Taken: 6 sec
-(epoch_217) End of giters 2713 / 100000 	 Time Taken: 6 sec
-(epoch_218) End of giters 2725 / 100000 	 Time Taken: 6 sec
-(epoch_219) End of giters 2738 / 100000 	 Time Taken: 6 sec
-(epoch_220) End of giters 2750 / 100000 	 Time Taken: 6 sec
-(epoch_221) End of giters 2763 / 100000 	 Time Taken: 6 sec
-(epoch_222) End of giters 2775 / 100000 	 Time Taken: 6 sec
-(epoch_223) End of giters 2788 / 100000 	 Time Taken: 7 sec
-(epoch_224) End of giters 2800 / 100000 	 Time Taken: 7 sec
-(epoch_225) End of giters 2813 / 100000 	 Time Taken: 6 sec
-(epoch_226) End of giters 2825 / 100000 	 Time Taken: 7 sec
-(epoch_227) End of giters 2838 / 100000 	 Time Taken: 7 sec
-(epoch_228) End of giters 2850 / 100000 	 Time Taken: 6 sec
-(epoch_229) End of giters 2863 / 100000 	 Time Taken: 6 sec
-(epoch_230) End of giters 2875 / 100000 	 Time Taken: 7 sec
-(epoch_231) End of giters 2888 / 100000 	 Time Taken: 6 sec
-(epoch_232) End of giters 2900 / 100000 	 Time Taken: 6 sec
-(epoch_233) End of giters 2913 / 100000 	 Time Taken: 6 sec
-(epoch_234) End of giters 2925 / 100000 	 Time Taken: 6 sec
-(epoch_235) End of giters 2938 / 100000 	 Time Taken: 6 sec
-(epoch_236) End of giters 2950 / 100000 	 Time Taken: 6 sec
-(epoch_237) End of giters 2963 / 100000 	 Time Taken: 6 sec
-(epoch_238) End of giters 2975 / 100000 	 Time Taken: 6 sec
-(epoch_239) End of giters 2988 / 100000 	 Time Taken: 6 sec
-(epoch: 239, giters: 3000, time: 0.001, data: 0.007) G_real: 0.000 G_fake: 0.480 D_real: 0.174 D_fake: 0.495 D_gp: 0.000 G: 0.480 D: 0.669 
-(epoch_240) End of giters 3000 / 100000 	 Time Taken: 8 sec
-(epoch_241) End of giters 3013 / 100000 	 Time Taken: 6 sec
-(epoch_242) End of giters 3025 / 100000 	 Time Taken: 6 sec
-(epoch_243) End of giters 3038 / 100000 	 Time Taken: 6 sec
-(epoch_244) End of giters 3050 / 100000 	 Time Taken: 6 sec
-(epoch_245) End of giters 3063 / 100000 	 Time Taken: 6 sec
-(epoch_246) End of giters 3075 / 100000 	 Time Taken: 7 sec
-(epoch_247) End of giters 3088 / 100000 	 Time Taken: 7 sec
-(epoch_248) End of giters 3100 / 100000 	 Time Taken: 6 sec
-(epoch_249) End of giters 3113 / 100000 	 Time Taken: 6 sec
-(epoch_250) End of giters 3125 / 100000 	 Time Taken: 6 sec
-(epoch_251) End of giters 3138 / 100000 	 Time Taken: 6 sec
-(epoch_252) End of giters 3150 / 100000 	 Time Taken: 6 sec
-(epoch_253) End of giters 3163 / 100000 	 Time Taken: 6 sec
-(epoch_254) End of giters 3175 / 100000 	 Time Taken: 6 sec
-(epoch_255) End of giters 3188 / 100000 	 Time Taken: 6 sec
-(epoch_256) End of giters 3200 / 100000 	 Time Taken: 6 sec
-(epoch_257) End of giters 3213 / 100000 	 Time Taken: 6 sec
-(epoch_258) End of giters 3225 / 100000 	 Time Taken: 6 sec
-(epoch_259) End of giters 3238 / 100000 	 Time Taken: 6 sec
-(epoch_260) End of giters 3250 / 100000 	 Time Taken: 6 sec
-(epoch_261) End of giters 3263 / 100000 	 Time Taken: 6 sec
-(epoch_262) End of giters 3275 / 100000 	 Time Taken: 6 sec
-(epoch_263) End of giters 3288 / 100000 	 Time Taken: 6 sec
-(epoch_264) End of giters 3300 / 100000 	 Time Taken: 6 sec
-(epoch_265) End of giters 3313 / 100000 	 Time Taken: 7 sec
-(epoch_266) End of giters 3325 / 100000 	 Time Taken: 6 sec
-(epoch_267) End of giters 3338 / 100000 	 Time Taken: 6 sec
-(epoch_268) End of giters 3350 / 100000 	 Time Taken: 7 sec
-(epoch_269) End of giters 3363 / 100000 	 Time Taken: 6 sec
-(epoch_270) End of giters 3375 / 100000 	 Time Taken: 7 sec
-(epoch_271) End of giters 3388 / 100000 	 Time Taken: 6 sec
-(epoch_272) End of giters 3400 / 100000 	 Time Taken: 6 sec
-(epoch_273) End of giters 3413 / 100000 	 Time Taken: 6 sec
-(epoch_274) End of giters 3425 / 100000 	 Time Taken: 6 sec
-(epoch_275) End of giters 3438 / 100000 	 Time Taken: 6 sec
-(epoch_276) End of giters 3450 / 100000 	 Time Taken: 6 sec
-(epoch_277) End of giters 3463 / 100000 	 Time Taken: 6 sec
-(epoch_278) End of giters 3475 / 100000 	 Time Taken: 6 sec
-(epoch_279) End of giters 3488 / 100000 	 Time Taken: 6 sec
-(epoch_280) End of giters 3500 / 100000 	 Time Taken: 7 sec
-(epoch_281) End of giters 3513 / 100000 	 Time Taken: 6 sec
-(epoch_282) End of giters 3525 / 100000 	 Time Taken: 6 sec
-(epoch_283) End of giters 3538 / 100000 	 Time Taken: 6 sec
-(epoch_284) End of giters 3550 / 100000 	 Time Taken: 7 sec
-(epoch_285) End of giters 3563 / 100000 	 Time Taken: 6 sec
-(epoch_286) End of giters 3575 / 100000 	 Time Taken: 7 sec
-(epoch_287) End of giters 3588 / 100000 	 Time Taken: 6 sec
-(epoch_288) End of giters 3600 / 100000 	 Time Taken: 6 sec
-(epoch_289) End of giters 3613 / 100000 	 Time Taken: 6 sec
-(epoch_290) End of giters 3625 / 100000 	 Time Taken: 6 sec
-(epoch_291) End of giters 3638 / 100000 	 Time Taken: 6 sec
-(epoch_292) End of giters 3650 / 100000 	 Time Taken: 7 sec
-(epoch_293) End of giters 3663 / 100000 	 Time Taken: 6 sec
-(epoch_294) End of giters 3675 / 100000 	 Time Taken: 7 sec
-(epoch_295) End of giters 3688 / 100000 	 Time Taken: 6 sec
-(epoch_296) End of giters 3700 / 100000 	 Time Taken: 6 sec
-(epoch_297) End of giters 3713 / 100000 	 Time Taken: 6 sec
-(epoch_298) End of giters 3725 / 100000 	 Time Taken: 6 sec
-(epoch_299) End of giters 3738 / 100000 	 Time Taken: 7 sec
-(epoch_300) End of giters 3750 / 100000 	 Time Taken: 6 sec
-(epoch_301) End of giters 3763 / 100000 	 Time Taken: 6 sec
-(epoch_302) End of giters 3775 / 100000 	 Time Taken: 7 sec
-(epoch_303) End of giters 3788 / 100000 	 Time Taken: 6 sec
-(epoch_304) End of giters 3800 / 100000 	 Time Taken: 6 sec
-(epoch_305) End of giters 3813 / 100000 	 Time Taken: 6 sec
-(epoch_306) End of giters 3825 / 100000 	 Time Taken: 6 sec
-(epoch_307) End of giters 3838 / 100000 	 Time Taken: 6 sec
-(epoch_308) End of giters 3850 / 100000 	 Time Taken: 7 sec
-(epoch_309) End of giters 3863 / 100000 	 Time Taken: 6 sec
-(epoch_310) End of giters 3875 / 100000 	 Time Taken: 6 sec
-(epoch_311) End of giters 3888 / 100000 	 Time Taken: 6 sec
-(epoch_312) End of giters 3900 / 100000 	 Time Taken: 6 sec
-(epoch_313) End of giters 3913 / 100000 	 Time Taken: 6 sec
-(epoch_314) End of giters 3925 / 100000 	 Time Taken: 6 sec
-(epoch_315) End of giters 3938 / 100000 	 Time Taken: 6 sec
-(epoch_316) End of giters 3950 / 100000 	 Time Taken: 6 sec
-(epoch_317) End of giters 3963 / 100000 	 Time Taken: 6 sec
-(epoch_318) End of giters 3975 / 100000 	 Time Taken: 6 sec
-(epoch_319) End of giters 3988 / 100000 	 Time Taken: 7 sec
-(epoch: 319, giters: 4000, time: 0.001, data: 0.007) G_real: 0.000 G_fake: 1.846 D_real: 0.403 D_fake: 0.097 D_gp: 0.000 G: 1.846 D: 0.501 
-(epoch_320) End of giters 4000 / 100000 	 Time Taken: 8 sec
-(epoch_321) End of giters 4013 / 100000 	 Time Taken: 6 sec
-(epoch_322) End of giters 4025 / 100000 	 Time Taken: 6 sec
-(epoch_323) End of giters 4038 / 100000 	 Time Taken: 6 sec
-(epoch_324) End of giters 4050 / 100000 	 Time Taken: 6 sec
-(epoch_325) End of giters 4063 / 100000 	 Time Taken: 6 sec
-(epoch_326) End of giters 4075 / 100000 	 Time Taken: 6 sec
-(epoch_327) End of giters 4088 / 100000 	 Time Taken: 6 sec
-(epoch_328) End of giters 4100 / 100000 	 Time Taken: 6 sec
-(epoch_329) End of giters 4113 / 100000 	 Time Taken: 6 sec
-(epoch_330) End of giters 4125 / 100000 	 Time Taken: 6 sec
-(epoch_331) End of giters 4138 / 100000 	 Time Taken: 6 sec
-(epoch_332) End of giters 4150 / 100000 	 Time Taken: 6 sec
-(epoch_333) End of giters 4163 / 100000 	 Time Taken: 6 sec
-(epoch_334) End of giters 4175 / 100000 	 Time Taken: 6 sec
-(epoch_335) End of giters 4188 / 100000 	 Time Taken: 6 sec
-(epoch_336) End of giters 4200 / 100000 	 Time Taken: 6 sec
-(epoch_337) End of giters 4213 / 100000 	 Time Taken: 6 sec
-(epoch_338) End of giters 4225 / 100000 	 Time Taken: 6 sec
-(epoch_339) End of giters 4238 / 100000 	 Time Taken: 6 sec
-(epoch_340) End of giters 4250 / 100000 	 Time Taken: 6 sec
-(epoch_341) End of giters 4263 / 100000 	 Time Taken: 6 sec
-(epoch_342) End of giters 4275 / 100000 	 Time Taken: 6 sec
-(epoch_343) End of giters 4288 / 100000 	 Time Taken: 6 sec
-(epoch_344) End of giters 4300 / 100000 	 Time Taken: 6 sec
-(epoch_345) End of giters 4313 / 100000 	 Time Taken: 7 sec
-(epoch_346) End of giters 4325 / 100000 	 Time Taken: 6 sec
-(epoch_347) End of giters 4338 / 100000 	 Time Taken: 6 sec
-(epoch_348) End of giters 4350 / 100000 	 Time Taken: 6 sec
-(epoch_349) End of giters 4363 / 100000 	 Time Taken: 6 sec
-(epoch_350) End of giters 4375 / 100000 	 Time Taken: 6 sec
-(epoch_351) End of giters 4388 / 100000 	 Time Taken: 6 sec
-(epoch_352) End of giters 4400 / 100000 	 Time Taken: 7 sec
-(epoch_353) End of giters 4413 / 100000 	 Time Taken: 6 sec
-(epoch_354) End of giters 4425 / 100000 	 Time Taken: 6 sec
-(epoch_355) End of giters 4438 / 100000 	 Time Taken: 6 sec
-(epoch_356) End of giters 4450 / 100000 	 Time Taken: 6 sec
-(epoch_357) End of giters 4463 / 100000 	 Time Taken: 6 sec
-(epoch_358) End of giters 4475 / 100000 	 Time Taken: 6 sec
-(epoch_359) End of giters 4488 / 100000 	 Time Taken: 6 sec
-(epoch_360) End of giters 4500 / 100000 	 Time Taken: 6 sec
-(epoch_361) End of giters 4513 / 100000 	 Time Taken: 6 sec
-(epoch_362) End of giters 4525 / 100000 	 Time Taken: 6 sec
-(epoch_363) End of giters 4538 / 100000 	 Time Taken: 6 sec
-(epoch_364) End of giters 4550 / 100000 	 Time Taken: 6 sec
-(epoch_365) End of giters 4563 / 100000 	 Time Taken: 7 sec
-(epoch_366) End of giters 4575 / 100000 	 Time Taken: 6 sec
-(epoch_367) End of giters 4588 / 100000 	 Time Taken: 6 sec
-(epoch_368) End of giters 4600 / 100000 	 Time Taken: 6 sec
-(epoch_369) End of giters 4613 / 100000 	 Time Taken: 6 sec
-(epoch_370) End of giters 4625 / 100000 	 Time Taken: 6 sec
-(epoch_371) End of giters 4638 / 100000 	 Time Taken: 6 sec
-(epoch_372) End of giters 4650 / 100000 	 Time Taken: 6 sec
-(epoch_373) End of giters 4663 / 100000 	 Time Taken: 6 sec
-(epoch_374) End of giters 4675 / 100000 	 Time Taken: 6 sec
-(epoch_375) End of giters 4688 / 100000 	 Time Taken: 6 sec
-(epoch_376) End of giters 4700 / 100000 	 Time Taken: 6 sec
-(epoch_377) End of giters 4713 / 100000 	 Time Taken: 6 sec
-(epoch_378) End of giters 4725 / 100000 	 Time Taken: 6 sec
-(epoch_379) End of giters 4738 / 100000 	 Time Taken: 6 sec
-(epoch_380) End of giters 4750 / 100000 	 Time Taken: 6 sec
-(epoch_381) End of giters 4763 / 100000 	 Time Taken: 6 sec
-(epoch_382) End of giters 4775 / 100000 	 Time Taken: 6 sec
-(epoch_383) End of giters 4788 / 100000 	 Time Taken: 7 sec
-(epoch_384) End of giters 4800 / 100000 	 Time Taken: 6 sec
-(epoch_385) End of giters 4813 / 100000 	 Time Taken: 6 sec
-(epoch_386) End of giters 4825 / 100000 	 Time Taken: 6 sec
-(epoch_387) End of giters 4838 / 100000 	 Time Taken: 6 sec
-(epoch_388) End of giters 4850 / 100000 	 Time Taken: 6 sec
-(epoch_389) End of giters 4863 / 100000 	 Time Taken: 6 sec
-(epoch_390) End of giters 4875 / 100000 	 Time Taken: 6 sec
-(epoch_391) End of giters 4888 / 100000 	 Time Taken: 6 sec
-(epoch_392) End of giters 4900 / 100000 	 Time Taken: 6 sec
-(epoch_393) End of giters 4913 / 100000 	 Time Taken: 6 sec
-(epoch_394) End of giters 4925 / 100000 	 Time Taken: 6 sec
-(epoch_395) End of giters 4938 / 100000 	 Time Taken: 6 sec
-(epoch_396) End of giters 4950 / 100000 	 Time Taken: 6 sec
-(epoch_397) End of giters 4963 / 100000 	 Time Taken: 6 sec
-(epoch_398) End of giters 4975 / 100000 	 Time Taken: 6 sec
-(epoch_399) End of giters 4988 / 100000 	 Time Taken: 6 sec
-2019-04-22 23:19:30.589268: W tensorflow/core/framework/op_def_util.cc:333] Op BatchNormWithGlobalNormalization is deprecated. It will cease to work in GraphDef version 9. Use tf.nn.batch_normalization().
-(epoch: 399, giters: 5000, time: 0.001, data: 0.007) G_real: 0.000 G_fake: 0.627 D_real: 0.039 D_fake: 0.246 D_gp: 0.000 G: 0.627 D: 0.285 
-generate fid sample batch 1/100 
-generate fid sample batch 2/100 
-generate fid sample batch 3/100 
-generate fid sample batch 4/100 
-generate fid sample batch 5/100 
-generate fid sample batch 6/100 
-generate fid sample batch 7/100 
-generate fid sample batch 8/100 
-generate fid sample batch 9/100 
-generate fid sample batch 10/100 
-generate fid sample batch 11/100 
-generate fid sample batch 12/100 
-generate fid sample batch 13/100 
-generate fid sample batch 14/100 
-generate fid sample batch 15/100 
-generate fid sample batch 16/100 
-generate fid sample batch 17/100 
-generate fid sample batch 18/100 
-generate fid sample batch 19/100 
-generate fid sample batch 20/100 
-generate fid sample batch 21/100 
-generate fid sample batch 22/100 
-generate fid sample batch 23/100 
-generate fid sample batch 24/100 
-generate fid sample batch 25/100 
-generate fid sample batch 26/100 
-generate fid sample batch 27/100 
-generate fid sample batch 28/100 
-generate fid sample batch 29/100 
-generate fid sample batch 30/100 
-generate fid sample batch 31/100 
-generate fid sample batch 32/100 
-generate fid sample batch 33/100 
-generate fid sample batch 34/100 
-generate fid sample batch 35/100 
-generate fid sample batch 36/100 
-generate fid sample batch 37/100 
-generate fid sample batch 38/100 
-generate fid sample batch 39/100 
-generate fid sample batch 40/100 
-generate fid sample batch 41/100 
-generate fid sample batch 42/100 
-generate fid sample batch 43/100 
-generate fid sample batch 44/100 
-generate fid sample batch 45/100 
-generate fid sample batch 46/100 
-generate fid sample batch 47/100 
-generate fid sample batch 48/100 
-generate fid sample batch 49/100 
-generate fid sample batch 50/100 
-generate fid sample batch 51/100 
-generate fid sample batch 52/100 
-generate fid sample batch 53/100 
-generate fid sample batch 54/100 
-generate fid sample batch 55/100 
-generate fid sample batch 56/100 
-generate fid sample batch 57/100 
-generate fid sample batch 58/100 
-generate fid sample batch 59/100 
-generate fid sample batch 60/100 
-generate fid sample batch 61/100 
-generate fid sample batch 62/100 
-generate fid sample batch 63/100 
-generate fid sample batch 64/100 
-generate fid sample batch 65/100 
-generate fid sample batch 66/100 
-generate fid sample batch 67/100 
-generate fid sample batch 68/100 
-generate fid sample batch 69/100 
-generate fid sample batch 70/100 
-generate fid sample batch 71/100 
-generate fid sample batch 72/100 
-generate fid sample batch 73/100 
-generate fid sample batch 74/100 
-generate fid sample batch 75/100 
-generate fid sample batch 76/100 
-generate fid sample batch 77/100 
-generate fid sample batch 78/100 
-generate fid sample batch 79/100 
-generate fid sample batch 80/100 
-generate fid sample batch 81/100 
-generate fid sample batch 82/100 
-generate fid sample batch 83/100 
-generate fid sample batch 84/100 
-generate fid sample batch 85/100 
-generate fid sample batch 86/100 
-generate fid sample batch 87/100 
-generate fid sample batch 88/100 
-generate fid sample batch 89/100 
-generate fid sample batch 90/100 
-generate fid sample batch 91/100 
-generate fid sample batch 92/100 
-generate fid sample batch 93/100 
-generate fid sample batch 94/100 
-generate fid sample batch 95/100 
-generate fid sample batch 96/100 
-generate fid sample batch 97/100 
-generate fid sample batch 98/100 
-generate fid sample batch 99/100 
-generate fid sample batch 100/100 
-50000 samples generating done
-Propagating batch 1/100
-Propagating batch 2/100
-Propagating batch 3/100
-Propagating batch 4/100
-Propagating batch 5/100
-Propagating batch 6/100
-Propagating batch 7/100
-Propagating batch 8/100
-Propagating batch 9/100
-Propagating batch 10/100
-Propagating batch 11/100
-Propagating batch 12/100
-Propagating batch 13/100
-Propagating batch 14/100
-Propagating batch 15/100
-Propagating batch 16/100
-Propagating batch 17/100
-Propagating batch 18/100
-Propagating batch 19/100
-Propagating batch 20/100
-Propagating batch 21/100
-Propagating batch 22/100
-Propagating batch 23/100
-Propagating batch 24/100
-Propagating batch 25/100
-Propagating batch 26/100
-Propagating batch 27/100
-Propagating batch 28/100
-Propagating batch 29/100
-Propagating batch 30/100
-Propagating batch 31/100
-Propagating batch 32/100
-Propagating batch 33/100
-Propagating batch 34/100
-Propagating batch 35/100
-Propagating batch 36/100
-Propagating batch 37/100
-Propagating batch 38/100
-Propagating batch 39/100
-Propagating batch 40/100
-Propagating batch 41/100
-Propagating batch 42/100
-Propagating batch 43/100
-Propagating batch 44/100
-Propagating batch 45/100
-Propagating batch 46/100
-Propagating batch 47/100
-Propagating batch 48/100
-Propagating batch 49/100
-Propagating batch 50/100
-Propagating batch 51/100
-Propagating batch 52/100
-Propagating batch 53/100
-Propagating batch 54/100
-Propagating batch 55/100
-Propagating batch 56/100
-Propagating batch 57/100
-Propagating batch 58/100
-Propagating batch 59/100
-Propagating batch 60/100
-Propagating batch 61/100
-Propagating batch 62/100
-Propagating batch 63/100
-Propagating batch 64/100
-Propagating batch 65/100
-Propagating batch 66/100
-Propagating batch 67/100
-Propagating batch 68/100
-Propagating batch 69/100
-Propagating batch 70/100
-Propagating batch 71/100
-Propagating batch 72/100
-Propagating batch 73/100
-Propagating batch 74/100
-Propagating batch 75/100
-Propagating batch 76/100
-Propagating batch 77/100
-Propagating batch 78/100
-Propagating batch 79/100
-Propagating batch 80/100
-Propagating batch 81/100
-Propagating batch 82/100
-Propagating batch 83/100
-Propagating batch 84/100
-Propagating batch 85/100
-Propagating batch 86/100
-Propagating batch 87/100
-Propagating batch 88/100
-Propagating batch 89/100
-Propagating batch 90/100
-Propagating batch 91/100
-Propagating batch 92/100
-Propagating batch 93/100
-Propagating batch 94/100
-Propagating batch 95/100
-Propagating batch 96/100
-Propagating batch 97/100
-Propagating batch 98/100
-Propagating batch 99/100
-Propagating batch 100/100
- done
-calculate FID:
-79.24330475594303
-(50000, 32, 32, 3)
-................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................4.269929 0.039311558
-(epoch: 399, giters: 5000) FID: 79.243 IS_mean: 4.270 IS_var: 0.039 
-saving the latest model (epoch 399, g_iters 5000)
-(epoch_400) End of giters 5000 / 100000 	 Time Taken: 12116 sec
-(epoch_401) End of giters 5013 / 100000 	 Time Taken: 6 sec
-(epoch_402) End of giters 5025 / 100000 	 Time Taken: 6 sec
-(epoch_403) End of giters 5038 / 100000 	 Time Taken: 6 sec
-(epoch_404) End of giters 5050 / 100000 	 Time Taken: 6 sec
-(epoch_405) End of giters 5063 / 100000 	 Time Taken: 6 sec
-(epoch_406) End of giters 5075 / 100000 	 Time Taken: 6 sec
-(epoch_407) End of giters 5088 / 100000 	 Time Taken: 6 sec
-(epoch_408) End of giters 5100 / 100000 	 Time Taken: 6 sec
-(epoch_409) End of giters 5113 / 100000 	 Time Taken: 6 sec
-(epoch_410) End of giters 5125 / 100000 	 Time Taken: 6 sec
-(epoch_411) End of giters 5138 / 100000 	 Time Taken: 6 sec
-(epoch_412) End of giters 5150 / 100000 	 Time Taken: 6 sec
-(epoch_413) End of giters 5163 / 100000 	 Time Taken: 6 sec
-(epoch_414) End of giters 5175 / 100000 	 Time Taken: 6 sec
-(epoch_415) End of giters 5188 / 100000 	 Time Taken: 6 sec
-(epoch_416) End of giters 5200 / 100000 	 Time Taken: 6 sec
-(epoch_417) End of giters 5213 / 100000 	 Time Taken: 6 sec
-(epoch_418) End of giters 5225 / 100000 	 Time Taken: 6 sec
-(epoch_419) End of giters 5238 / 100000 	 Time Taken: 6 sec
-(epoch_420) End of giters 5250 / 100000 	 Time Taken: 6 sec
-(epoch_421) End of giters 5263 / 100000 	 Time Taken: 6 sec
-(epoch_422) End of giters 5275 / 100000 	 Time Taken: 6 sec
-(epoch_423) End of giters 5288 / 100000 	 Time Taken: 6 sec
-(epoch_424) End of giters 5300 / 100000 	 Time Taken: 6 sec
-(epoch_425) End of giters 5313 / 100000 	 Time Taken: 6 sec
-(epoch_426) End of giters 5325 / 100000 	 Time Taken: 6 sec
-(epoch_427) End of giters 5338 / 100000 	 Time Taken: 7 sec
-(epoch_428) End of giters 5350 / 100000 	 Time Taken: 6 sec
-(epoch_429) End of giters 5363 / 100000 	 Time Taken: 6 sec
-(epoch_430) End of giters 5375 / 100000 	 Time Taken: 6 sec
-(epoch_431) End of giters 5388 / 100000 	 Time Taken: 6 sec
-(epoch_432) End of giters 5400 / 100000 	 Time Taken: 6 sec
-(epoch_433) End of giters 5413 / 100000 	 Time Taken: 6 sec
-(epoch_434) End of giters 5425 / 100000 	 Time Taken: 6 sec
-(epoch_435) End of giters 5438 / 100000 	 Time Taken: 6 sec
-(epoch_436) End of giters 5450 / 100000 	 Time Taken: 6 sec
-(epoch_437) End of giters 5463 / 100000 	 Time Taken: 6 sec
-(epoch_438) End of giters 5475 / 100000 	 Time Taken: 6 sec
-(epoch_439) End of giters 5488 / 100000 	 Time Taken: 6 sec
-(epoch_440) End of giters 5500 / 100000 	 Time Taken: 6 sec
-(epoch_441) End of giters 5513 / 100000 	 Time Taken: 6 sec
-(epoch_442) End of giters 5525 / 100000 	 Time Taken: 6 sec
-(epoch_443) End of giters 5538 / 100000 	 Time Taken: 6 sec
-(epoch_444) End of giters 5550 / 100000 	 Time Taken: 6 sec
-(epoch_445) End of giters 5563 / 100000 	 Time Taken: 6 sec
-(epoch_446) End of giters 5575 / 100000 	 Time Taken: 6 sec
-(epoch_447) End of giters 5588 / 100000 	 Time Taken: 6 sec
-(epoch_448) End of giters 5600 / 100000 	 Time Taken: 6 sec
-(epoch_449) End of giters 5613 / 100000 	 Time Taken: 6 sec
-(epoch_450) End of giters 5625 / 100000 	 Time Taken: 6 sec
-(epoch_451) End of giters 5638 / 100000 	 Time Taken: 6 sec
-(epoch_452) End of giters 5650 / 100000 	 Time Taken: 6 sec
-(epoch_453) End of giters 5663 / 100000 	 Time Taken: 6 sec
-(epoch_454) End of giters 5675 / 100000 	 Time Taken: 6 sec
-(epoch_455) End of giters 5688 / 100000 	 Time Taken: 6 sec
-(epoch_456) End of giters 5700 / 100000 	 Time Taken: 6 sec
-(epoch_457) End of giters 5713 / 100000 	 Time Taken: 6 sec
-(epoch_458) End of giters 5725 / 100000 	 Time Taken: 6 sec
-(epoch_459) End of giters 5738 / 100000 	 Time Taken: 6 sec
-(epoch_460) End of giters 5750 / 100000 	 Time Taken: 7 sec
-(epoch_461) End of giters 5763 / 100000 	 Time Taken: 6 sec
-(epoch_462) End of giters 5775 / 100000 	 Time Taken: 6 sec
-(epoch_463) End of giters 5788 / 100000 	 Time Taken: 6 sec
-(epoch_464) End of giters 5800 / 100000 	 Time Taken: 6 sec
-(epoch_465) End of giters 5813 / 100000 	 Time Taken: 6 sec
-(epoch_466) End of giters 5825 / 100000 	 Time Taken: 6 sec
-(epoch_467) End of giters 5838 / 100000 	 Time Taken: 6 sec
-(epoch_468) End of giters 5850 / 100000 	 Time Taken: 6 sec
-(epoch_469) End of giters 5863 / 100000 	 Time Taken: 6 sec
-(epoch_470) End of giters 5875 / 100000 	 Time Taken: 6 sec
-(epoch_471) End of giters 5888 / 100000 	 Time Taken: 6 sec
-(epoch_472) End of giters 5900 / 100000 	 Time Taken: 6 sec
-(epoch_473) End of giters 5913 / 100000 	 Time Taken: 6 sec
-(epoch_474) End of giters 5925 / 100000 	 Time Taken: 6 sec
-(epoch_475) End of giters 5938 / 100000 	 Time Taken: 7 sec
-(epoch_476) End of giters 5950 / 100000 	 Time Taken: 6 sec
-(epoch_477) End of giters 5963 / 100000 	 Time Taken: 6 sec
-(epoch_478) End of giters 5975 / 100000 	 Time Taken: 6 sec
-(epoch_479) End of giters 5988 / 100000 	 Time Taken: 6 sec
-(epoch: 479, giters: 6000, time: 0.001, data: 0.007) G_real: 0.000 G_fake: 1.065 D_real: 0.221 D_fake: 0.065 D_gp: 0.000 G: 1.065 D: 0.286 
-(epoch_480) End of giters 6000 / 100000 	 Time Taken: 8 sec
-(epoch_481) End of giters 6013 / 100000 	 Time Taken: 6 sec
-(epoch_482) End of giters 6025 / 100000 	 Time Taken: 6 sec
-(epoch_483) End of giters 6038 / 100000 	 Time Taken: 6 sec
-(epoch_484) End of giters 6050 / 100000 	 Time Taken: 6 sec
-(epoch_485) End of giters 6063 / 100000 	 Time Taken: 6 sec
-(epoch_486) End of giters 6075 / 100000 	 Time Taken: 6 sec
-(epoch_487) End of giters 6088 / 100000 	 Time Taken: 6 sec
-(epoch_488) End of giters 6100 / 100000 	 Time Taken: 6 sec
-(epoch_489) End of giters 6113 / 100000 	 Time Taken: 6 sec
-(epoch_490) End of giters 6125 / 100000 	 Time Taken: 6 sec
-(epoch_491) End of giters 6138 / 100000 	 Time Taken: 6 sec
-(epoch_492) End of giters 6150 / 100000 	 Time Taken: 6 sec
-(epoch_493) End of giters 6163 / 100000 	 Time Taken: 6 sec
-(epoch_494) End of giters 6175 / 100000 	 Time Taken: 6 sec
-(epoch_495) End of giters 6188 / 100000 	 Time Taken: 6 sec
-(epoch_496) End of giters 6200 / 100000 	 Time Taken: 6 sec
-(epoch_497) End of giters 6213 / 100000 	 Time Taken: 6 sec
-(epoch_498) End of giters 6225 / 100000 	 Time Taken: 6 sec
-(epoch_499) End of giters 6238 / 100000 	 Time Taken: 6 sec
-(epoch_500) End of giters 6250 / 100000 	 Time Taken: 6 sec
-(epoch_501) End of giters 6263 / 100000 	 Time Taken: 6 sec
-(epoch_502) End of giters 6275 / 100000 	 Time Taken: 6 sec
-(epoch_503) End of giters 6288 / 100000 	 Time Taken: 6 sec
-(epoch_504) End of giters 6300 / 100000 	 Time Taken: 6 sec
-(epoch_505) End of giters 6313 / 100000 	 Time Taken: 6 sec
-(epoch_506) End of giters 6325 / 100000 	 Time Taken: 6 sec
-(epoch_507) End of giters 6338 / 100000 	 Time Taken: 6 sec
-(epoch_508) End of giters 6350 / 100000 	 Time Taken: 6 sec
-(epoch_509) End of giters 6363 / 100000 	 Time Taken: 6 sec
-(epoch_510) End of giters 6375 / 100000 	 Time Taken: 6 sec
-(epoch_511) End of giters 6388 / 100000 	 Time Taken: 6 sec
-(epoch_512) End of giters 6400 / 100000 	 Time Taken: 7 sec
-(epoch_513) End of giters 6413 / 100000 	 Time Taken: 6 sec
-(epoch_514) End of giters 6425 / 100000 	 Time Taken: 6 sec
-(epoch_515) End of giters 6438 / 100000 	 Time Taken: 6 sec
-(epoch_516) End of giters 6450 / 100000 	 Time Taken: 6 sec
-(epoch_517) End of giters 6463 / 100000 	 Time Taken: 6 sec
-(epoch_518) End of giters 6475 / 100000 	 Time Taken: 6 sec
-(epoch_519) End of giters 6488 / 100000 	 Time Taken: 6 sec
-(epoch_520) End of giters 6500 / 100000 	 Time Taken: 6 sec
-(epoch_521) End of giters 6513 / 100000 	 Time Taken: 6 sec
-(epoch_522) End of giters 6525 / 100000 	 Time Taken: 6 sec
-(epoch_523) End of giters 6538 / 100000 	 Time Taken: 6 sec
-(epoch_524) End of giters 6550 / 100000 	 Time Taken: 6 sec
-(epoch_525) End of giters 6563 / 100000 	 Time Taken: 6 sec
-(epoch_526) End of giters 6575 / 100000 	 Time Taken: 6 sec
-(epoch_527) End of giters 6588 / 100000 	 Time Taken: 6 sec
-(epoch_528) End of giters 6600 / 100000 	 Time Taken: 6 sec
-(epoch_529) End of giters 6613 / 100000 	 Time Taken: 6 sec
-(epoch_530) End of giters 6625 / 100000 	 Time Taken: 6 sec
-(epoch_531) End of giters 6638 / 100000 	 Time Taken: 6 sec
-(epoch_532) End of giters 6650 / 100000 	 Time Taken: 6 sec
-(epoch_533) End of giters 6663 / 100000 	 Time Taken: 6 sec
-(epoch_534) End of giters 6675 / 100000 	 Time Taken: 6 sec
-(epoch_535) End of giters 6688 / 100000 	 Time Taken: 6 sec
-(epoch_536) End of giters 6700 / 100000 	 Time Taken: 6 sec
-(epoch_537) End of giters 6713 / 100000 	 Time Taken: 6 sec
-(epoch_538) End of giters 6725 / 100000 	 Time Taken: 6 sec
-(epoch_539) End of giters 6738 / 100000 	 Time Taken: 6 sec
-(epoch_540) End of giters 6750 / 100000 	 Time Taken: 6 sec
-(epoch_541) End of giters 6763 / 100000 	 Time Taken: 6 sec
-(epoch_542) End of giters 6775 / 100000 	 Time Taken: 6 sec
-(epoch_543) End of giters 6788 / 100000 	 Time Taken: 7 sec
-(epoch_544) End of giters 6800 / 100000 	 Time Taken: 6 sec
-(epoch_545) End of giters 6813 / 100000 	 Time Taken: 7 sec
-(epoch_546) End of giters 6825 / 100000 	 Time Taken: 6 sec
-(epoch_547) End of giters 6838 / 100000 	 Time Taken: 6 sec
-(epoch_548) End of giters 6850 / 100000 	 Time Taken: 10 sec
-(epoch_549) End of giters 6863 / 100000 	 Time Taken: 10 sec
-(epoch_550) End of giters 6875 / 100000 	 Time Taken: 9 sec
-(epoch_551) End of giters 6888 / 100000 	 Time Taken: 10 sec
-(epoch_552) End of giters 6900 / 100000 	 Time Taken: 10 sec
-(epoch_553) End of giters 6913 / 100000 	 Time Taken: 9 sec
-(epoch_554) End of giters 6925 / 100000 	 Time Taken: 10 sec
-(epoch_555) End of giters 6938 / 100000 	 Time Taken: 10 sec
-(epoch_556) End of giters 6950 / 100000 	 Time Taken: 9 sec
-(epoch_557) End of giters 6963 / 100000 	 Time Taken: 10 sec
-(epoch_558) End of giters 6975 / 100000 	 Time Taken: 10 sec
-(epoch_559) End of giters 6988 / 100000 	 Time Taken: 9 sec
-(epoch: 559, giters: 7000, time: 0.001, data: 0.004) G_real: 0.000 G_fake: 0.716 D_real: 0.198 D_fake: 0.158 D_gp: 0.000 G: 0.716 D: 0.356 
-(epoch_560) End of giters 7000 / 100000 	 Time Taken: 11 sec
-(epoch_561) End of giters 7013 / 100000 	 Time Taken: 10 sec
-(epoch_562) End of giters 7025 / 100000 	 Time Taken: 10 sec
-(epoch_563) End of giters 7038 / 100000 	 Time Taken: 10 sec
-(epoch_564) End of giters 7050 / 100000 	 Time Taken: 10 sec
-(epoch_565) End of giters 7063 / 100000 	 Time Taken: 10 sec
-(epoch_566) End of giters 7075 / 100000 	 Time Taken: 10 sec
-(epoch_567) End of giters 7088 / 100000 	 Time Taken: 10 sec
-(epoch_568) End of giters 7100 / 100000 	 Time Taken: 10 sec
-(epoch_569) End of giters 7113 / 100000 	 Time Taken: 10 sec
-(epoch_570) End of giters 7125 / 100000 	 Time Taken: 10 sec
-(epoch_571) End of giters 7138 / 100000 	 Time Taken: 10 sec
-(epoch_572) End of giters 7150 / 100000 	 Time Taken: 10 sec
-(epoch_573) End of giters 7163 / 100000 	 Time Taken: 10 sec
-(epoch_574) End of giters 7175 / 100000 	 Time Taken: 10 sec
-(epoch_575) End of giters 7188 / 100000 	 Time Taken: 10 sec
-(epoch_576) End of giters 7200 / 100000 	 Time Taken: 10 sec
-(epoch_577) End of giters 7213 / 100000 	 Time Taken: 10 sec
-(epoch_578) End of giters 7225 / 100000 	 Time Taken: 10 sec
-(epoch_579) End of giters 7238 / 100000 	 Time Taken: 10 sec
-(epoch_580) End of giters 7250 / 100000 	 Time Taken: 10 sec
-(epoch_581) End of giters 7263 / 100000 	 Time Taken: 10 sec
-(epoch_582) End of giters 7275 / 100000 	 Time Taken: 10 sec
-(epoch_583) End of giters 7288 / 100000 	 Time Taken: 10 sec
-(epoch_584) End of giters 7300 / 100000 	 Time Taken: 10 sec
-(epoch_585) End of giters 7313 / 100000 	 Time Taken: 10 sec
-(epoch_586) End of giters 7325 / 100000 	 Time Taken: 8 sec
-(epoch_587) End of giters 7338 / 100000 	 Time Taken: 7 sec
-(epoch_588) End of giters 7350 / 100000 	 Time Taken: 7 sec
-(epoch_589) End of giters 7363 / 100000 	 Time Taken: 7 sec
-(epoch_590) End of giters 7375 / 100000 	 Time Taken: 7 sec
-(epoch_591) End of giters 7388 / 100000 	 Time Taken: 7 sec
-(epoch_592) End of giters 7400 / 100000 	 Time Taken: 7 sec
-(epoch_593) End of giters 7413 / 100000 	 Time Taken: 7 sec
-(epoch_594) End of giters 7425 / 100000 	 Time Taken: 8 sec
-(epoch_595) End of giters 7438 / 100000 	 Time Taken: 7 sec
-(epoch_596) End of giters 7450 / 100000 	 Time Taken: 7 sec
-(epoch_597) End of giters 7463 / 100000 	 Time Taken: 7 sec
-(epoch_598) End of giters 7475 / 100000 	 Time Taken: 6 sec
-(epoch_599) End of giters 7488 / 100000 	 Time Taken: 7 sec
-(epoch_600) End of giters 7500 / 100000 	 Time Taken: 7 sec
-(epoch_601) End of giters 7513 / 100000 	 Time Taken: 7 sec
-(epoch_602) End of giters 7525 / 100000 	 Time Taken: 7 sec
-(epoch_603) End of giters 7538 / 100000 	 Time Taken: 7 sec
-(epoch_604) End of giters 7550 / 100000 	 Time Taken: 7 sec
-(epoch_605) End of giters 7563 / 100000 	 Time Taken: 7 sec
-(epoch_606) End of giters 7575 / 100000 	 Time Taken: 7 sec
-(epoch_607) End of giters 7588 / 100000 	 Time Taken: 7 sec
-(epoch_608) End of giters 7600 / 100000 	 Time Taken: 7 sec
-(epoch_609) End of giters 7613 / 100000 	 Time Taken: 7 sec
-(epoch_610) End of giters 7625 / 100000 	 Time Taken: 7 sec
-(epoch_611) End of giters 7638 / 100000 	 Time Taken: 7 sec
-(epoch_612) End of giters 7650 / 100000 	 Time Taken: 7 sec
-(epoch_613) End of giters 7663 / 100000 	 Time Taken: 7 sec
-(epoch_614) End of giters 7675 / 100000 	 Time Taken: 7 sec
-(epoch_615) End of giters 7688 / 100000 	 Time Taken: 7 sec
-(epoch_616) End of giters 7700 / 100000 	 Time Taken: 7 sec
-(epoch_617) End of giters 7713 / 100000 	 Time Taken: 7 sec
-(epoch_618) End of giters 7725 / 100000 	 Time Taken: 7 sec
-(epoch_619) End of giters 7738 / 100000 	 Time Taken: 7 sec
-(epoch_620) End of giters 7750 / 100000 	 Time Taken: 7 sec
-(epoch_621) End of giters 7763 / 100000 	 Time Taken: 7 sec
-(epoch_622) End of giters 7775 / 100000 	 Time Taken: 7 sec
-(epoch_623) End of giters 7788 / 100000 	 Time Taken: 7 sec
-(epoch_624) End of giters 7800 / 100000 	 Time Taken: 7 sec
-(epoch_625) End of giters 7813 / 100000 	 Time Taken: 7 sec
-(epoch_626) End of giters 7825 / 100000 	 Time Taken: 7 sec
-(epoch_627) End of giters 7838 / 100000 	 Time Taken: 7 sec
-(epoch_628) End of giters 7850 / 100000 	 Time Taken: 7 sec
-(epoch_629) End of giters 7863 / 100000 	 Time Taken: 7 sec
-(epoch_630) End of giters 7875 / 100000 	 Time Taken: 8 sec
-(epoch_631) End of giters 7888 / 100000 	 Time Taken: 7 sec
-(epoch_632) End of giters 7900 / 100000 	 Time Taken: 7 sec
-(epoch_633) End of giters 7913 / 100000 	 Time Taken: 7 sec
-(epoch_634) End of giters 7925 / 100000 	 Time Taken: 7 sec
-(epoch_635) End of giters 7938 / 100000 	 Time Taken: 7 sec
-(epoch_636) End of giters 7950 / 100000 	 Time Taken: 7 sec
-(epoch_637) End of giters 7963 / 100000 	 Time Taken: 7 sec
-(epoch_638) End of giters 7975 / 100000 	 Time Taken: 7 sec
-(epoch_639) End of giters 7988 / 100000 	 Time Taken: 7 sec
-(epoch: 639, giters: 8000, time: 0.001, data: 0.013) G_real: 0.000 G_fake: 0.491 D_real: 0.041 D_fake: 0.222 D_gp: 0.000 G: 0.491 D: 0.263 
-(epoch_640) End of giters 8000 / 100000 	 Time Taken: 8 sec
-(epoch_641) End of giters 8013 / 100000 	 Time Taken: 7 sec
-(epoch_642) End of giters 8025 / 100000 	 Time Taken: 8 sec
-(epoch_643) End of giters 8038 / 100000 	 Time Taken: 7 sec
-(epoch_644) End of giters 8050 / 100000 	 Time Taken: 7 sec
-(epoch_645) End of giters 8063 / 100000 	 Time Taken: 7 sec
-(epoch_646) End of giters 8075 / 100000 	 Time Taken: 7 sec
-(epoch_647) End of giters 8088 / 100000 	 Time Taken: 7 sec
-(epoch_648) End of giters 8100 / 100000 	 Time Taken: 7 sec
-(epoch_649) End of giters 8113 / 100000 	 Time Taken: 7 sec
-(epoch_650) End of giters 8125 / 100000 	 Time Taken: 7 sec
-(epoch_651) End of giters 8138 / 100000 	 Time Taken: 7 sec
-(epoch_652) End of giters 8150 / 100000 	 Time Taken: 7 sec
-(epoch_653) End of giters 8163 / 100000 	 Time Taken: 7 sec
-(epoch_654) End of giters 8175 / 100000 	 Time Taken: 7 sec
-(epoch_655) End of giters 8188 / 100000 	 Time Taken: 7 sec
-(epoch_656) End of giters 8200 / 100000 	 Time Taken: 7 sec
-(epoch_657) End of giters 8213 / 100000 	 Time Taken: 7 sec
-(epoch_658) End of giters 8225 / 100000 	 Time Taken: 7 sec
-(epoch_659) End of giters 8238 / 100000 	 Time Taken: 7 sec
-(epoch_660) End of giters 8250 / 100000 	 Time Taken: 7 sec
-(epoch_661) End of giters 8263 / 100000 	 Time Taken: 7 sec
-(epoch_662) End of giters 8275 / 100000 	 Time Taken: 7 sec
-(epoch_663) End of giters 8288 / 100000 	 Time Taken: 7 sec
-(epoch_664) End of giters 8300 / 100000 	 Time Taken: 7 sec
-(epoch_665) End of giters 8313 / 100000 	 Time Taken: 7 sec
-(epoch_666) End of giters 8325 / 100000 	 Time Taken: 7 sec
-(epoch_667) End of giters 8338 / 100000 	 Time Taken: 7 sec
-(epoch_668) End of giters 8350 / 100000 	 Time Taken: 7 sec
-(epoch_669) End of giters 8363 / 100000 	 Time Taken: 7 sec
-(epoch_670) End of giters 8375 / 100000 	 Time Taken: 7 sec
-(epoch_671) End of giters 8388 / 100000 	 Time Taken: 7 sec
-(epoch_672) End of giters 8400 / 100000 	 Time Taken: 8 sec
-(epoch_673) End of giters 8413 / 100000 	 Time Taken: 7 sec
-(epoch_674) End of giters 8425 / 100000 	 Time Taken: 7 sec
-(epoch_675) End of giters 8438 / 100000 	 Time Taken: 7 sec
-(epoch_676) End of giters 8450 / 100000 	 Time Taken: 7 sec
-(epoch_677) End of giters 8463 / 100000 	 Time Taken: 8 sec
-(epoch_678) End of giters 8475 / 100000 	 Time Taken: 7 sec
-(epoch_679) End of giters 8488 / 100000 	 Time Taken: 7 sec
-(epoch_680) End of giters 8500 / 100000 	 Time Taken: 7 sec
-(epoch_681) End of giters 8513 / 100000 	 Time Taken: 7 sec
-(epoch_682) End of giters 8525 / 100000 	 Time Taken: 7 sec
-(epoch_683) End of giters 8538 / 100000 	 Time Taken: 7 sec
-(epoch_684) End of giters 8550 / 100000 	 Time Taken: 7 sec
-(epoch_685) End of giters 8563 / 100000 	 Time Taken: 7 sec
-(epoch_686) End of giters 8575 / 100000 	 Time Taken: 7 sec
-(epoch_687) End of giters 8588 / 100000 	 Time Taken: 7 sec
-(epoch_688) End of giters 8600 / 100000 	 Time Taken: 7 sec
-(epoch_689) End of giters 8613 / 100000 	 Time Taken: 7 sec
-(epoch_690) End of giters 8625 / 100000 	 Time Taken: 7 sec
-(epoch_691) End of giters 8638 / 100000 	 Time Taken: 7 sec
-(epoch_692) End of giters 8650 / 100000 	 Time Taken: 7 sec
-(epoch_693) End of giters 8663 / 100000 	 Time Taken: 7 sec
-(epoch_694) End of giters 8675 / 100000 	 Time Taken: 7 sec
-(epoch_695) End of giters 8688 / 100000 	 Time Taken: 7 sec
-(epoch_696) End of giters 8700 / 100000 	 Time Taken: 7 sec
-(epoch_697) End of giters 8713 / 100000 	 Time Taken: 8 sec
-(epoch_698) End of giters 8725 / 100000 	 Time Taken: 7 sec
-(epoch_699) End of giters 8738 / 100000 	 Time Taken: 7 sec
-(epoch_700) End of giters 8750 / 100000 	 Time Taken: 7 sec
-(epoch_701) End of giters 8763 / 100000 	 Time Taken: 7 sec
-(epoch_702) End of giters 8775 / 100000 	 Time Taken: 7 sec
-(epoch_703) End of giters 8788 / 100000 	 Time Taken: 7 sec
-(epoch_704) End of giters 8800 / 100000 	 Time Taken: 7 sec
-(epoch_705) End of giters 8813 / 100000 	 Time Taken: 7 sec
-(epoch_706) End of giters 8825 / 100000 	 Time Taken: 7 sec
-(epoch_707) End of giters 8838 / 100000 	 Time Taken: 7 sec
-(epoch_708) End of giters 8850 / 100000 	 Time Taken: 7 sec
-(epoch_709) End of giters 8863 / 100000 	 Time Taken: 7 sec
-(epoch_710) End of giters 8875 / 100000 	 Time Taken: 7 sec
-(epoch_711) End of giters 8888 / 100000 	 Time Taken: 7 sec
-(epoch_712) End of giters 8900 / 100000 	 Time Taken: 7 sec
-(epoch_713) End of giters 8913 / 100000 	 Time Taken: 7 sec
-(epoch_714) End of giters 8925 / 100000 	 Time Taken: 7 sec
-(epoch_715) End of giters 8938 / 100000 	 Time Taken: 7 sec
-(epoch_716) End of giters 8950 / 100000 	 Time Taken: 7 sec
-(epoch_717) End of giters 8963 / 100000 	 Time Taken: 7 sec
-(epoch_718) End of giters 8975 / 100000 	 Time Taken: 7 sec
-(epoch_719) End of giters 8988 / 100000 	 Time Taken: 7 sec
-(epoch: 719, giters: 9000, time: 0.001, data: 0.007) G_real: 0.000 G_fake: 0.360 D_real: 0.036 D_fake: 0.286 D_gp: 0.000 G: 0.360 D: 0.322 
-(epoch_720) End of giters 9000 / 100000 	 Time Taken: 9 sec
-(epoch_721) End of giters 9013 / 100000 	 Time Taken: 7 sec
-(epoch_722) End of giters 9025 / 100000 	 Time Taken: 7 sec
-(epoch_723) End of giters 9038 / 100000 	 Time Taken: 7 sec
-(epoch_724) End of giters 9050 / 100000 	 Time Taken: 7 sec
-(epoch_725) End of giters 9063 / 100000 	 Time Taken: 7 sec
-(epoch_726) End of giters 9075 / 100000 	 Time Taken: 7 sec
-(epoch_727) End of giters 9088 / 100000 	 Time Taken: 7 sec
-(epoch_728) End of giters 9100 / 100000 	 Time Taken: 7 sec
-(epoch_729) End of giters 9113 / 100000 	 Time Taken: 7 sec
-(epoch_730) End of giters 9125 / 100000 	 Time Taken: 7 sec
-(epoch_731) End of giters 9138 / 100000 	 Time Taken: 7 sec
-(epoch_732) End of giters 9150 / 100000 	 Time Taken: 7 sec
-(epoch_733) End of giters 9163 / 100000 	 Time Taken: 7 sec
-(epoch_734) End of giters 9175 / 100000 	 Time Taken: 7 sec
-(epoch_735) End of giters 9188 / 100000 	 Time Taken: 7 sec
-(epoch_736) End of giters 9200 / 100000 	 Time Taken: 7 sec
-(epoch_737) End of giters 9213 / 100000 	 Time Taken: 7 sec
-(epoch_738) End of giters 9225 / 100000 	 Time Taken: 7 sec
-(epoch_739) End of giters 9238 / 100000 	 Time Taken: 7 sec
-(epoch_740) End of giters 9250 / 100000 	 Time Taken: 7 sec
-(epoch_741) End of giters 9263 / 100000 	 Time Taken: 7 sec
-(epoch_742) End of giters 9275 / 100000 	 Time Taken: 7 sec
-(epoch_743) End of giters 9288 / 100000 	 Time Taken: 7 sec
-(epoch_744) End of giters 9300 / 100000 	 Time Taken: 7 sec
-(epoch_745) End of giters 9313 / 100000 	 Time Taken: 7 sec
-(epoch_746) End of giters 9325 / 100000 	 Time Taken: 7 sec
-(epoch_747) End of giters 9338 / 100000 	 Time Taken: 7 sec
-(epoch_748) End of giters 9350 / 100000 	 Time Taken: 7 sec
-(epoch_749) End of giters 9363 / 100000 	 Time Taken: 7 sec
-(epoch_750) End of giters 9375 / 100000 	 Time Taken: 7 sec
-(epoch_751) End of giters 9388 / 100000 	 Time Taken: 7 sec
-(epoch_752) End of giters 9400 / 100000 	 Time Taken: 7 sec
-(epoch_753) End of giters 9413 / 100000 	 Time Taken: 7 sec
-(epoch_754) End of giters 9425 / 100000 	 Time Taken: 7 sec
-(epoch_755) End of giters 9438 / 100000 	 Time Taken: 7 sec
-(epoch_756) End of giters 9450 / 100000 	 Time Taken: 7 sec
-(epoch_757) End of giters 9463 / 100000 	 Time Taken: 7 sec
-(epoch_758) End of giters 9475 / 100000 	 Time Taken: 7 sec
-(epoch_759) End of giters 9488 / 100000 	 Time Taken: 7 sec
-(epoch_760) End of giters 9500 / 100000 	 Time Taken: 7 sec
-(epoch_761) End of giters 9513 / 100000 	 Time Taken: 7 sec
-(epoch_762) End of giters 9525 / 100000 	 Time Taken: 7 sec
-(epoch_763) End of giters 9538 / 100000 	 Time Taken: 7 sec
-(epoch_764) End of giters 9550 / 100000 	 Time Taken: 7 sec
-(epoch_765) End of giters 9563 / 100000 	 Time Taken: 7 sec
-(epoch_766) End of giters 9575 / 100000 	 Time Taken: 7 sec
-(epoch_767) End of giters 9588 / 100000 	 Time Taken: 7 sec
-(epoch_768) End of giters 9600 / 100000 	 Time Taken: 7 sec
-(epoch_769) End of giters 9613 / 100000 	 Time Taken: 7 sec
-(epoch_770) End of giters 9625 / 100000 	 Time Taken: 7 sec
-(epoch_771) End of giters 9638 / 100000 	 Time Taken: 7 sec
-(epoch_772) End of giters 9650 / 100000 	 Time Taken: 7 sec
-(epoch_773) End of giters 9663 / 100000 	 Time Taken: 7 sec
-(epoch_774) End of giters 9675 / 100000 	 Time Taken: 7 sec
-(epoch_775) End of giters 9688 / 100000 	 Time Taken: 7 sec
-(epoch_776) End of giters 9700 / 100000 	 Time Taken: 7 sec
-(epoch_777) End of giters 9713 / 100000 	 Time Taken: 7 sec
-(epoch_778) End of giters 9725 / 100000 	 Time Taken: 7 sec
-(epoch_779) End of giters 9738 / 100000 	 Time Taken: 7 sec
-(epoch_780) End of giters 9750 / 100000 	 Time Taken: 7 sec
-(epoch_781) End of giters 9763 / 100000 	 Time Taken: 7 sec
-(epoch_782) End of giters 9775 / 100000 	 Time Taken: 7 sec
-(epoch_783) End of giters 9788 / 100000 	 Time Taken: 7 sec
-(epoch_784) End of giters 9800 / 100000 	 Time Taken: 7 sec
-(epoch_785) End of giters 9813 / 100000 	 Time Taken: 7 sec
-(epoch_786) End of giters 9825 / 100000 	 Time Taken: 7 sec
-(epoch_787) End of giters 9838 / 100000 	 Time Taken: 7 sec
-(epoch_788) End of giters 9850 / 100000 	 Time Taken: 7 sec
-(epoch_789) End of giters 9863 / 100000 	 Time Taken: 7 sec
-(epoch_790) End of giters 9875 / 100000 	 Time Taken: 7 sec
-(epoch_791) End of giters 9888 / 100000 	 Time Taken: 7 sec
-(epoch_792) End of giters 9900 / 100000 	 Time Taken: 6 sec
-(epoch_793) End of giters 9913 / 100000 	 Time Taken: 7 sec
-(epoch_794) End of giters 9925 / 100000 	 Time Taken: 7 sec
-(epoch_795) End of giters 9938 / 100000 	 Time Taken: 7 sec
-(epoch_796) End of giters 9950 / 100000 	 Time Taken: 7 sec
-(epoch_797) End of giters 9963 / 100000 	 Time Taken: 8 sec
-(epoch_798) End of giters 9975 / 100000 	 Time Taken: 6 sec
-(epoch_799) End of giters 9988 / 100000 	 Time Taken: 7 sec
-scripts/train_cifar10_two-player-gan_largebs.sh: line 16: 22292 Killed                  python train.py --dataroot None --name two_player_gan_cifar10_largebs --model two_player_gan --dataset_mode torchvision --batch_size 2048 --download_root ./datasets/cifar10 --dataset_name CIFAR10 --crop_size 32 --load_size 32 --d_loss_mode lsgan --g_loss_mode lsgan --which_D S --netD DCGAN_cifar10 --netG DCGAN_cifar10 --ngf 64 --ndf 64 --norm batch --init_type normal --init_gain 0.02 --lr_g 0.0002 --lr_d 0.0004 --no_dropout --no_flip --D_iters 1 --gpu_ids 0,1 --score_name FID IS --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz --print_freq 1000 --display_freq 1000 --score_freq 5000 --display_id -1 --total_num_giters 100000 --save_giters_freq 10000
