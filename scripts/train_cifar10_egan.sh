@@ -11,5 +11,5 @@ python train.py --dataroot None --name egan_cifar10_ \
        --init_type normal --init_gain 0.02 \
        --no_dropout --no_flip \
        --D_iters 1 \
-       --score_name IS --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz \
+       --use_pytorch_scores --score_name IS --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz \
        --print_freq 2000 --display_freq 2000 --score_freq 5000 --display_id -1 --save_giters_freq 100000
