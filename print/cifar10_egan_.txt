@@ -1,12 +1,12 @@
-+ python train.py --dataroot None --name egan_cifar10_ --dataset_mode torchvision --batch_size 64 --model egan --gpu_ids 1 --download_root ./datasets/cifar10 --dataset_name CIFAR10 --crop_size 32 --load_size 32 --d_loss_mode vanilla --g_loss_mode nsgan vanilla lsgan --which_D S --lambda_f 0.5 --candi_num 1 --netD DCGAN_cifar10 --netG DCGAN_cifar10 --ngf 128 --ndf 128 --g_norm none --d_norm batch --init_type normal --init_gain 0.02 --no_dropout --no_flip --D_iters 1 --use_pytorch_scores --score_name IS --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz --print_freq 2000 --display_freq 2000 --score_freq 5000 --display_id -1 --save_giters_freq 100000
-2019-04-25 17:02:32.326011: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 17:02:32.326040: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 17:02:32.326044: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 17:02:32.326048: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 17:02:32.326051: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX512F instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 17:02:32.326054: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
++ python train.py --dataroot None --name egan_cifar10_ --dataset_mode torchvision --batch_size 64 --model egan --gpu_ids 1 --download_root ./datasets/cifar10 --dataset_name CIFAR10 --crop_size 32 --load_size 32 --d_loss_mode vanilla --g_loss_mode nsgan vanilla lsgan --which_D S --lambda_f 0.05 --candi_num 1 --netD DCGAN_cifar10 --netG DCGAN_cifar10 --ngf 128 --ndf 128 --g_norm none --d_norm batch --init_type normal --init_gain 0.02 --no_dropout --no_flip --D_iters 3 --use_pytorch_scores --score_name IS --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz --print_freq 2000 --display_freq 2000 --score_freq 5000 --display_id -1 --save_giters_freq 100000
+2019-04-26 05:23:17.700410: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-26 05:23:17.700440: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-26 05:23:17.700444: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-26 05:23:17.700448: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-26 05:23:17.700451: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX512F instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-26 05:23:17.700454: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
 ----------------- Options ---------------
-                  D_iters: 1                             
+                  D_iters: 3                             	[default: 1]
                batch_size: 64                            	[default: 1]
                     beta1: 0.5                           
                     beta2: 0.999                         
@@ -41,7 +41,7 @@
                 init_type: normal                        
                  input_nc: 3                             
                   isTrain: True                          	[default: None]
-                 lambda_f: 0.5                           	[default: 0.1]
+                 lambda_f: 0.05                          	[default: 0.1]
                 load_iter: 0                             	[default: 0]
                 load_size: 32                            	[default: 256]
                      lr_d: 0.0002                        
@@ -93,734 +93,3 @@ model [EGANModel] was created
 [Network D] Total number of parameters : 11.033 M
 -----------------------------------------------
 create web directory ./checkpoints/egan_cifar10_/web...
-(epoch_1) End of giters 390 / 500000 	 Time Taken: 121 sec
-(epoch_2) End of giters 780 / 500000 	 Time Taken: 121 sec
-(epoch_3) End of giters 1170 / 500000 	 Time Taken: 121 sec
-(epoch_4) End of giters 1560 / 500000 	 Time Taken: 121 sec
-(epoch_5) End of giters 1950 / 500000 	 Time Taken: 121 sec
-(epoch: 5, giters: 2000, time: 0.006, data: 0.197) G_real: 0.000 G_fake: 42.045 D_real: 0.023 D_fake: 0.298 D_gp: 0.000 G: 42.045 D: 0.321 
-(epoch_6) End of giters 2340 / 500000 	 Time Taken: 121 sec
-(epoch_7) End of giters 2730 / 500000 	 Time Taken: 121 sec
-(epoch_8) End of giters 3120 / 500000 	 Time Taken: 121 sec
-(epoch_9) End of giters 3510 / 500000 	 Time Taken: 121 sec
-(epoch_10) End of giters 3900 / 500000 	 Time Taken: 121 sec
-(epoch: 10, giters: 4000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 25.026 D_real: 0.146 D_fake: 0.201 D_gp: 0.000 G: 25.026 D: 0.346 
-(epoch_11) End of giters 4290 / 500000 	 Time Taken: 121 sec
-(epoch_12) End of giters 4680 / 500000 	 Time Taken: 121 sec
-generate fid sample batch 1/100 
-generate fid sample batch 2/100 
-generate fid sample batch 3/100 
-generate fid sample batch 4/100 
-generate fid sample batch 5/100 
-generate fid sample batch 6/100 
-generate fid sample batch 7/100 
-generate fid sample batch 8/100 
-generate fid sample batch 9/100 
-generate fid sample batch 10/100 
-generate fid sample batch 11/100 
-generate fid sample batch 12/100 
-generate fid sample batch 13/100 
-generate fid sample batch 14/100 
-generate fid sample batch 15/100 
-generate fid sample batch 16/100 
-generate fid sample batch 17/100 
-generate fid sample batch 18/100 
-generate fid sample batch 19/100 
-generate fid sample batch 20/100 
-generate fid sample batch 21/100 
-generate fid sample batch 22/100 
-generate fid sample batch 23/100 
-generate fid sample batch 24/100 
-generate fid sample batch 25/100 
-generate fid sample batch 26/100 
-generate fid sample batch 27/100 
-generate fid sample batch 28/100 
-generate fid sample batch 29/100 
-generate fid sample batch 30/100 
-generate fid sample batch 31/100 
-generate fid sample batch 32/100 
-generate fid sample batch 33/100 
-generate fid sample batch 34/100 
-generate fid sample batch 35/100 
-generate fid sample batch 36/100 
-generate fid sample batch 37/100 
-generate fid sample batch 38/100 
-generate fid sample batch 39/100 
-generate fid sample batch 40/100 
-generate fid sample batch 41/100 
-generate fid sample batch 42/100 
-generate fid sample batch 43/100 
-generate fid sample batch 44/100 
-generate fid sample batch 45/100 
-generate fid sample batch 46/100 
-generate fid sample batch 47/100 
-generate fid sample batch 48/100 
-generate fid sample batch 49/100 
-generate fid sample batch 50/100 
-generate fid sample batch 51/100 
-generate fid sample batch 52/100 
-generate fid sample batch 53/100 
-generate fid sample batch 54/100 
-generate fid sample batch 55/100 
-generate fid sample batch 56/100 
-generate fid sample batch 57/100 
-generate fid sample batch 58/100 
-generate fid sample batch 59/100 
-generate fid sample batch 60/100 
-generate fid sample batch 61/100 
-generate fid sample batch 62/100 
-generate fid sample batch 63/100 
-generate fid sample batch 64/100 
-generate fid sample batch 65/100 
-generate fid sample batch 66/100 
-generate fid sample batch 67/100 
-generate fid sample batch 68/100 
-generate fid sample batch 69/100 
-generate fid sample batch 70/100 
-generate fid sample batch 71/100 
-generate fid sample batch 72/100 
-generate fid sample batch 73/100 
-generate fid sample batch 74/100 
-generate fid sample batch 75/100 
-generate fid sample batch 76/100 
-generate fid sample batch 77/100 
-generate fid sample batch 78/100 
-generate fid sample batch 79/100 
-generate fid sample batch 80/100 
-generate fid sample batch 81/100 
-generate fid sample batch 82/100 
-generate fid sample batch 83/100 
-generate fid sample batch 84/100 
-generate fid sample batch 85/100 
-generate fid sample batch 86/100 
-generate fid sample batch 87/100 
-generate fid sample batch 88/100 
-generate fid sample batch 89/100 
-generate fid sample batch 90/100 
-generate fid sample batch 91/100 
-generate fid sample batch 92/100 
-generate fid sample batch 93/100 
-generate fid sample batch 94/100 
-generate fid sample batch 95/100 
-generate fid sample batch 96/100 
-generate fid sample batch 97/100 
-generate fid sample batch 98/100 
-generate fid sample batch 99/100 
-generate fid sample batch 100/100 
-50000 samples generating done
-Gathering activations...
-Calculating Inception Score...
-3.8830414 0.038376357
-(epoch: 12, giters: 5000) IS_mean: 3.883 IS_var: 0.038 
-saving the latest model (epoch 12, iters 5000)
-(epoch_13) End of giters 5070 / 500000 	 Time Taken: 199 sec
-(epoch_14) End of giters 5460 / 500000 	 Time Taken: 121 sec
-(epoch_15) End of giters 5850 / 500000 	 Time Taken: 121 sec
-(epoch: 15, giters: 6000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 20.196 D_real: 0.085 D_fake: 0.379 D_gp: 0.000 G: 20.196 D: 0.464 
-(epoch_16) End of giters 6240 / 500000 	 Time Taken: 120 sec
-(epoch_17) End of giters 6630 / 500000 	 Time Taken: 120 sec
-(epoch_18) End of giters 7020 / 500000 	 Time Taken: 121 sec
-(epoch_19) End of giters 7410 / 500000 	 Time Taken: 120 sec
-(epoch_20) End of giters 7800 / 500000 	 Time Taken: 121 sec
-(epoch: 20, giters: 8000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 30.820 D_real: 0.154 D_fake: 0.143 D_gp: 0.000 G: 30.820 D: 0.297 
-(epoch_21) End of giters 8190 / 500000 	 Time Taken: 121 sec
-(epoch_22) End of giters 8580 / 500000 	 Time Taken: 121 sec
-(epoch_23) End of giters 8970 / 500000 	 Time Taken: 121 sec
-(epoch_24) End of giters 9360 / 500000 	 Time Taken: 121 sec
-(epoch_25) End of giters 9750 / 500000 	 Time Taken: 121 sec
-(epoch: 25, giters: 10000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 71.994 D_real: 0.449 D_fake: 0.119 D_gp: 0.000 G: 71.994 D: 0.568 
-generate fid sample batch 1/100 
-generate fid sample batch 2/100 
-generate fid sample batch 3/100 
-generate fid sample batch 4/100 
-generate fid sample batch 5/100 
-generate fid sample batch 6/100 
-generate fid sample batch 7/100 
-generate fid sample batch 8/100 
-generate fid sample batch 9/100 
-generate fid sample batch 10/100 
-generate fid sample batch 11/100 
-generate fid sample batch 12/100 
-generate fid sample batch 13/100 
-generate fid sample batch 14/100 
-generate fid sample batch 15/100 
-generate fid sample batch 16/100 
-generate fid sample batch 17/100 
-generate fid sample batch 18/100 
-generate fid sample batch 19/100 
-generate fid sample batch 20/100 
-generate fid sample batch 21/100 
-generate fid sample batch 22/100 
-generate fid sample batch 23/100 
-generate fid sample batch 24/100 
-generate fid sample batch 25/100 
-generate fid sample batch 26/100 
-generate fid sample batch 27/100 
-generate fid sample batch 28/100 
-generate fid sample batch 29/100 
-generate fid sample batch 30/100 
-generate fid sample batch 31/100 
-generate fid sample batch 32/100 
-generate fid sample batch 33/100 
-generate fid sample batch 34/100 
-generate fid sample batch 35/100 
-generate fid sample batch 36/100 
-generate fid sample batch 37/100 
-generate fid sample batch 38/100 
-generate fid sample batch 39/100 
-generate fid sample batch 40/100 
-generate fid sample batch 41/100 
-generate fid sample batch 42/100 
-generate fid sample batch 43/100 
-generate fid sample batch 44/100 
-generate fid sample batch 45/100 
-generate fid sample batch 46/100 
-generate fid sample batch 47/100 
-generate fid sample batch 48/100 
-generate fid sample batch 49/100 
-generate fid sample batch 50/100 
-generate fid sample batch 51/100 
-generate fid sample batch 52/100 
-generate fid sample batch 53/100 
-generate fid sample batch 54/100 
-generate fid sample batch 55/100 
-generate fid sample batch 56/100 
-generate fid sample batch 57/100 
-generate fid sample batch 58/100 
-generate fid sample batch 59/100 
-generate fid sample batch 60/100 
-generate fid sample batch 61/100 
-generate fid sample batch 62/100 
-generate fid sample batch 63/100 
-generate fid sample batch 64/100 
-generate fid sample batch 65/100 
-generate fid sample batch 66/100 
-generate fid sample batch 67/100 
-generate fid sample batch 68/100 
-generate fid sample batch 69/100 
-generate fid sample batch 70/100 
-generate fid sample batch 71/100 
-generate fid sample batch 72/100 
-generate fid sample batch 73/100 
-generate fid sample batch 74/100 
-generate fid sample batch 75/100 
-generate fid sample batch 76/100 
-generate fid sample batch 77/100 
-generate fid sample batch 78/100 
-generate fid sample batch 79/100 
-generate fid sample batch 80/100 
-generate fid sample batch 81/100 
-generate fid sample batch 82/100 
-generate fid sample batch 83/100 
-generate fid sample batch 84/100 
-generate fid sample batch 85/100 
-generate fid sample batch 86/100 
-generate fid sample batch 87/100 
-generate fid sample batch 88/100 
-generate fid sample batch 89/100 
-generate fid sample batch 90/100 
-generate fid sample batch 91/100 
-generate fid sample batch 92/100 
-generate fid sample batch 93/100 
-generate fid sample batch 94/100 
-generate fid sample batch 95/100 
-generate fid sample batch 96/100 
-generate fid sample batch 97/100 
-generate fid sample batch 98/100 
-generate fid sample batch 99/100 
-generate fid sample batch 100/100 
-50000 samples generating done
-Gathering activations...
-Calculating Inception Score...
-4.8299017 0.04940845
-(epoch: 25, giters: 10000) IS_mean: 4.830 IS_var: 0.049 
-saving the latest model (epoch 25, iters 10000)
-(epoch_26) End of giters 10140 / 500000 	 Time Taken: 196 sec
-(epoch_27) End of giters 10530 / 500000 	 Time Taken: 121 sec
-(epoch_28) End of giters 10920 / 500000 	 Time Taken: 120 sec
-(epoch_29) End of giters 11310 / 500000 	 Time Taken: 121 sec
-(epoch_30) End of giters 11700 / 500000 	 Time Taken: 121 sec
-(epoch: 30, giters: 12000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 35.045 D_real: 0.127 D_fake: 0.037 D_gp: 0.000 G: 35.045 D: 0.164 
-(epoch_31) End of giters 12090 / 500000 	 Time Taken: 121 sec
-(epoch_32) End of giters 12480 / 500000 	 Time Taken: 120 sec
-(epoch_33) End of giters 12870 / 500000 	 Time Taken: 121 sec
-(epoch_34) End of giters 13260 / 500000 	 Time Taken: 121 sec
-(epoch_35) End of giters 13650 / 500000 	 Time Taken: 121 sec
-(epoch: 35, giters: 14000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 47.039 D_real: 0.020 D_fake: 0.003 D_gp: 0.000 G: 47.039 D: 0.022 
-(epoch_36) End of giters 14040 / 500000 	 Time Taken: 120 sec
-(epoch_37) End of giters 14430 / 500000 	 Time Taken: 120 sec
-(epoch_38) End of giters 14820 / 500000 	 Time Taken: 121 sec
-generate fid sample batch 1/100 
-generate fid sample batch 2/100 
-generate fid sample batch 3/100 
-generate fid sample batch 4/100 
-generate fid sample batch 5/100 
-generate fid sample batch 6/100 
-generate fid sample batch 7/100 
-generate fid sample batch 8/100 
-generate fid sample batch 9/100 
-generate fid sample batch 10/100 
-generate fid sample batch 11/100 
-generate fid sample batch 12/100 
-generate fid sample batch 13/100 
-generate fid sample batch 14/100 
-generate fid sample batch 15/100 
-generate fid sample batch 16/100 
-generate fid sample batch 17/100 
-generate fid sample batch 18/100 
-generate fid sample batch 19/100 
-generate fid sample batch 20/100 
-generate fid sample batch 21/100 
-generate fid sample batch 22/100 
-generate fid sample batch 23/100 
-generate fid sample batch 24/100 
-generate fid sample batch 25/100 
-generate fid sample batch 26/100 
-generate fid sample batch 27/100 
-generate fid sample batch 28/100 
-generate fid sample batch 29/100 
-generate fid sample batch 30/100 
-generate fid sample batch 31/100 
-generate fid sample batch 32/100 
-generate fid sample batch 33/100 
-generate fid sample batch 34/100 
-generate fid sample batch 35/100 
-generate fid sample batch 36/100 
-generate fid sample batch 37/100 
-generate fid sample batch 38/100 
-generate fid sample batch 39/100 
-generate fid sample batch 40/100 
-generate fid sample batch 41/100 
-generate fid sample batch 42/100 
-generate fid sample batch 43/100 
-generate fid sample batch 44/100 
-generate fid sample batch 45/100 
-generate fid sample batch 46/100 
-generate fid sample batch 47/100 
-generate fid sample batch 48/100 
-generate fid sample batch 49/100 
-generate fid sample batch 50/100 
-generate fid sample batch 51/100 
-generate fid sample batch 52/100 
-generate fid sample batch 53/100 
-generate fid sample batch 54/100 
-generate fid sample batch 55/100 
-generate fid sample batch 56/100 
-generate fid sample batch 57/100 
-generate fid sample batch 58/100 
-generate fid sample batch 59/100 
-generate fid sample batch 60/100 
-generate fid sample batch 61/100 
-generate fid sample batch 62/100 
-generate fid sample batch 63/100 
-generate fid sample batch 64/100 
-generate fid sample batch 65/100 
-generate fid sample batch 66/100 
-generate fid sample batch 67/100 
-generate fid sample batch 68/100 
-generate fid sample batch 69/100 
-generate fid sample batch 70/100 
-generate fid sample batch 71/100 
-generate fid sample batch 72/100 
-generate fid sample batch 73/100 
-generate fid sample batch 74/100 
-generate fid sample batch 75/100 
-generate fid sample batch 76/100 
-generate fid sample batch 77/100 
-generate fid sample batch 78/100 
-generate fid sample batch 79/100 
-generate fid sample batch 80/100 
-generate fid sample batch 81/100 
-generate fid sample batch 82/100 
-generate fid sample batch 83/100 
-generate fid sample batch 84/100 
-generate fid sample batch 85/100 
-generate fid sample batch 86/100 
-generate fid sample batch 87/100 
-generate fid sample batch 88/100 
-generate fid sample batch 89/100 
-generate fid sample batch 90/100 
-generate fid sample batch 91/100 
-generate fid sample batch 92/100 
-generate fid sample batch 93/100 
-generate fid sample batch 94/100 
-generate fid sample batch 95/100 
-generate fid sample batch 96/100 
-generate fid sample batch 97/100 
-generate fid sample batch 98/100 
-generate fid sample batch 99/100 
-generate fid sample batch 100/100 
-50000 samples generating done
-Gathering activations...
-Calculating Inception Score...
-5.2133565 0.048106007
-(epoch: 38, giters: 15000) IS_mean: 5.213 IS_var: 0.048 
-saving the latest model (epoch 38, iters 15000)
-(epoch_39) End of giters 15210 / 500000 	 Time Taken: 196 sec
-(epoch_40) End of giters 15600 / 500000 	 Time Taken: 120 sec
-(epoch_41) End of giters 15990 / 500000 	 Time Taken: 121 sec
-(epoch: 41, giters: 16000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 19.081 D_real: 0.076 D_fake: 0.170 D_gp: 0.000 G: 19.081 D: 0.246 
-(epoch_42) End of giters 16380 / 500000 	 Time Taken: 121 sec
-(epoch_43) End of giters 16770 / 500000 	 Time Taken: 120 sec
-(epoch_44) End of giters 17160 / 500000 	 Time Taken: 120 sec
-(epoch_45) End of giters 17550 / 500000 	 Time Taken: 120 sec
-(epoch_46) End of giters 17940 / 500000 	 Time Taken: 121 sec
-(epoch: 46, giters: 18000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 33.402 D_real: 0.018 D_fake: 0.034 D_gp: 0.000 G: 33.402 D: 0.052 
-(epoch_47) End of giters 18330 / 500000 	 Time Taken: 120 sec
-(epoch_48) End of giters 18720 / 500000 	 Time Taken: 120 sec
-(epoch_49) End of giters 19110 / 500000 	 Time Taken: 120 sec
-(epoch_50) End of giters 19500 / 500000 	 Time Taken: 120 sec
-(epoch_51) End of giters 19890 / 500000 	 Time Taken: 120 sec
-(epoch: 51, giters: 20000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 24.784 D_real: 1.082 D_fake: 0.090 D_gp: 0.000 G: 24.784 D: 1.171 
-generate fid sample batch 1/100 
-generate fid sample batch 2/100 
-generate fid sample batch 3/100 
-generate fid sample batch 4/100 
-generate fid sample batch 5/100 
-generate fid sample batch 6/100 
-generate fid sample batch 7/100 
-generate fid sample batch 8/100 
-generate fid sample batch 9/100 
-generate fid sample batch 10/100 
-generate fid sample batch 11/100 
-generate fid sample batch 12/100 
-generate fid sample batch 13/100 
-generate fid sample batch 14/100 
-generate fid sample batch 15/100 
-generate fid sample batch 16/100 
-generate fid sample batch 17/100 
-generate fid sample batch 18/100 
-generate fid sample batch 19/100 
-generate fid sample batch 20/100 
-generate fid sample batch 21/100 
-generate fid sample batch 22/100 
-generate fid sample batch 23/100 
-generate fid sample batch 24/100 
-generate fid sample batch 25/100 
-generate fid sample batch 26/100 
-generate fid sample batch 27/100 
-generate fid sample batch 28/100 
-generate fid sample batch 29/100 
-generate fid sample batch 30/100 
-generate fid sample batch 31/100 
-generate fid sample batch 32/100 
-generate fid sample batch 33/100 
-generate fid sample batch 34/100 
-generate fid sample batch 35/100 
-generate fid sample batch 36/100 
-generate fid sample batch 37/100 
-generate fid sample batch 38/100 
-generate fid sample batch 39/100 
-generate fid sample batch 40/100 
-generate fid sample batch 41/100 
-generate fid sample batch 42/100 
-generate fid sample batch 43/100 
-generate fid sample batch 44/100 
-generate fid sample batch 45/100 
-generate fid sample batch 46/100 
-generate fid sample batch 47/100 
-generate fid sample batch 48/100 
-generate fid sample batch 49/100 
-generate fid sample batch 50/100 
-generate fid sample batch 51/100 
-generate fid sample batch 52/100 
-generate fid sample batch 53/100 
-generate fid sample batch 54/100 
-generate fid sample batch 55/100 
-generate fid sample batch 56/100 
-generate fid sample batch 57/100 
-generate fid sample batch 58/100 
-generate fid sample batch 59/100 
-generate fid sample batch 60/100 
-generate fid sample batch 61/100 
-generate fid sample batch 62/100 
-generate fid sample batch 63/100 
-generate fid sample batch 64/100 
-generate fid sample batch 65/100 
-generate fid sample batch 66/100 
-generate fid sample batch 67/100 
-generate fid sample batch 68/100 
-generate fid sample batch 69/100 
-generate fid sample batch 70/100 
-generate fid sample batch 71/100 
-generate fid sample batch 72/100 
-generate fid sample batch 73/100 
-generate fid sample batch 74/100 
-generate fid sample batch 75/100 
-generate fid sample batch 76/100 
-generate fid sample batch 77/100 
-generate fid sample batch 78/100 
-generate fid sample batch 79/100 
-generate fid sample batch 80/100 
-generate fid sample batch 81/100 
-generate fid sample batch 82/100 
-generate fid sample batch 83/100 
-generate fid sample batch 84/100 
-generate fid sample batch 85/100 
-generate fid sample batch 86/100 
-generate fid sample batch 87/100 
-generate fid sample batch 88/100 
-generate fid sample batch 89/100 
-generate fid sample batch 90/100 
-generate fid sample batch 91/100 
-generate fid sample batch 92/100 
-generate fid sample batch 93/100 
-generate fid sample batch 94/100 
-generate fid sample batch 95/100 
-generate fid sample batch 96/100 
-generate fid sample batch 97/100 
-generate fid sample batch 98/100 
-generate fid sample batch 99/100 
-generate fid sample batch 100/100 
-50000 samples generating done
-Gathering activations...
-Calculating Inception Score...
-5.3306003 0.060965914
-(epoch: 51, giters: 20000) IS_mean: 5.331 IS_var: 0.061 
-saving the latest model (epoch 51, iters 20000)
-(epoch_52) End of giters 20280 / 500000 	 Time Taken: 196 sec
-(epoch_53) End of giters 20670 / 500000 	 Time Taken: 120 sec
-(epoch_54) End of giters 21060 / 500000 	 Time Taken: 120 sec
-(epoch_55) End of giters 21450 / 500000 	 Time Taken: 120 sec
-(epoch_56) End of giters 21840 / 500000 	 Time Taken: 120 sec
-(epoch: 56, giters: 22000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 32.132 D_real: 0.003 D_fake: 0.017 D_gp: 0.000 G: 32.132 D: 0.021 
-(epoch_57) End of giters 22230 / 500000 	 Time Taken: 120 sec
-(epoch_58) End of giters 22620 / 500000 	 Time Taken: 120 sec
-(epoch_59) End of giters 23010 / 500000 	 Time Taken: 120 sec
-(epoch_60) End of giters 23400 / 500000 	 Time Taken: 120 sec
-(epoch_61) End of giters 23790 / 500000 	 Time Taken: 120 sec
-(epoch: 61, giters: 24000, time: 0.007, data: 0.001) G_real: 0.000 G_fake: 19.268 D_real: 0.019 D_fake: 0.078 D_gp: 0.000 G: 19.268 D: 0.097 
-(epoch_62) End of giters 24180 / 500000 	 Time Taken: 123 sec
-(epoch_63) End of giters 24570 / 500000 	 Time Taken: 130 sec
-(epoch_64) End of giters 24960 / 500000 	 Time Taken: 131 sec
-generate fid sample batch 1/100 
-generate fid sample batch 2/100 
-generate fid sample batch 3/100 
-generate fid sample batch 4/100 
-generate fid sample batch 5/100 
-generate fid sample batch 6/100 
-generate fid sample batch 7/100 
-generate fid sample batch 8/100 
-generate fid sample batch 9/100 
-generate fid sample batch 10/100 
-generate fid sample batch 11/100 
-generate fid sample batch 12/100 
-generate fid sample batch 13/100 
-generate fid sample batch 14/100 
-generate fid sample batch 15/100 
-generate fid sample batch 16/100 
-generate fid sample batch 17/100 
-generate fid sample batch 18/100 
-generate fid sample batch 19/100 
-generate fid sample batch 20/100 
-generate fid sample batch 21/100 
-generate fid sample batch 22/100 
-generate fid sample batch 23/100 
-generate fid sample batch 24/100 
-generate fid sample batch 25/100 
-generate fid sample batch 26/100 
-generate fid sample batch 27/100 
-generate fid sample batch 28/100 
-generate fid sample batch 29/100 
-generate fid sample batch 30/100 
-generate fid sample batch 31/100 
-generate fid sample batch 32/100 
-generate fid sample batch 33/100 
-generate fid sample batch 34/100 
-generate fid sample batch 35/100 
-generate fid sample batch 36/100 
-generate fid sample batch 37/100 
-generate fid sample batch 38/100 
-generate fid sample batch 39/100 
-generate fid sample batch 40/100 
-generate fid sample batch 41/100 
-generate fid sample batch 42/100 
-generate fid sample batch 43/100 
-generate fid sample batch 44/100 
-generate fid sample batch 45/100 
-generate fid sample batch 46/100 
-generate fid sample batch 47/100 
-generate fid sample batch 48/100 
-generate fid sample batch 49/100 
-generate fid sample batch 50/100 
-generate fid sample batch 51/100 
-generate fid sample batch 52/100 
-generate fid sample batch 53/100 
-generate fid sample batch 54/100 
-generate fid sample batch 55/100 
-generate fid sample batch 56/100 
-generate fid sample batch 57/100 
-generate fid sample batch 58/100 
-generate fid sample batch 59/100 
-generate fid sample batch 60/100 
-generate fid sample batch 61/100 
-generate fid sample batch 62/100 
-generate fid sample batch 63/100 
-generate fid sample batch 64/100 
-generate fid sample batch 65/100 
-generate fid sample batch 66/100 
-generate fid sample batch 67/100 
-generate fid sample batch 68/100 
-generate fid sample batch 69/100 
-generate fid sample batch 70/100 
-generate fid sample batch 71/100 
-generate fid sample batch 72/100 
-generate fid sample batch 73/100 
-generate fid sample batch 74/100 
-generate fid sample batch 75/100 
-generate fid sample batch 76/100 
-generate fid sample batch 77/100 
-generate fid sample batch 78/100 
-generate fid sample batch 79/100 
-generate fid sample batch 80/100 
-generate fid sample batch 81/100 
-generate fid sample batch 82/100 
-generate fid sample batch 83/100 
-generate fid sample batch 84/100 
-generate fid sample batch 85/100 
-generate fid sample batch 86/100 
-generate fid sample batch 87/100 
-generate fid sample batch 88/100 
-generate fid sample batch 89/100 
-generate fid sample batch 90/100 
-generate fid sample batch 91/100 
-generate fid sample batch 92/100 
-generate fid sample batch 93/100 
-generate fid sample batch 94/100 
-generate fid sample batch 95/100 
-generate fid sample batch 96/100 
-generate fid sample batch 97/100 
-generate fid sample batch 98/100 
-generate fid sample batch 99/100 
-generate fid sample batch 100/100 
-50000 samples generating done
-Gathering activations...
-Calculating Inception Score...
-5.0558443 0.03740628
-(epoch: 64, giters: 25000) IS_mean: 5.056 IS_var: 0.037 
-saving the latest model (epoch 64, iters 25000)
-(epoch_65) End of giters 25350 / 500000 	 Time Taken: 205 sec
-(epoch_66) End of giters 25740 / 500000 	 Time Taken: 121 sec
-(epoch: 66, giters: 26000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 24.002 D_real: 0.035 D_fake: 0.101 D_gp: 0.000 G: 24.002 D: 0.137 
-(epoch_67) End of giters 26130 / 500000 	 Time Taken: 121 sec
-(epoch_68) End of giters 26520 / 500000 	 Time Taken: 120 sec
-(epoch_69) End of giters 26910 / 500000 	 Time Taken: 120 sec
-(epoch_70) End of giters 27300 / 500000 	 Time Taken: 121 sec
-(epoch_71) End of giters 27690 / 500000 	 Time Taken: 120 sec
-(epoch: 71, giters: 28000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 27.119 D_real: 0.012 D_fake: 0.084 D_gp: 0.000 G: 27.119 D: 0.096 
-(epoch_72) End of giters 28080 / 500000 	 Time Taken: 121 sec
-(epoch_73) End of giters 28470 / 500000 	 Time Taken: 120 sec
-(epoch_74) End of giters 28860 / 500000 	 Time Taken: 120 sec
-(epoch_75) End of giters 29250 / 500000 	 Time Taken: 120 sec
-(epoch_76) End of giters 29640 / 500000 	 Time Taken: 120 sec
-(epoch: 76, giters: 30000, time: 0.006, data: 0.001) G_real: 0.000 G_fake: 26.355 D_real: 0.008 D_fake: 0.116 D_gp: 0.000 G: 26.355 D: 0.124 
-generate fid sample batch 1/100 
-generate fid sample batch 2/100 
-generate fid sample batch 3/100 
-generate fid sample batch 4/100 
-generate fid sample batch 5/100 
-generate fid sample batch 6/100 
-generate fid sample batch 7/100 
-generate fid sample batch 8/100 
-generate fid sample batch 9/100 
-generate fid sample batch 10/100 
-generate fid sample batch 11/100 
-generate fid sample batch 12/100 
-generate fid sample batch 13/100 
-generate fid sample batch 14/100 
-generate fid sample batch 15/100 
-generate fid sample batch 16/100 
-generate fid sample batch 17/100 
-generate fid sample batch 18/100 
-generate fid sample batch 19/100 
-generate fid sample batch 20/100 
-generate fid sample batch 21/100 
-generate fid sample batch 22/100 
-generate fid sample batch 23/100 
-generate fid sample batch 24/100 
-generate fid sample batch 25/100 
-generate fid sample batch 26/100 
-generate fid sample batch 27/100 
-generate fid sample batch 28/100 
-generate fid sample batch 29/100 
-generate fid sample batch 30/100 
-generate fid sample batch 31/100 
-generate fid sample batch 32/100 
-generate fid sample batch 33/100 
-generate fid sample batch 34/100 
-generate fid sample batch 35/100 
-generate fid sample batch 36/100 
-generate fid sample batch 37/100 
-generate fid sample batch 38/100 
-generate fid sample batch 39/100 
-generate fid sample batch 40/100 
-generate fid sample batch 41/100 
-generate fid sample batch 42/100 
-generate fid sample batch 43/100 
-generate fid sample batch 44/100 
-generate fid sample batch 45/100 
-generate fid sample batch 46/100 
-generate fid sample batch 47/100 
-generate fid sample batch 48/100 
-generate fid sample batch 49/100 
-generate fid sample batch 50/100 
-generate fid sample batch 51/100 
-generate fid sample batch 52/100 
-generate fid sample batch 53/100 
-generate fid sample batch 54/100 
-generate fid sample batch 55/100 
-generate fid sample batch 56/100 
-generate fid sample batch 57/100 
-generate fid sample batch 58/100 
-generate fid sample batch 59/100 
-generate fid sample batch 60/100 
-generate fid sample batch 61/100 
-generate fid sample batch 62/100 
-generate fid sample batch 63/100 
-generate fid sample batch 64/100 
-generate fid sample batch 65/100 
-generate fid sample batch 66/100 
-generate fid sample batch 67/100 
-generate fid sample batch 68/100 
-generate fid sample batch 69/100 
-generate fid sample batch 70/100 
-generate fid sample batch 71/100 
-generate fid sample batch 72/100 
-generate fid sample batch 73/100 
-generate fid sample batch 74/100 
-generate fid sample batch 75/100 
-generate fid sample batch 76/100 
-generate fid sample batch 77/100 
-generate fid sample batch 78/100 
-generate fid sample batch 79/100 
-generate fid sample batch 80/100 
-generate fid sample batch 81/100 
-generate fid sample batch 82/100 
-generate fid sample batch 83/100 
-generate fid sample batch 84/100 
-generate fid sample batch 85/100 
-generate fid sample batch 86/100 
-generate fid sample batch 87/100 
-generate fid sample batch 88/100 
-generate fid sample batch 89/100 
-generate fid sample batch 90/100 
-generate fid sample batch 91/100 
-generate fid sample batch 92/100 
-generate fid sample batch 93/100 
-generate fid sample batch 94/100 
-generate fid sample batch 95/100 
-generate fid sample batch 96/100 
-generate fid sample batch 97/100 
-generate fid sample batch 98/100 
-generate fid sample batch 99/100 
-generate fid sample batch 100/100 
-50000 samples generating done
-Gathering activations...
-Calculating Inception Score...
-5.151046 0.050291304
-(epoch: 76, giters: 30000) IS_mean: 5.151 IS_var: 0.050 
-saving the latest model (epoch 76, iters 30000)
-(epoch_77) End of giters 30030 / 500000 	 Time Taken: 196 sec
-(epoch_78) End of giters 30420 / 500000 	 Time Taken: 120 sec
-(epoch_79) End of giters 30810 / 500000 	 Time Taken: 120 sec
-(epoch_80) End of giters 31200 / 500000 	 Time Taken: 121 sec
