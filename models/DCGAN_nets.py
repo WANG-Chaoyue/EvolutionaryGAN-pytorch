@@ -3,6 +3,7 @@ import torch.nn as nn
 from torch.nn import init
 import functools
 from torch.optim import lr_scheduler
+import pdb
 
 class DCGANGenerator_cifar10(nn.Module):
     def __init__(self, z_dim, ngf=64, output_nc=3,  norm_layer=nn.BatchNorm2d):
@@ -14,21 +15,23 @@ class DCGANGenerator_cifar10(nn.Module):
         else:
             use_bias = norm_layer != nn.BatchNorm2d
 
-        self.model = nn.Sequential(
-                nn.ConvTranspose2d(z_dim, ngf*8, 4, stride=1, padding=0, bias=use_bias),
-                norm_layer(ngf*8),
-                nn.ReLU(),
-                nn.ConvTranspose2d(ngf*8, ngf*4, 4, stride=2, padding=(1,1), bias=use_bias),
-                norm_layer(ngf*4),
-                nn.ReLU(),
-                nn.ConvTranspose2d(ngf*4, ngf*2, 4, stride=2, padding=(1,1), bias=use_bias),
-                norm_layer(ngf*2),
-                nn.ReLU(),
-                nn.ConvTranspose2d(ngf*2, ngf, 4, stride=2, padding=(1,1), bias=use_bias),
-                norm_layer(ngf),
-                nn.ReLU(),
-                nn.ConvTranspose2d(ngf, output_nc, 3, stride=1, padding=(1,1)),
-                nn.Tanh())
+        seq = [] 
+        seq.append(nn.ConvTranspose2d(z_dim, ngf*8, 4, stride=1, padding=0, bias=use_bias))
+        seq.append(norm_layer(ngf*8)) if norm_layer is not None else None
+        seq.append(nn.ReLU())
+        seq.append(nn.ConvTranspose2d(ngf*8, ngf*4, 4, stride=2, padding=(1,1), bias=use_bias))
+        seq.append(norm_layer(ngf*4)) if norm_layer is not None else None
+        seq.append(nn.ReLU())
+        seq.append(nn.ConvTranspose2d(ngf*4, ngf*2, 4, stride=2, padding=(1,1), bias=use_bias))
+        seq.append(norm_layer(ngf*2)) if norm_layer is not None else None
+        seq.append(nn.ReLU())
+        seq.append(nn.ConvTranspose2d(ngf*2, ngf, 4, stride=2, padding=(1,1), bias=use_bias))
+        seq.append(norm_layer(ngf)) if norm_layer is not None else None
+        seq.append(nn.ReLU())
+        seq.append(nn.ConvTranspose2d(ngf, output_nc, 3, stride=1, padding=(1,1)))
+        seq.append(nn.Tanh())
+
+        self.model = nn.Sequential(*seq)
 
     def forward(self, input):
         return self.model(input.view(-1, self.z_dim, 1, 1))
@@ -44,19 +47,20 @@ class DCGANDiscriminator_cifar10(nn.Module):
         else:
             use_bias = norm_layer != nn.BatchNorm2d
 
-        sequence = [nn.Conv2d(input_nc, ndf, 3, stride=1, padding=(1,1), bias=use_bias),
-                    nn.LeakyReLU(0.2),
-                    nn.Conv2d(ndf, ndf*2, 4, stride=2, padding=(1,1), bias=use_bias),
-                    norm_layer(ndf*2),
-                    nn.LeakyReLU(0.2),
-                    nn.Conv2d(ndf*2, ndf*4, 4, stride=2, padding=(1,1), bias=use_bias),
-                    norm_layer(ndf*4),
-                    nn.LeakyReLU(0.2),
-                    nn.Conv2d(ndf*4, ndf*8, 4, stride=2, padding=(1,1), bias=use_bias),
-                    norm_layer(ndf*8),
-                    nn.LeakyReLU(0.2),
-                   ]
-        self.cnn_model = nn.Sequential(*sequence)
+        seq = []
+        seq.append(nn.Conv2d(input_nc, ndf, 3, stride=1, padding=(1,1), bias=use_bias))
+        seq.append(nn.LeakyReLU(0.2))
+        seq.append(nn.Conv2d(ndf, ndf*2, 4, stride=2, padding=(1,1), bias=use_bias))
+        seq.append(norm_layer(ndf*2)) if norm_layer is not None else None
+        seq.append(nn.LeakyReLU(0.2))
+        seq.append(nn.Conv2d(ndf*2, ndf*4, 4, stride=2, padding=(1,1), bias=use_bias))
+        seq.append(norm_layer(ndf*4)) if norm_layer is not None else None
+        seq.append(nn.LeakyReLU(0.2))
+        seq.append(nn.Conv2d(ndf*4, ndf*8, 4, stride=2, padding=(1,1), bias=use_bias))
+        seq.append(norm_layer(ndf*8)) if norm_layer is not None else None
+        seq.append(nn.LeakyReLU(0.2))
+        
+        self.cnn_model = nn.Sequential(*seq)
 
         fc = [nn.Linear(4*4*ndf*8, 1)]
         self.fc = nn.Sequential(*fc)

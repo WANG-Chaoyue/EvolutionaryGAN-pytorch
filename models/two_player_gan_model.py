@@ -78,11 +78,11 @@ class TwoPlayerGANModel(BaseModel):
             self.CatDis = Categorical(torch.tensor(probs))
         # define networks 
         self.netG = networks.define_G(opt.z_dim, opt.output_nc, opt.ngf, opt.netG,
-                opt.norm, opt.cgan, opt.cat_num, not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids)
+                opt.g_norm, opt.cgan, opt.cat_num, not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids)
 
         if self.isTrain:  # define a discriminator; conditional GANs need to take both input and output images; Therefore, #channels for D is input_nc + output_nc
             self.netD = networks.define_D(opt.input_nc, opt.ndf, opt.netD,
-                                          opt.norm, opt.cgan, opt.cat_num, opt.init_type, opt.init_gain, self.gpu_ids)
+                                          opt.d_norm, opt.cgan, opt.cat_num, opt.init_type, opt.init_gain, self.gpu_ids)
 
         if self.isTrain:  # only defined during training time
             # define loss functions
@@ -127,9 +127,8 @@ class TwoPlayerGANModel(BaseModel):
         if self.opt.cgan:
             self.input_targets = input['target'].to(self.device) 
         
-    def forward(self):
-        z = torch.randn(self.opt.batch_size, self.opt.z_dim, 1, 1, device=self.device) 
-        # Fake images
+    def forward(self): 
+        z = torch.randn(self.opt.batch_size, self.opt.z_dim, 1, 1, device=self.device) # Fake images
         if not self.opt.cgan:
             self.gen_imgs = self.netG(z)
         else:
