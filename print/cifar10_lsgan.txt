@@ -1,21 +1,20 @@
-+ python train.py --dataroot None --name egan_cifar10_1 --dataset_mode torchvision --batch_size 64 --model egan --gpu_ids 0 --download_root ./datasets/cifar10 --dataset_name CIFAR10 --crop_size 32 --load_size 32 --d_loss_mode vanilla --g_loss_mode nsgan vanilla lsgan --which_D S --lambda_f 0.05 --candi_num 1 --lr_g 0.0002 --lr_d 0.0004 --netD DCGAN_cifar10 --netG DCGAN_cifar10 --ngf 128 --ndf 128 --g_norm none --d_norm batch --init_type normal --init_gain 0.02 --no_dropout --no_flip --D_iters 1 --use_pytorch_scores --score_name IS FID --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz --print_freq 2000 --display_freq 2000 --score_freq 5000 --display_id -1 --save_giters_freq 100000
-2019-04-25 20:33:55.646697: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 20:33:55.646726: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 20:33:55.646731: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 20:33:55.646734: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
-2019-04-25 20:33:55.646737: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
++ python train.py --name lsgan_cifar10_1 --dataset_mode torchvision --batch_size 64 --dataroot None --model two_player_gan --gpu_ids 3 --download_root ./datasets/cifar10 --dataset_name CIFAR10 --crop_size 32 --load_size 32 --d_loss_mode lsgan --g_loss_mode lsgan --which_D S --netD DCGAN_cifar10 --netG DCGAN_cifar10 --ngf 128 --ndf 128 --g_norm none --d_norm batch --init_type normal --init_gain 0.02 --no_dropout --no_flip --D_iters 1 --use_pytorch_scores --score_name IS FID --evaluation_size 50000 --fid_batch_size 500 --fid_stat_file ./TTUR/stats/fid_stats_cifar10_train.npz --print_freq 2000 --display_freq 2000 --score_freq 5000 --display_id -1 --save_giters_freq 100000
+2019-04-25 20:41:35.731595: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-25 20:41:35.731620: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-25 20:41:35.731625: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-25 20:41:35.731628: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2019-04-25 20:41:35.731632: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
 ----------------- Options ---------------
                   D_iters: 1                             
                batch_size: 64                            	[default: 1]
                     beta1: 0.5                           
                     beta2: 0.999                         
-                candi_num: 1                             	[default: 2]
                   cat_num: 10                            
                      cgan: False                         
           checkpoints_dir: ./checkpoints                 
            continue_train: False                         
                 crop_size: 32                            	[default: 256]
-              d_loss_mode: vanilla                       	[default: lsgan]
+              d_loss_mode: lsgan                         
                    d_norm: batch                         
                  dataroot: None                          	[default: None]
              dataset_mode: torchvision                   	[default: unaligned]
@@ -33,24 +32,23 @@
           evaluation_size: 50000                         
            fid_batch_size: 500                           	[default: 100]
             fid_stat_file: ./TTUR/stats/fid_stats_cifar10_train.npz
-              g_loss_mode: ['nsgan', 'vanilla', 'lsgan'] 	[default: ['nsgan', 'lsgan', 'vanilla']]
+              g_loss_mode: lsgan                         
                    g_norm: none                          
-                  gpu_ids: 0                             
+                  gpu_ids: 3                             	[default: 0]
                 init_gain: 0.02                          
                 init_type: normal                        
                  input_nc: 3                             
                   isTrain: True                          	[default: None]
-                 lambda_f: 0.05                          	[default: 0.1]
                 load_iter: 0                             	[default: 0]
                 load_size: 32                            	[default: 256]
-                     lr_d: 0.0004                        	[default: 0.0002]
+                     lr_d: 0.0002                        
            lr_decay_iters: 50                            
                      lr_g: 0.0002                        
                 lr_policy: linear                        
          max_dataset_size: inf                           
-                    model: egan                          	[default: cycle_gan]
+                    model: two_player_gan                	[default: cycle_gan]
                n_layers_D: 3                             
-                     name: egan_cifar10_1                	[default: experiment_name]
+                     name: lsgan_cifar10_1               	[default: experiment_name]
                       ndf: 128                           	[default: 64]
                      netD: DCGAN_cifar10                 	[default: basic]
                      netG: DCGAN_cifar10                 	[default: resnet_9blocks]
@@ -86,11 +84,9 @@ dataset [TorchvisionDataset] was created
 The number of training images = 50000
 initialize network with normal
 initialize network with normal
-model [EGANModel] was created
+model [TwoPlayerGANModel] was created
 ---------- Networks initialized -------------
 [Network G] Total number of parameters : 13.113 M
 [Network D] Total number of parameters : 11.033 M
 -----------------------------------------------
-create web directory ./checkpoints/egan_cifar10_1/web...
-(epoch_1) End of giters 390 / 500000 	 Time Taken: 177 sec
-(epoch_2) End of giters 780 / 500000 	 Time Taken: 178 sec
+create web directory ./checkpoints/lsgan_cifar10_1/web...
