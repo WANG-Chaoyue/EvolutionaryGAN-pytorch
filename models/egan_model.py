@@ -51,8 +51,10 @@ class EGANModel(BaseModel):
             parser.add_argument('--use_gp', action='store_true', default=False, help='if usei gradients penalty')
             parser.add_argument('--use_pytorch_scores', action='store_true', default=False, help='if use pytorch version scores')
 
+            parser.add_argument('--z_type', type=str, default='Gaussian', help='Gaussian | Uniform') 
             parser.add_argument('--lambda_f', type=float, default=0.1, help='the hyperparameter that balance Fq and Fd')
             parser.add_argument('--candi_num', type=int, default=2, help='# of survived candidatures in each evolutinary iteration.')
+            parser.add_argument('--eval_size', type=int, default=64, help='batch size during each evaluation.')
         return parser
 
     def __init__(self, opt):
@@ -113,7 +115,10 @@ class EGANModel(BaseModel):
         
         # visulize settings 
         self.N =int(np.trunc(np.sqrt(min(opt.batch_size, 64))))
-        self.z_fixed = torch.randn(self.N*self.N, opt.z_dim, 1, 1, device=self.device) 
+        if self.opt.z_type == 'Gaussian': 
+            self.z_fixed = torch.randn(self.N*self.N, opt.z_dim, 1, 1, device=self.device) 
+        elif self.opt.z_type == 'Uniform': 
+            self.z_fixed = torch.rand(self.N*self.N, opt.z_dim, 1, 1, device=self.device)*2. - 1. 
         if self.opt.cgan:
             yf = self.CatDis.sample([self.N*self.N])
             self.y_fixed = one_hot(yf, [self.N*self.N, self.opt.cat_num])
@@ -151,7 +156,7 @@ class EGANModel(BaseModel):
                     self.sess.run(tf.global_variables_initializer())
 
         # the # of image for each evluation
-        self.eval_size = max(math.ceil((opt.batch_size * opt.D_iters) / opt.candi_num), opt.batch_size)
+        self.eval_size = max(math.ceil((opt.batch_size * opt.D_iters) / opt.candi_num), opt.eval_size)
 
 
     def set_input(self, input):
@@ -162,7 +167,10 @@ class EGANModel(BaseModel):
 
     def forward(self, batch_size = None):
         bs = self.opt.batch_size if batch_size is None else batch_size
-        z = torch.randn(bs, self.opt.z_dim, 1, 1, device=self.device) 
+        if self.opt.z_type == 'Gaussian': 
+            z = torch.randn(bs, self.opt.z_dim, 1, 1, device=self.device) 
+        elif self.opt.z_type == 'Uniform': 
+            z = torch.rand(bs, self.opt.z_dim, 1, 1, device=self.device)*2. - 1. 
         # Fake images
         if not self.opt.cgan:
             gen_imgs = self.netG(z)
@@ -333,11 +341,6 @@ class EGANModel(BaseModel):
         
         scores_ret = OrderedDict()
 
-        self.z_fixed = torch.randn(self.N*self.N, self.opt.z_dim, 1, 1, device=self.device) 
-        if self.opt.cgan:
-            yf = self.CatDis.sample([self.N*self.N])
-            self.y_fixed = one_hot(yf, [self.N*self.N, self.opt.cat_num])
-
         samples = torch.zeros((self.opt.evaluation_size, 3, self.opt.crop_size, self.opt.crop_size), device=self.device)
         n_fid_batches = self.opt.evaluation_size // self.opt.fid_batch_size
 
@@ -345,7 +348,11 @@ class EGANModel(BaseModel):
             frm = i * self.opt.fid_batch_size
             to = frm + self.opt.fid_batch_size
 
-            z = torch.randn(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device)
+            if self.opt.z_type == 'Gaussian': 
+                z = torch.randn(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device)
+            elif self.opt.z_type == 'Uniform': 
+                z = torch.rand(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device) *2. - 1.
+
             if self.opt.cgan:
                 y = self.CatDis.sample([self.opt.fid_batch_size])
                 y = one_hot(y, [self.opt.fid_batch_size])
