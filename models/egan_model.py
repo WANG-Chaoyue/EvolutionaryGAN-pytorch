@@ -233,8 +233,8 @@ class EGANModel(BaseModel):
                 self.optimizer_D.step()
 
     def Evo_G(self):
-        eval_imgs = self.input_imgs[:self.eval_size,:,:,:]
-        eval_targets = self.input_target[:self.eval_size,:] if self.opt.cgan else None
+        eval_imgs = self.input_imgs[-self.eval_size:,:,:,:]
+        eval_targets = self.input_target[-self.eval_size:,:] if self.opt.cgan else None
 
         # define real images pass D
         self.real_out = self.netD(self.real_imgs) if not self.opt.cgan else self.netD(self.real_imgs, self.targets)

@@ -74,7 +74,7 @@ class CustomDatasetDataLoader():
         print("dataset [%s] was created" % type(self.dataset).__name__)
         self.dataloader = torch.utils.data.DataLoader(
             self.dataset,
-            batch_size=opt.batch_size * (opt.D_iters + 1), # Load all data for training D and G once together.
+            batch_size=opt.batch_size*(opt.D_iters + 1)+opt.eval_size, # Load all data for training D and G once together.
             shuffle=not opt.serial_batches,
             num_workers=int(opt.num_threads))
 
