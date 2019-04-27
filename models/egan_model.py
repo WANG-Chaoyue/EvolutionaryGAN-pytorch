@@ -378,6 +378,7 @@ class EGANModel(BaseModel):
 
         else:
             # Cast, reshape and transpose (BCHW -> BHWC)
+            samples = samples.cpu().numpy() 
             samples = ((samples + 1.0) * 127.5).astype('uint8')
             samples = samples.reshape(self.opt.evaluation_size, 3, self.opt.crop_size, self.opt.crop_size)
             samples = samples.transpose(0,2,3,1)
