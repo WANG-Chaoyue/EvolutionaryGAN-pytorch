@@ -13,7 +13,7 @@ See our template dataset class 'template_dataset.py' for more details.
 import importlib
 import torch.utils.data
 from data.base_dataset import BaseDataset
-
+import pdb
 
 def find_dataset_using_name(dataset_name):
     """Import the module "data/[dataset_name]_dataset.py".
@@ -71,10 +71,13 @@ class CustomDatasetDataLoader():
         self.opt = opt
         dataset_class = find_dataset_using_name(opt.dataset_mode)
         self.dataset = dataset_class(opt)
+        self.eval_size = opt.eval_size if opt.model == 'egan' else 0 
+        self.bs = opt.batch_size*(opt.D_iters + 1) + self.eval_size
+
         print("dataset [%s] was created" % type(self.dataset).__name__)
         self.dataloader = torch.utils.data.DataLoader(
             self.dataset,
-            batch_size=opt.batch_size*(opt.D_iters + 1)+opt.eval_size, # Load all data for training D and G once together.
+            batch_size=self.bs, # Load all data for training D and G once together.
             shuffle=not opt.serial_batches,
             num_workers=int(opt.num_threads))
 
@@ -83,11 +86,12 @@ class CustomDatasetDataLoader():
 
     def __len__(self):
         """Return the number of data in the dataset"""
-        return min(len(self.dataset), self.opt.max_dataset_size)
+        self.data_size =  min(len(self.dataset), self.opt.max_dataset_size)
+        return self.data_size 
 
     def __iter__(self):
         """Return a batch of data"""
         for i, data in enumerate(self.dataloader):
-            if i * self.opt.batch_size >= self.opt.max_dataset_size:
+            if (i+1) * self.bs >= self.data_size:
                 break
             yield data
