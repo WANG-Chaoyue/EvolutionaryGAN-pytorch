@@ -20,7 +20,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import Parameter as P
 from torchvision.models.inception import inception_v3
-import pdb
 
 # Module that wraps the inception network to enable use with dataparallel and
 # returning pool features and logits.

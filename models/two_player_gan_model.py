@@ -26,8 +26,6 @@ from TTUR import fid
 from util.inception import get_inception_score
 from inception_pytorch import inception_utils
 
-import pdb 
-
 class TwoPlayerGANModel(BaseModel):
     @staticmethod
     def modify_commandline_options(parser, is_train=True):

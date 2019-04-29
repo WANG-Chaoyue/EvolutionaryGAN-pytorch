@@ -6,7 +6,6 @@ import time
 from . import util, html
 from subprocess import Popen, PIPE
 from scipy.misc import imresize
-import pdb
 
 if sys.version_info[0] == 2:
     VisdomExceptionBase = Exception

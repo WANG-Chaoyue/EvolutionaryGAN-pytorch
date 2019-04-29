@@ -3,7 +3,6 @@ import torch.nn as nn
 from torch.nn import init
 import functools
 from torch.optim import lr_scheduler
-import pdb
 
 class DCGANGenerator_cifar10(nn.Module):
     def __init__(self, z_dim, ngf=64, output_nc=3,  norm_layer=nn.BatchNorm2d):

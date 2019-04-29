@@ -14,7 +14,6 @@ from torchvision.datasets.utils import download_url, check_integrity
 import torch.utils.data as data
 from torch.utils.data import DataLoader
          
-import pdb 
          
 IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm']
 

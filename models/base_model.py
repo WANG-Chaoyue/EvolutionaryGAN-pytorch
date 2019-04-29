@@ -10,7 +10,6 @@ from util.util import prepare_z_y, one_hot, visualize_imgs
 from TTUR import fid
 from util.inception import get_inception_score
 from inception_pytorch import inception_utils
-import pdb
 
 class BaseModel(ABC):
     """This class is an abstract base class (ABC) for models.
