@@ -45,6 +45,14 @@ This code borrows heavily from [pytorch-CycleGAN-and-pix2pix](https://github.com
 
 ### Datasets loading
 
+### Model selecting
+
+### Network architecture
+
+### Adversarial losses (mutations)
+
+### Inception metrics
+
 
 
 
