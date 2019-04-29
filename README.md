@@ -45,9 +45,23 @@ This code borrows heavily from [pytorch-CycleGAN-and-pix2pix](https://github.com
 
 ### Datasets loading
 
+- Loading from image folder: [./data/single_dataset.py](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/data/single_dataset.py) `--dataset_mode single`
+
+- Loading from HDF5 file: [./data/hdf5_dataset.py](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/data/hdf5_dataset.py) `--dataset_mode hdf5`
+
+- Loading from [./data/torchvision](https://pytorch.org/docs/stable/torchvision/index.html): [torchvision_dataset.py](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/data/torchvision_dataset.py) `--dataset_mode torchvision` 
+
 ### Model selecting
 
+- Two-player GANs: [./models/two_player_gan_model.py](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/models/two_player_gan_model.py) `--model two_player_gan`
+
+- EvolutionaryGAN: [./models/egan_model.py](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/models/egan_model.py) `--model egan`
+
 ### Network architecture
+
+- DCGAN-based networks architecture: [./models/DCGAN_nets.py](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/models/DCGAN_nets.py) `--netD DCGAN_cifar10 --netG DCGAN_cifar10`
+
+More architectures will be added.
 
 ### Adversarial losses (mutations)
 
