@@ -40,5 +40,7 @@ class TrainOptions(BaseOptions):
         parser.add_argument('--lr_policy', type=str, default='linear', help='learning rate policy. [linear | step | plateau | cosine]')
         parser.add_argument('--lr_decay_iters', type=int, default=50, help='multiply by a gamma every lr_decay_iters iterations')
 
+        parser.add_argument('--use_gp', action='store_true', default=False, help='if usei gradients penalty')
+        parser.add_argument('--use_pytorch_scores', action='store_true', default=False, help='if use pytorch version scores')
         self.isTrain = True
         return parser

@@ -46,9 +46,6 @@ class TwoPlayerGANModel(BaseModel):
             parser.add_argument('--g_loss_mode', type=str, default='lsgan', help='lsgan | nsgan | vanilla | wgan | hinge | rsgan') 
             parser.add_argument('--d_loss_mode', type=str, default='lsgan', help='lsgan | nsgan | vanilla | wgan | hinge | rsgan') 
             parser.add_argument('--which_D', type=str, default='S', help='Standard(S) | Relativistic_average (Ra)') 
-            parser.add_argument('--use_gp', action='store_true', default=False, help='if usei gradients penalty')
-            parser.add_argument('--use_pytorch_scores', action='store_true', default=False, help='if use pytorch version scores')
-            parser.add_argument('--z_type', type=str, default='Gaussian', help='Gaussian | Uniform') 
 
         return parser
 
@@ -105,38 +102,6 @@ class TwoPlayerGANModel(BaseModel):
         if self.opt.cgan:
             yf = self.CatDis.sample([self.N*self.N])
             self.y_fixed = one_hot(yf, [self.N*self.N, self.opt.cat_num])
-
-        # scores init
-        if self.opt.use_pytorch_scores and self.opt.score_name is not None:
-            no_FID = True
-            no_IS = True
-            parallel = len(opt.gpu_ids) > 1 
-            for name in self.opt.score_name:
-                if name == 'FID':
-                    no_FID = False 
-                if name == 'IS':
-                    no_IS = False 
-            self.get_inception_metrics = inception_utils.prepare_inception_metrics(opt.dataset_name, parallel, no_IS, no_FID) 
-        else:
-            for name in self.opt.score_name:
-                if name == 'FID':
-                    STAT_FILE = self.opt.fid_stat_file
-                    INCEPTION_PATH = "./inception_v3/"
-
-                    print("load train stats.. ")
-                    # load precalculated training set statistics
-                    f = np.load(STAT_FILE)
-                    self.mu_real, self.sigma_real = f['mu'][:], f['sigma'][:]
-                    f.close()
-                    print("ok")
-
-                    inception_path = fid.check_or_download_inception(INCEPTION_PATH) # download inception network
-                    fid.create_inception_graph(inception_path)  # load the graph into the current TF graph
-
-                    config = tf.ConfigProto()
-                    config.gpu_options.allow_growth = True
-                    self.sess = tf.Session(config = config)
-                    self.sess.run(tf.global_variables_initializer())
 
     def set_input(self, input):
         """input: a dictionary that contains the data itself and its metadata information."""
@@ -209,93 +174,3 @@ class TwoPlayerGANModel(BaseModel):
                 self.backward_D()
                 self.optimizer_D.step()
 
-    # return visualization images. train.py will display these images, and save the images to a html
-    def get_current_visuals(self):
-        visual_ret = OrderedDict()
-
-        # gen_visual
-        if not self.opt.cgan:
-            gen_visual = self.netG(self.z_fixed).detach()
-        else:
-            gen_visual = self.netG(self.z_fixed, self.y_fixed).detach()
-        self.gen_visual = visualize_imgs(gen_visual, self.N, self.opt.crop_size, self.opt.input_nc)
-
-        # real_visual
-        self.real_visual = visualize_imgs(self.real_imgs, self.N, self.opt.crop_size, self.opt.input_nc)
-
-        for name in self.visual_names:
-            if isinstance(name, str):
-                visual_ret[name] = getattr(self, name)
-        return visual_ret
-
-    def get_current_scores(self):
-        # load current best G
-        scores_ret = OrderedDict()
-
-        samples = torch.zeros((self.opt.evaluation_size, 3, self.opt.crop_size, self.opt.crop_size), device=self.device)
-        n_fid_batches = self.opt.evaluation_size // self.opt.fid_batch_size
-
-        for i in range(n_fid_batches):
-            frm = i * self.opt.fid_batch_size
-            to = frm + self.opt.fid_batch_size
-
-            if self.opt.z_type == 'Gaussian': 
-                z = torch.randn(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device)
-            elif self.opt.z_type == 'Uniform': 
-                z = torch.rand(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device) *2. - 1.
-
-            if self.opt.cgan:
-                y = self.CatDis.sample([self.opt.fid_batch_size])
-                y = one_hot(y, [self.opt.fid_batch_size])
-
-            if not self.opt.cgan:
-                gen_s = self.netG(z).detach()
-            else:
-                gen_s = self.netG(z, y).detach()
-            samples[frm:to] = gen_s
-            print("\rgenerate fid sample batch %d/%d " % (i + 1, n_fid_batches))
-
-        print("%d samples generating done"%self.opt.evaluation_size)
-
-        if self.opt.use_pytorch_scores:
-            self.IS_mean, self.IS_var, self.FID = self.get_inception_metrics(samples, self.opt.evaluation_size, num_splits=10)
-            if 'FID' in self.opt.score_name:
-                print(self.FID)
-                scores_ret['FID'] = float(self.FID) 
-            if 'IS' in self.opt.score_name:
-                print(self.IS_mean, self.IS_var)
-                scores_ret['IS_mean'] = float(self.IS_mean)
-                scores_ret['IS_var'] = float(self.IS_var)
-
-        else:
-            # Cast, reshape and transpose (BCHW -> BHWC)
-            samples = ((samples + 1.0) * 127.5).astype('uint8')
-            samples = samples.reshape(self.opt.evaluation_size, 3, self.opt.crop_size, self.opt.crop_size)
-            samples = samples.transpose(0,2,3,1)
-            for name in self.opt.score_name:
-                if name == 'FID':
-                    mu_gen, sigma_gen = fid.calculate_activation_statistics(samples,
-                                          self.sess,
-                                          batch_size=self.opt.fid_batch_size,
-                                          verbose=True)
-                    print("calculate FID:")
-                    try:
-                        self.FID = fid.calculate_frechet_distance(mu_gen, sigma_gen, self.mu_real, self.sigma_real)
-                    except Exception as e:
-                        print(e)
-                        self.FID=500
-                    print(self.FID)
-                    scores_ret[name] = float(self.FID)
-                if name == 'IS':
-                    Imlist = []
-                    for i in range(len(samples)):
-                        im = samples[i,:,:,:]
-                        Imlist.append(im)
-                    print(np.array(Imlist).shape)
-                    self.IS_mean, self.IS_var = get_inception_score(Imlist)
-
-                    scores_ret['IS_mean'] = float(self.IS_mean)
-                    scores_ret['IS_var'] = float(self.IS_var)
-                    print(self.IS_mean, self.IS_var)
-
-        return scores_ret
