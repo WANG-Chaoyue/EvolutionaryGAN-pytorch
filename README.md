@@ -53,6 +53,27 @@ This code borrows heavily from [pytorch-CycleGAN-and-pix2pix](https://github.com
 
 ### Inception metrics
 
+## Citation
+If you use this code for your research, please cite our paper.
+```
+@article{wang2019evolutionary,
+  title={Evolutionary generative adversarial networks},
+  author={Wang, Chaoyue and Xu, Chang and Yao, Xin and Tao, Dacheng},
+  journal={IEEE Transactions on Evolutionary Computation},
+  year={2019},
+  publisher={IEEE}
+}
+```
 
+## Related links
+[Evolving Generative Adversarial Networks | Two Minute Papers #242](https://www.youtube.com/watch?v=ni6P5KU3SDU&vl=en)
 
+## Acknowledgments
+Pytorch framework from [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix).
+
+Pytorch Inception metrics code from [BigGAN-PyTorch](https://github.com/ajbrock/BigGAN-PyTorch).
+
+TensorFlow Inception Score code from [OpenAI's Improved-GAN.](https://github.com/openai/improved-gan).
+
+TensorFlow FID code from [TTUR](https://github.com/bioinf-jku/TTUR).
 
