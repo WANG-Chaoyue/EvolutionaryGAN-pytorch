@@ -1,5 +1,9 @@
-Multi GAN losses         : Done
-Multi bp & one updating  : 
-Evolutionary strategy    :
-Pytorch FID & IS         : 
-
+Multi GAN losses                          : Done
+Evolutionary strategy                     : Done
+Pytorch FID & IS                          : Done 
+Spectral Normalization                    :
+Self-Attention                            :
+Multi bp & one updating (Big batch size)  :
+.
+.
+. 
