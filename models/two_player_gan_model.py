@@ -48,6 +48,7 @@ class TwoPlayerGANModel(BaseModel):
             parser.add_argument('--which_D', type=str, default='S', help='Standard(S) | Relativistic_average (Ra)') 
             parser.add_argument('--use_gp', action='store_true', default=False, help='if usei gradients penalty')
             parser.add_argument('--use_pytorch_scores', action='store_true', default=False, help='if use pytorch version scores')
+            parser.add_argument('--z_type', type=str, default='Gaussian', help='Gaussian | Uniform') 
 
         return parser
 
@@ -97,7 +98,10 @@ class TwoPlayerGANModel(BaseModel):
             self.optimizers.append(self.optimizer_D)
         # visulize settings 
         self.N =int(np.trunc(np.sqrt(min(opt.batch_size, 64))))
-        self.z_fixed = torch.randn(self.N*self.N, opt.z_dim, 1, 1, device=self.device) 
+        if self.opt.z_type == 'Gaussian': 
+            self.z_fixed = torch.randn(self.N*self.N, opt.z_dim, 1, 1, device=self.device) 
+        elif self.opt.z_type == 'Uniform': 
+            self.z_fixed = torch.rand(self.N*self.N, opt.z_dim, 1, 1, device=self.device)*2. - 1. 
         if self.opt.cgan:
             yf = self.CatDis.sample([self.N*self.N])
             self.y_fixed = one_hot(yf, [self.N*self.N, self.opt.cat_num])
@@ -140,13 +144,18 @@ class TwoPlayerGANModel(BaseModel):
         if self.opt.cgan:
             self.input_targets = input['target'].to(self.device) 
         
-    def forward(self): 
-        z = torch.randn(self.opt.batch_size, self.opt.z_dim, 1, 1, device=self.device) # Fake images
+    def forward(self, batch_size = None): 
+        bs = self.opt.batch_size if batch_size is None else batch_size
+        if self.opt.z_type == 'Gaussian': 
+            z = torch.randn(bs, self.opt.z_dim, 1, 1, device=self.device) 
+        elif self.opt.z_type == 'Uniform': 
+            z = torch.rand(bs, self.opt.z_dim, 1, 1, device=self.device)*2. - 1. 
+        
         if not self.opt.cgan:
             self.gen_imgs = self.netG(z)
         else:
-            y = self.CatDis.sample([self.opt.batch_size])
-            self.y_ = one_hot(y, [self.opt.batch_size, self.opt.cat_num])
+            y = self.CatDis.sample([bs])
+            self.y_ = one_hot(y, [bs, self.opt.cat_num])
             self.gen_imgs = self.netG(z, self.y_)
 
     def backward_G(self):
@@ -223,11 +232,6 @@ class TwoPlayerGANModel(BaseModel):
         # load current best G
         scores_ret = OrderedDict()
 
-        self.z_fixed = torch.randn(self.N*self.N, self.opt.z_dim, 1, 1, device=self.device) 
-        if self.opt.cgan:
-            yf = self.CatDis.sample([self.N*self.N])
-            self.y_fixed = one_hot(yf, [self.N*self.N, self.opt.cat_num])
-
         samples = torch.zeros((self.opt.evaluation_size, 3, self.opt.crop_size, self.opt.crop_size), device=self.device)
         n_fid_batches = self.opt.evaluation_size // self.opt.fid_batch_size
 
@@ -235,7 +239,11 @@ class TwoPlayerGANModel(BaseModel):
             frm = i * self.opt.fid_batch_size
             to = frm + self.opt.fid_batch_size
 
-            z = torch.randn(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device)
+            if self.opt.z_type == 'Gaussian': 
+                z = torch.randn(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device)
+            elif self.opt.z_type == 'Uniform': 
+                z = torch.rand(self.opt.fid_batch_size, self.opt.z_dim, 1, 1, device=self.device) *2. - 1.
+
             if self.opt.cgan:
                 y = self.CatDis.sample([self.opt.fid_batch_size])
                 y = one_hot(y, [self.opt.fid_batch_size])
