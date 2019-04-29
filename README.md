@@ -20,7 +20,7 @@ git clone https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch.git
 cd EvolutionaryGAN-pytorch
 ```
 
-- Install [PyTorch](https://pytorch.org/get-started/locally/) and other dependencies [requirements.txt]() (e.g., torchvision, [visdom](https://github.com/facebookresearch/visdom) and [dominate](https://github.com/Knio/dominate)).
+- Install [PyTorch](https://pytorch.org/get-started/locally/) and other dependencies [requirements.txt](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/requirements.txt) (e.g., torchvision, [visdom](https://github.com/facebookresearch/visdom) and [dominate](https://github.com/Knio/dominate)).
 
 ### Two-player GANs Training
 
