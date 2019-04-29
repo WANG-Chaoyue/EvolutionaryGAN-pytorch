@@ -17,7 +17,6 @@ You need to implement the following functions:
 """
 import torch
 import numpy as np 
-import tensorflow as tf 
 from .base_model import BaseModel
 from . import networks
 from util.util import prepare_z_y, one_hot, visualize_imgs 

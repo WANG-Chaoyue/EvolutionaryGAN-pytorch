@@ -2,7 +2,7 @@
 debug*
 print/
 scripts/
-datasets/
+datasets/*
 checkpoints/
 results/
 build/
