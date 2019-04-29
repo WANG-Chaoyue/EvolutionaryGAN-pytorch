@@ -39,6 +39,12 @@ bash ./scripts/train_egan_cifar10.sh
 Different from Two-player GANs, here the arg `--g_loss_mode` should be set as a list of 'losses' (*e.g.,* `--g_loss_mode vanilla nsgan lsgan`), which are corresponding to different mutations (or variations). 
 
 
-## Settings
+## Functions
+
+This code borrows heavily from [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix), since it provided a flexible and efficient framework for pytorch deep networks training. In this part, we briefly introduce the functions of this code. The author is working on implementing more GAN related functions. 
+
 ### Datasets loading
+
+
+
 
