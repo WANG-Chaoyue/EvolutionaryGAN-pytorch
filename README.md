@@ -65,12 +65,35 @@ More architectures will be added.
 
 ### Adversarial losses (mutations)
 
-**Standard GAN losses**: `--which_D S`
+**Standard GANs**: `--which_D S`
 After the GAN was first proposed by Goodfellow et al., many different adversarial losses have been devised. Generally, they can be described in the following way:
-$$
-a = b_c + d_e \matchcal{E}
-$$
 
+![General_form](imgs/General_form.gif?raw=true "General_form")
+
+Through defining different functions *f(.)* and *g(.)*, different Standard GAN losses are delivered. 
+
+**Relativistic Average GANs**: `--which_D Ra`
+Recently, Alexia proposed the relativistic average GANs ([RaGANs](https://arxiv.org/pdf/1807.00734.pdf)) for GAN training. Its general loss function can be formulated as bellow:
+
+![General_Ra_form](imgs/General_Ra_form.gif?raw=true "General_form")
+
+Note that functions *f(.)* and *g(.)* are defined similarly with Standard GANs, yet the average term of both real and fake images are further considered. 
+
+Through setting `--which_D`, we can basically select the general form of GAN losses. Then, through configuring `--d_loss_mode` and `--g_loss_mode`, the specific losses of discriminator and generator can be determined. Specifically, 
+
+- The [original GAN](https://arxiv.org/abs/1406.2661) (or minimax GAN) losses: `--d_loss_mode vanilla` or `--g_loss_mode vanilla`.
+
+- The [non-saturating GAN](https://arxiv.org/abs/1406.2661) losses: `--d_loss_mode nsgan` or `--g_loss_mode nsgan`.
+
+- The [Least-Squares GAN](https://arxiv.org/abs/1611.04076) losses: `--d_loss_mode lsgan` or `--g_loss_mode lsgan`.
+
+- The [Wasserstein GAN](https://arxiv.org/abs/1704.00028) losses: `--d_loss_mode wgan` or `--g_loss_mode wgan`. Note that Gradients Penalty term should be added `--use_gp`.
+
+- The [Higne GAN](https://arxiv.org/abs/1802.05957) losses: `--d_loss_mode hinge` or `--g_loss_mode hinge`.
+
+- The [Relativistic Standard GAN](https://arxiv.org/abs/1807.00734) losses: `--d_loss_mode rsgan` or `--g_loss_mode rsgan`.
+
+**Note that**, in practice, different kinds of g_loss and d_loss can be combined, and the GP term can also be added into all Discriminators' training.
 
 ### Inception metrics
 
