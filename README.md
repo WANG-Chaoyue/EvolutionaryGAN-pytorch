@@ -65,6 +65,13 @@ More architectures will be added.
 
 ### Adversarial losses (mutations)
 
+**Standard GAN losses**: `--which_D S`
+After the GAN was first proposed by Goodfellow et al., many different adversarial losses have been devised. Generally, they can be described in the following way:
+$$
+a = b_c + d_e
+$$
+
+
 ### Inception metrics
 
 ## Citation
