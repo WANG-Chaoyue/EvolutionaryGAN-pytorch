@@ -126,6 +126,8 @@ If you use this code for your research, please cite our paper.
 ## Related links
 [Evolving Generative Adversarial Networks | Two Minute Papers #242](https://www.youtube.com/watch?v=ni6P5KU3SDU&vl=en)
 
+[The best of GAN papers in the year 2018](https://dtransposed.github.io/blog/Best-of-GANs-2018-(Part-1-out-of-2).html)
+
 ## Acknowledgments
 Pytorch framework from [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix).
 
