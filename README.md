@@ -97,6 +97,9 @@ Through setting `--which_D`, we can basically select the general form of GAN los
 
 ### Inception metrics
 
+Although many Inception metrics have been proposed to measure generation performance, [Inception Score (IS)](https://arxiv.org/abs/1511.06434) and [Fréchet Inception Distance (FID)](https://github.com/bioinf-jku/TTUR) are two most used. Since both of them are firstly calculated by tensorflow codes, we adopted related codes: TensorFlow Inception Score code from [OpenAI's Improved-GAN.](https://github.com/openai/improved-gan) and TensorFlow FID code from [TTUR](https://github.com/bioinf-jku/TTUR). Through setting `--score_name IS FID`, related scores will be measured during the training process. But, **note that** 
+
+
 ## Citation
 If you use this code for your research, please cite our paper.
 ```
