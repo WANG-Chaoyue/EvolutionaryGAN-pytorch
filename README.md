@@ -22,9 +22,14 @@ cd EvolutionaryGAN-pytorch
 
 - Install [PyTorch](https://pytorch.org/get-started/locally/) and other dependencies [requirements.txt](https://github.com/WANG-Chaoyue/EvolutionaryGAN-pytorch/blob/master/requirements.txt) (e.g., torchvision, [visdom](https://github.com/facebookresearch/visdom) and [dominate](https://github.com/Knio/dominate)).
 
+- Preparing *.npz* files for Pytorch Inception metrics evaluation (cifar10 as an example):
+```
+python inception_pytorch/calculate_inception_moments.py --dataset C10 --data_root datasets
+```
+
 ### Two-player GANs Training
 
-An example of [LSGAN](https://arxiv.org/abs/1611.04076) training command was saved in [./scripts/train_lsgan_cifar10.sh](). Train a model: 
+An example of [LSGAN](https://arxiv.org/abs/1611.04076) training command was saved in [./scripts/train_lsgan_cifar10.sh](). Train a model (cifar10 as an example): 
 ```bash
 bash ./scripts/train_lsgan_cifar10.sh
 ```
@@ -32,7 +37,7 @@ Through configuring args `--g_loss_mode`, `--d_loss_mode` and `--which_D`, diffe
 
 ### EvolutionaryGAN Training
 
-An example of E-GAN training command was saved in [./scripts/train_egan_cifar10.sh](). Train a model:
+An example of E-GAN training command was saved in [./scripts/train_egan_cifar10.sh](). Train a model (cifar10 as an example):
 ```bash
 bash ./scripts/train_egan_cifar10.sh
 ```
@@ -97,8 +102,14 @@ Through setting `--which_D`, we can basically select the general form of GAN los
 
 ### Inception metrics
 
-Although many Inception metrics have been proposed to measure generation performance, [Inception Score (IS)](https://arxiv.org/abs/1511.06434) and [Fréchet Inception Distance (FID)](https://github.com/bioinf-jku/TTUR) are two most used. Since both of them are firstly calculated by tensorflow codes, we adopted related codes: TensorFlow Inception Score code from [OpenAI's Improved-GAN.](https://github.com/openai/improved-gan) and TensorFlow FID code from [TTUR](https://github.com/bioinf-jku/TTUR). Through setting `--score_name IS FID`, related scores will be measured during the training process. But, **note that** 
+Although many Inception metrics have been proposed to measure generation performance, [Inception Score (IS)](https://arxiv.org/abs/1511.06434) and [Fréchet Inception Distance (FID)](https://github.com/bioinf-jku/TTUR) are two most used. Since both of them are firstly calculated by tensorflow codes, we adopted related codes: TensorFlow Inception Score code from [OpenAI's Improved-GAN.](https://github.com/openai/improved-gan) and TensorFlow FID code from [TTUR](https://github.com/bioinf-jku/TTUR). Through setting `--score_name IS FID`, related scores will be measured during the training process. But, **note that** you will need to have TensorFlow 1.3 or earlier installed, as TF1.4+ breaks the original IS code.
 
+**PyTorch version inception metrics** were adopted from [BigGAN-PyTorch](https://github.com/ajbrock/BigGAN-PyTorch). If you want to use it, simply set `--use_pytorch_scores`. **However**, these scores are different from the scores you would get using the official TF inception code, and are only for monitoring purposes.
+
+- Preparing *.npz* files for Pytorch Inception metrics evaluation (cifar10 as an example):
+```
+python inception_pytorch/calculate_inception_moments.py --dataset C10 --data_root datasets
+```
 
 ## Citation
 If you use this code for your research, please cite our paper.
