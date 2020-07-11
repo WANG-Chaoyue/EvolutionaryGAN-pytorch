@@ -25,10 +25,11 @@ from collections import OrderedDict
 from TTUR import fid
 from util.inception import get_inception_score
 from inception_pytorch import inception_utils
+import torch.nn as nn
 
 import copy 
 import math 
-
+import pdb
 class EGANModel(BaseModel):
     @staticmethod
     def modify_commandline_options(parser, is_train=True):
@@ -226,6 +227,8 @@ class EGANModel(BaseModel):
                     eval_fake_imgs, eval_fake_y = self.forward(batch_size=self.eval_size) 
                 Fq, Fd = self.fitness_score(eval_fake_imgs, eval_fake_y, eval_imgs, eval_targets) 
                 F = Fq + self.opt.lambda_f * Fd 
+                #pdb.set_trace()
+                #print('Fq:',Fq,'Fd:',self.opt.lambda_f*Fd)
                 # Selection 
                 if count < self.opt.candi_num:
                     F_list[count] = F
@@ -257,7 +260,7 @@ class EGANModel(BaseModel):
         eval_real = self.netD(eval_real_imgs) if not self.opt.cgan else self.netD(eval_real_imgs, eval_real_y)
 
         # Quality fitness score
-        Fq = eval_fake.data.mean().cpu().numpy()
+        Fq = nn.functional.sigmoid(eval_fake).data.mean().cpu().numpy()
 
         # Diversity fitness score
         eval_D_fake, eval_D_real = self.criterionD(eval_fake, eval_real) 
@@ -269,6 +272,6 @@ class EGANModel(BaseModel):
             for i, grad in enumerate(gradients):
                 grad = grad.view(-1)
                 allgrad = grad if i == 0 else torch.cat([allgrad,grad]) 
-        Fd = torch.log(torch.norm(allgrad)).data.cpu().numpy()
+        Fd = -torch.log(torch.norm(allgrad)).data.cpu().numpy()
         return Fq, Fd 
 
